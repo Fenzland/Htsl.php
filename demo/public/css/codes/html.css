@@ -1,0 +1,126 @@
+code[type="html"]
+	.tag-content
+		{
+			color:inherit;
+			border-radius:1em;
+			background-color:currentColor;
+			box-shadow:
+				 1.00em 0 0 -0.52em currentColor,
+				 0.90em 0 0 -0.48em currentColor,
+				 0.80em 0 0 -0.45em currentColor,
+				 0.70em 0 0 -0.40em currentColor,
+				 0.60em 0 0 -0.35em currentColor,
+				 0.50em 0 0 -0.30em currentColor,
+				 0.40em 0 0 -0.25em currentColor,
+				 0.30em 0 0 -0.20em currentColor,
+				 0.20em 0 0 -0.15em currentColor,
+				 0.10em 0 0 -0.10em currentColor,
+				 0.00em 0 0 -0.05em currentColor,
+				-0.00em 0 0 -0.05em currentColor,
+				-0.10em 0 0 -0.10em currentColor,
+				-0.20em 0 0 -0.15em currentColor,
+				-0.30em 0 0 -0.20em currentColor,
+				-0.40em 0 0 -0.25em currentColor,
+				-0.50em 0 0 -0.30em currentColor,
+				-0.60em 0 0 -0.35em currentColor,
+				-0.70em 0 0 -0.40em currentColor,
+				-0.80em 0 0 -0.45em currentColor,
+				-0.90em 0 0 -0.48em currentColor,
+				-1.00em 0 0 -0.52em currentColor
+			;
+		}
+
+code[type="html"]
+	.definition
+		{
+			color:brown;
+		}
+
+code[type="html"]
+	.comment
+		{
+			color:lightgrey;
+		}
+
+code[type="html"]
+	.element
+		{
+			color:bisque;
+		}
+
+code[type="html"]
+	.element
+		.tag-name
+			{
+				color:brown;
+				font-weight:bolder;
+			}
+
+code[type="html"]
+	.element
+		.tag-closer
+			{
+				font-weight:bolder;
+			}
+
+code[type="html"]
+	.element
+		.attribute-name
+			{
+				color:orangered;
+			}
+
+code[type="html"]
+	.element
+		.attribute-value
+			{
+				color:darkgoldenrod;
+			}
+
+code[type="html"]
+	.tag-wrapper
+		{
+			color:inherit;
+		}
+
+code[type="html"]
+	.tag-content
+		>*
+			{
+				color:white;
+			}
+
+code[type="html"]
+	.element
+		.style-name
+			{
+				color:coral;
+			}
+
+code[type="html"]
+	.element
+		.style-delimiter
+			{
+				color:plum;
+			}
+
+code[type="html"]
+	.element
+		.style-value
+			{
+				color:hotpink;
+			}
+
+code[type="html"]
+	.element
+		.style-separator
+			{
+				color:purple;
+			}
+
+code[type="html"]
+	.element
+		.event-listener
+			{
+				color:cadetblue;
+			}

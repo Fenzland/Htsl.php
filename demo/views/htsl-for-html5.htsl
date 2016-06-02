@@ -1,0 +1,44 @@
+@extend( layout )
+
+@section( title )
+	HTSL for HTML5
+
+@section( header )
+	-h1
+		-img @/logos/big.svg
+	-nav
+		-a @/
+			Home
+		-a @:; .active
+			HTSL for HTML5
+@section( main )
+	-article
+		-h2
+			HTSL for HTML5
+		-p
+			There are many predefined tags for HTML5. Those make code clear. First step, you need declare the doc-type and start -html tag.
+		-code(htsl){>
+			 HTML5
+			 -html
+		<}
+		-h2
+			Predefined Tags
+		-h3
+			 -meta, -equiv, -charset
+		-p
+			In HTML, we use <meta> to declare metadata, there are two way to use it <meta name="..." content="..." /> or <meta http-equiv="..." content="..." />, in HTSL, there are two different tag -meta and -equiv to do those things. In HTML5, there is a new useage, <meta charset="..." />, In HTSL, just use -charset tag.
+		-code(htsl){>
+			 -meta <keywords|Foo,Bar>
+			 -equiv <set-cookie|cookies>
+			 -charset(utf-8)
+		<}
+		-h3
+			 -link, -css, -icon, -js
+		-p
+			HTML use <link> tag or <script> tag with src property to link other file. In HTSL we use -css, -icon and -js to link CSS file, icon file and Javascript file, and use -link tag to link other kinds of files.
+		-code(htsl){>
+			 -css @demo.css
+			 -js @demo.js
+			 -icon(16x16) @demo.ico
+			 -link(help) @help.html
+		<}

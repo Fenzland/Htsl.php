@@ -1,0 +1,41 @@
+HTML5
+-html
+	-head
+		-charset(utf-8)
+		-meta <viewport|width=device-width,height=device-height,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no>
+		-title
+			HTSL&nbsp;-&nbsp;
+			@show( title )
+		-css @/css/base.css
+		-css @/css/layout.css
+		-icon(any) @/logos/small.svg {type=image/svg+xml;}
+		-css @/css/codes/htsl.css
+		-css @/css/codes/html.css
+	-body
+		-header
+			-h1
+				-img @/logos/big.svg
+			-nav
+				-a @/ .nav-link
+					Home
+				-a @/htsl-for-html5 .nav-link
+					HTSL for HTML5
+		-section
+			@show( main )
+		-footer
+			@include( footer )
+		-js @js/Code.js
+		-js{>
+			!function(){
+				Array.prototype.slice.call(document.getElementsByClassName('nav-link')).forEach(function(item){
+					if( item.pathname==window.location.pathname ){
+						item.classList.add('active');
+						item.addEventListener('click',function(e){e.preventDefault();});
+					}
+				});
+
+				Array.prototype.slice.call(document.querySelectorAll('code[codeset]')).forEach(function(item){
+					Code.loadFromElementSet(item).setType(item.getAttribute('type')).renderBack();
+				});
+			}();
+		<}

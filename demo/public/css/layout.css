@@ -1,0 +1,433 @@
+body
+	{
+		color:
+			#666
+		;
+		overflow:
+			hidden
+		;
+		line-height:
+			1.2em
+		;
+		tab-size:
+			4
+		;
+	}
+
+body
+	>header
+		{
+			height:
+				80px
+			;
+			border-bottom:
+				3px solid cornflowerblue
+			;
+			display:
+				flex
+			;
+		}
+
+body
+	>header
+		>h1
+			{
+				height:
+					80px
+				;
+				line-height:
+					80px
+				;
+				font-size:
+					40px
+				;
+				text-align:
+					center
+				;
+				flex:
+					2
+				;
+			}
+
+body
+	>header
+		>h1
+			img
+				{
+					height:
+						inherit
+					;
+				}
+
+body
+	>header
+		>nav
+			{
+				height:
+					40px
+				;
+				line-height:
+					40px
+				;
+				margin-top:
+					40px
+				;
+				display:
+					flex
+				;
+				flex:
+					3
+				;
+				padding-right:
+					10%
+				;
+			}
+
+body
+	>header
+		>nav
+			>a
+				{
+					flex:
+						1
+					;
+					padding:
+						0 1em
+					;
+					text-align:
+						center
+					;
+					transition:
+						background-color 200ms
+					;
+					border-radius:
+						 50%  50% 0 0/
+						100% 100% 0 0
+					;
+				}
+
+body
+	>header
+		>nav
+			>a:hover
+				{
+					background-color:
+						#EDF3FF
+					;
+					text-decoration:
+						none
+					;
+				}
+
+body
+	>header
+		>nav
+			>a:active
+				{
+					background:
+						cornflowerblue
+					;
+					color:
+						white
+					;
+				}
+
+body
+	>header
+		>nav
+			>a.active
+				{
+					background:
+						cornflowerblue
+					;
+					color:
+						white
+					;
+				}
+
+body
+	>aside
+		{
+			float:
+				left
+			;
+			height:
+				calc(100vh - 84px)
+			;
+			width:
+				160px
+			;
+			border-right:
+				1px solid cornflowerblue
+			;
+			display:
+				flex
+			;
+			flex-direction:
+				column
+			;
+			justify-content:
+				space-around
+			;
+			padding-bottom:
+				41px
+			;
+		}
+
+body
+	>aside
+		>a
+			{
+				line-height:
+					3em
+				;
+				height:
+					3em
+				;
+				padding-left:
+					1em
+				;
+				transition:
+					background-color 200ms
+				;
+			}
+
+body
+	>aside
+		>a:hover
+			{
+				background:
+					#EDF3FF
+				;
+				text-decoration:
+					none
+				;
+			}
+
+body
+	>aside
+		>a:active
+			{
+				background:
+					cornflowerblue
+				;
+				color:
+					white
+				;
+			}
+
+body
+	>aside
+		>a.active
+			{
+				background:
+					cornflowerblue
+				;
+				color:
+					white
+				;
+			}
+
+body
+	>section
+		{
+			height:
+				calc(100vh - 174px)
+			;
+			overflow-y:
+				scroll
+			;
+			perspective:
+				100vw
+			;
+			transform-style:
+				preserve-3d
+			;
+			padding:
+				50px 80px 0
+			;
+		}
+
+body
+	>section
+		>*
+			{
+				margin-bottom:
+					20px
+				;
+				transform-style:
+					preserve-3d
+				;
+			}
+
+body
+	>footer
+		{
+			height:
+				40px
+			;
+			border-top:
+				1px solid cornflowerblue
+			;
+			line-height:
+				40px
+			;
+			padding-left:
+				180px
+			;
+		}
+
+article
+	>*
+		{
+			margin-top:
+				2em
+			;
+		}
+
+article
+	>h2,
+article
+	>h3
+		{
+			display:
+				table
+			;
+			position:
+				relative
+			;
+			transform-style:
+				preserve-3d
+			;
+			animation:
+				title-rotate
+				12000ms
+				linear
+				-500ms
+				infinite
+				normal
+				forwards
+				paused
+			;
+		}
+
+article
+	>h2::after,
+article
+	>h3::after
+		{
+			content:
+				''
+			;
+			display:
+				block
+			;
+			position:
+				absolute
+			;
+			top:
+				100%
+			;
+			border-radius:
+				50%
+			;
+			padding:
+				50%
+			;
+			margin:
+				-50%
+				auto
+			;
+			background-color:
+				rgba(100,149,237,0.5)
+			;
+			transform:
+				rotateX(-90deg)
+			;
+			animation:
+				title-after-rotate
+				12000ms
+				linear
+				-500ms
+				infinite
+				normal
+				forwards
+				paused
+			;
+		}
+
+article
+	>h2:hover::after,
+article
+	>h3:hover::after
+		{
+			animation-play-state:
+				running
+			;
+		}
+
+
+article
+	>h2:hover,
+article
+	>h3:hover
+		{
+			animation-play-state:
+				running
+			;
+		}
+
+@keyframes title-rotate {
+	000%{transform:rotateY(0);}
+	100%{transform:rotateY(1turn);}
+}
+@keyframes title-after-rotate {
+	000.000% {-webkit-clip-path:polygon(100.00% 050.00%,  100.00% 050.00%,  100.00% 050.00%,  100.00% 050.00%,     000.00% 050.00%,  000.00% 050.00%,  000.00% 050.00%,  000.00% 050.00%);}
+	003.125% {-webkit-clip-path:polygon(100.00% 040.05%,  100.00% 050.00%,  100.00% 050.00%,  100.00% 050.00%,     000.00% 050.00%,  000.00% 050.00%,  000.00% 050.00%,  000.00% 059.95%);}
+	006.250% {-webkit-clip-path:polygon(100.00% 029.29%,  100.00% 050.00%,  100.00% 050.00%,  100.00% 050.00%,     000.00% 050.00%,  000.00% 050.00%,  000.00% 050.00%,  000.00% 070.71%);}
+	009.375% {-webkit-clip-path:polygon(100.00% 016.59%,  100.00% 050.00%,  100.00% 050.00%,  100.00% 050.00%,     000.00% 050.00%,  000.00% 050.00%,  000.00% 050.00%,  000.00% 083.41%);}
+	012.500% {-webkit-clip-path:polygon(100.00% 000.00%,  100.00% 050.00%,  100.00% 050.00%,  100.00% 050.00%,     000.00% 050.00%,  000.00% 050.00%,  000.00% 050.00%,  000.00% 100.00%);}
+	015.625% {-webkit-clip-path:polygon(083.41% 000.00%,  100.00% 000.00%,  100.00% 000.00%,  100.00% 050.00%,     000.00% 050.00%,  000.00% 100.00%,  000.00% 100.00%,  016.59% 100.00%);}
+	018.750% {-webkit-clip-path:polygon(070.71% 000.00%,  100.00% 000.00%,  100.00% 000.00%,  100.00% 050.00%,     000.00% 050.00%,  000.00% 100.00%,  000.00% 100.00%,  029.29% 100.00%);}
+	021.875% {-webkit-clip-path:polygon(059.95% 000.00%,  100.00% 000.00%,  100.00% 000.00%,  100.00% 050.00%,     000.00% 050.00%,  000.00% 100.00%,  000.00% 100.00%,  040.05% 100.00%);}
+	025.000% {-webkit-clip-path:polygon(050.00% 000.00%,  100.00% 000.00%,  100.00% 000.00%,  100.00% 050.00%,     000.00% 050.00%,  000.00% 100.00%,  000.00% 100.00%,  050.00% 100.00%);}
+	028.375% {-webkit-clip-path:polygon(040.05% 000.00%,  000.00% 000.00%,  100.00% 000.00%,  100.00% 050.00%,     000.00% 050.00%,  000.00% 100.00%,  100.00% 100.00%,  059.95% 100.00%);}
+	031.250% {-webkit-clip-path:polygon(029.29% 000.00%,  000.00% 000.00%,  100.00% 000.00%,  100.00% 050.00%,     000.00% 050.00%,  000.00% 100.00%,  100.00% 100.00%,  070.71% 100.00%);}
+	034.375% {-webkit-clip-path:polygon(016.59% 000.00%,  000.00% 000.00%,  100.00% 000.00%,  100.00% 050.00%,     000.00% 050.00%,  000.00% 100.00%,  100.00% 100.00%,  083.41% 100.00%);}
+	037.500% {-webkit-clip-path:polygon(000.00% 000.00%,  000.00% 000.00%,  100.00% 000.00%,  100.00% 050.00%,     000.00% 050.00%,  000.00% 100.00%,  100.00% 100.00%,  100.00% 100.00%);}
+	040.625% {-webkit-clip-path:polygon(000.00% 016.59%,  000.00% 000.00%,  100.00% 000.00%,  100.00% 050.00%,     000.00% 050.00%,  000.00% 100.00%,  100.00% 100.00%,  100.00% 083.41%);}
+	043.750% {-webkit-clip-path:polygon(000.00% 029.29%,  000.00% 000.00%,  100.00% 000.00%,  100.00% 050.00%,     000.00% 050.00%,  000.00% 100.00%,  100.00% 100.00%,  100.00% 070.71%);}
+	046.875% {-webkit-clip-path:polygon(000.00% 040.05%,  000.00% 000.00%,  100.00% 000.00%,  100.00% 050.00%,     000.00% 050.00%,  000.00% 100.00%,  100.00% 100.00%,  100.00% 059.95%);}
+	050.000% {-webkit-clip-path:polygon(000.00% 050.00%,  000.00% 000.00%,  100.00% 000.00%,  100.00% 050.00%,     000.00% 050.00%,  000.00% 100.00%,  100.00% 100.00%,  100.00% 050.00%);}
+	053.125% {-webkit-clip-path:polygon(000.00% 050.00%,  000.00% 000.00%,  100.00% 000.00%,  100.00% 040.05%,     000.00% 059.95%,  000.00% 100.00%,  100.00% 100.00%,  100.00% 050.00%);}
+	056.250% {-webkit-clip-path:polygon(000.00% 050.00%,  000.00% 000.00%,  100.00% 000.00%,  100.00% 029.29%,     000.00% 070.71%,  000.00% 100.00%,  100.00% 100.00%,  100.00% 050.00%);}
+	059.375% {-webkit-clip-path:polygon(000.00% 050.00%,  000.00% 000.00%,  100.00% 000.00%,  100.00% 016.59%,     000.00% 083.41%,  000.00% 100.00%,  100.00% 100.00%,  100.00% 050.00%);}
+	062.500% {-webkit-clip-path:polygon(000.00% 050.00%,  000.00% 000.00%,  100.00% 000.00%,  100.00% 000.00%,     000.00% 100.00%,  000.00% 100.00%,  100.00% 100.00%,  100.00% 050.00%);}
+	065.625% {-webkit-clip-path:polygon(000.00% 050.00%,  000.00% 000.00%,  100.00% 000.00%,  083.41% 000.00%,     016.59% 100.00%,  000.00% 100.00%,  100.00% 100.00%,  100.00% 050.00%);}
+	068.750% {-webkit-clip-path:polygon(000.00% 050.00%,  000.00% 000.00%,  100.00% 000.00%,  070.71% 000.00%,     029.29% 100.00%,  000.00% 100.00%,  100.00% 100.00%,  100.00% 050.00%);}
+	071.875% {-webkit-clip-path:polygon(000.00% 050.00%,  000.00% 000.00%,  100.00% 000.00%,  059.95% 000.00%,     040.05% 100.00%,  000.00% 100.00%,  100.00% 100.00%,  100.00% 050.00%);}
+	075.000% {-webkit-clip-path:polygon(000.00% 050.00%,  000.00% 000.00%,  000.00% 000.00%,  050.00% 000.00%,     050.00% 100.00%,  100.00% 100.00%,  100.00% 100.00%,  100.00% 050.00%);}
+	078.125% {-webkit-clip-path:polygon(000.00% 050.00%,  000.00% 000.00%,  000.00% 000.00%,  040.05% 000.00%,     059.95% 100.00%,  100.00% 100.00%,  100.00% 100.00%,  100.00% 050.00%);}
+	081.250% {-webkit-clip-path:polygon(000.00% 050.00%,  000.00% 000.00%,  000.00% 000.00%,  029.29% 000.00%,     070.71% 100.00%,  100.00% 100.00%,  100.00% 100.00%,  100.00% 050.00%);}
+	084.375% {-webkit-clip-path:polygon(000.00% 050.00%,  000.00% 000.00%,  000.00% 000.00%,  016.59% 000.00%,     083.41% 100.00%,  100.00% 100.00%,  100.00% 100.00%,  100.00% 050.00%);}
+	087.500% {-webkit-clip-path:polygon(000.00% 050.00%,  000.00% 000.00%,  000.00% 000.00%,  000.00% 000.00%,     100.00% 100.00%,  100.00% 100.00%,  100.00% 100.00%,  100.00% 050.00%);}
+	090.875% {-webkit-clip-path:polygon(000.00% 050.00%,  000.00% 000.00%,  000.00% 000.00%,  000.00% 016.59%,     100.00% 083.41%,  100.00% 100.00%,  100.00% 100.00%,  100.00% 050.00%);}
+	093.750% {-webkit-clip-path:polygon(000.00% 050.00%,  000.00% 000.00%,  000.00% 000.00%,  000.00% 029.29%,     100.00% 070.71%,  100.00% 100.00%,  100.00% 100.00%,  100.00% 050.00%);}
+	096.875% {-webkit-clip-path:polygon(000.00% 050.00%,  000.00% 000.00%,  000.00% 000.00%,  000.00% 040.05%,     100.00% 059.95%,  100.00% 100.00%,  100.00% 100.00%,  100.00% 050.00%);}
+	100.000% {-webkit-clip-path:polygon(000.00% 050.00%,  000.00% 050.00%,  000.00% 050.00%,  000.00% 050.00%,     100.00% 050.00%,  100.00% 050.00%,  100.00% 050.00%,  100.00% 050.00%);}
+}
+
+/*
+@keyframes title-rotate {
+	0%   {-webkit-clip-path:polygon(0% 0%,     0% 0%,100% 0%);}
+	10%  {-webkit-clip-path:polygon(0% 7.87%,  0% 0%,100% 0%);}
+	20%  {-webkit-clip-path:polygon(0% 15.84%, 0% 0%,100% 0%);}
+	80%  {-webkit-clip-path:polygon(0% 72.65%, 0% 0%,100% 0%);}
+	85%  {-webkit-clip-path:polygon(0% 78.83%, 0% 0%,100% 0%);}
+	90%  {-webkit-clip-path:polygon(0% 85.41%, 0% 0%,100% 0%);}
+	92.5%{-webkit-clip-path:polygon(0% 88.86%, 0% 0%,100% 0%);}
+	95%  {-webkit-clip-path:polygon(0% 92.44%, 0% 0%,100% 0%);}
+	97.5%{-webkit-clip-path:polygon(0% 96.15%, 0% 0%,100% 0%);}
+	100% {-webkit-clip-path:polygon(0% 100%,0% 0%,100% 0%);}
+}
+*/

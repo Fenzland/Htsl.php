@@ -1,0 +1,213 @@
+@extend( layout )
+
+@section( title )
+	Home
+
+@section( header )
+	-h1
+		-img @/logos/big.svg
+	-nav
+		-a @:; .active
+			Home
+		-a @./htsl-for-html5
+			HTSL for HTML5
+@section( main )
+	-article
+		-h2
+			What's the HTSL
+		-p
+			HTSL is short for HyperText Structured Language. Which is a language designed to take place of HTML, XML or other markup language. Which is simpler, cleaner, more agile, elegant, readable, content evident and easy to write than HTML.
+		-h2
+			And what's the Htsl.php
+		-p
+			Htsl.php is a php lib to parse the HTSL files to HTML files, to render by current browsers.
+		-h2
+			Now, just take a look!
+		-code(htsl){>
+			 HTML5
+			 -html
+			 	-head
+			 		-charset(utf-8)
+			 		-title
+			 			Demo Page
+			 		-css @style.css
+			 		-js @init.js
+			 	-body {lang=en;}
+			 		!Login Page
+			 		-header .float-clear
+			 			-img @logo.png #logo .logo.float-left ^HTSL-Demo
+			 			-h1
+			 				Demo
+			 		-section [width:1024px;margin:auto;]
+			 			-post @login.php
+			 				-label
+			 					Name:
+			 				-text <name||Please input your name> {required;}
+			 				-label
+			 					Password
+			 				-password <password||Please input your password>
+			 				-submit <_action|login> %click{>alert('Sorry, this is just a demo.');return false;<}
+			 					Login
+		<}
+		-p
+			Above HTSL code will equal to the HTML code below.
+		-code(html){>
+			 <!DOCTYPE html>
+			 <html>
+			 	<head>
+			 		<meta charset="utf-8" />
+			 		<title>Demo Page</title>
+			 		<link href="style.css" rel="stylesheet" type="text/css" />
+			 		<script src="init.js" type="text/javascript"></script>
+			 	</head>
+			 	<body lang="en">
+			 		<!-- Login Page -->
+			 		<header class="float-clear">
+			 			<img class="logo float-left" id="logo" src="logo.png" title="HTSL-Demo" />
+			 			<h1>Demo</h1>
+			 		</header>
+			 		<section style="width:1024px;margin:auto;">
+			 			<form action="login.php" method="post">
+			 				<label>Name:</label>
+			 				<input name="name" placeholder="Please input your name" required="required" type="text" />
+			 				<label>Password</label>
+			 				<input name="password" "Please input your password" type="password" />
+			 				<button name="_action" onclick="alert('Sorry, this is just a demo.');return false;" value="login">Login</button>
+			 			</form>
+			 		</section>
+			 	</body>
+			 </html>
+		<}
+		-p
+			Well there is a little different, the indent tabs and line-feeds in HTSL will not cause the shit white space between inline items. So in fact, that's equal to HTML as below.
+		-code(html){>
+			 <!DOCTYPE html><html><head><meta charset="utf-8" /><title>Demo Page</title><link href="style.css" rel="stylesheet" type="text/css" /><script src="init.js" type="text/javascript"></script></head><body lang="en"><!-- Login Page --><header class="float-clear"><img class="logo float-left" id="logo" src="logo.png" title="HTSL-Demo" /><h1>Demo</h1></header><section style="width:1024px;margin:auto;"><form action="login.php" method="post"><label>Name:</label><input name="name" placeholder="Please input your name" required="required" type="text" /><label>Password</label><input name="password" "Please input your password" type="password" /><button name="_action" onclick="alert('Sorry, this is just a demo.');return false;" value="login">Login</button></form></section></body></html>
+		<}
+		-p
+			HTSL make world clean.
+		-h2
+			HTSL vs. HAML
+		-p
+			There is an another brilliant language called HAML. HTSL is draw some lessons from HAML, and go a step further.
+		-code(haml){>
+			 %input{:type=>"number",:min=>"0",:step=>"0.01",:max=>"100",:name="price",:value="20.16",:placeholder="Price"}
+			 %a{:link=>"javascript:alert('Hey')"}
+		<}
+		-code(htsl){>
+			 -number(0|0.01|100) <price|20.16|Price>
+			 -a @:alert('Hey')
+		<}
+		-h2
+			Features
+		-h3
+			DOCTYPE
+		-p
+			In first line of the HTSL code, you mast define the doc-type, such as HTML5, HTML4.0, XHTML, XML1 etc. (Htsl.php currently support HTML5 and XML1.) Just type the doc-type name for first line, like HTML5, or pass some parameters like XML1(utf-8)
+		-h3
+			Indent
+		-p
+			HTSL is structured by indentation, just like HAML, YML and Python. The difference is that HTSL use tab characters as indentation, but not space characters. The space characters use as alignment or indentation delimiter on embedding.
+		-h3
+			Comment
+		-p
+			HTSL comment start with ! sign. In Htsl.php you can use !! to start a comment not show to browsers.
+		-h3
+			More tags instead of prescriptive properties.
+		-p
+			Tag name of HTSL carries more informations than HTML's. Such as -post tag equals to <form method="post"> tag, -get tag equals to <form method="get"> tag, and -upload tag equals to <form method="post" enctype="multipart/form-data"> tag. <input> tag become a group tags like -input, -text, -checkbox, -file and so on. So number of HTSL tag is more than HTML's, the prescriptive properties like type, method and enctype are not needed any more.
+		-h3
+			Unify tags and properties.
+		-p
+			In HTML, css including uses <link> tag but css embedding uses <style> tag, url linking of <link> and <a> uses href, but linking of <img> and <script> use src, on the other hand linking of <form> use action, maybe there are some semantical reasons, but those are confusing! HTSL use -css tag to both including css files and embedding css codes, and use 'at' sign to do all url linking.
+		-h3
+			Tag parameters
+		-p
+			HTSL use a parentheses syntax to some special tags to take a more step limit of the tag. Like the -number tag and the -range tag has 3 parameters min, step and max, the -file tag has a parameter accept. The delimiter of twe parameters is | sign.
+		-h3
+			Name-value parameters
+		-p
+			To some special properties of special tag like name and value, HTSL take a special syntax, <> pair. The delimiter of twe parameters is | sign too.
+		-h3
+			Universally properties
+		-p
+			HTSL also take some special syntax for some universal properties: id, class and title. Like CSS selector, # for id and . for class, and there is one more, ^ for title.
+		-h3
+			Inline CSS
+		-p
+			To take place of style property, HTSL use [] pair to embedding CSS properties code.
+		-h3
+			More properties
+		-p
+			We cannot give every property a special syntax. So HTSL use syntax {property1=value1;property2;} to all other properties. Quote signs are no need, last semicolon cannot omitted.
+		-h3
+			Embedding
+		-p
+			Other languages can embed into HTSL code. And different language will cause different result. Javascript or CSS embedding just like embedding into HTML by <script> or <style>. If you use Htsl.php engine, PHP embedment will executed by server. If you just want to show codes, use code embedment, good renderer of HTSL should highlight them.
+		-h2
+			More features of Htsl.php
+		-p
+			As a template engine, Htsl.php offers some more features. Like expression everywhere, control structures, doc-controls.
+		-h3
+			Expression everywhere
+		-p
+			By Html.php, you can use php expressions almost everywhere. Usage is simply a pair of parentheses, like below.
+		-code(htsl){>
+			 -number((max(0,$min))|($step)|($max)) <number|(App::getDefaultNumber())> .(has_error('number')?'error':'') {($user->hasPermission('edit')?null:'disabled');data-user=($user->id);}
+		<}
+		-p
+			If you want to echo something for show, use equality sign.
+		-code(htsl){>
+			=$this_will_be_processed_by_htmlentities_function
+			`=$this_will_be_simply_echo
+			!=$this_will_be_html_comment
+		<}
+		-h3
+			Control structures
+		-p
+			Base on php control structures. But the syntax is stricter there is no space character between before and after structure name, there are each one space on the two ends of inside of parentheses so the expression or something in parentheses is clear.
+		-code(htsl){>
+			 ~if( ture )
+			 	-something
+			 ~ifnot( ture or false )
+			 	-something
+			 ~elseif( ture or false )
+			 	-something
+			 ~else
+			 	-otherthing
+		<}
+		-code(htsl){>
+			 ~while( ture or false )
+			 	-something
+			 	~continue( ture or false )
+			 	~break( ture or false )
+		<}
+		-code(htsl){>
+			 ~foreach( ['a'=>'A','b'=>'B',] as $key=>$value )
+			 	-something
+		<}
+		-p
+			The ~switch structure has a little difference with php switch. The ~default and the ~case in the first level will auto end with a break. If you want multiple case, use nesting case, the ~default and the ~case in the second or more level will not end with break.
+		-code(htsl){>
+			 ~switch( $variable )
+			 	~case( 0 )
+			 		This is zero.
+			 		~case( 1 )
+			 			This is zero or one.
+			 	~case( 2 )
+			 		This is twe.
+			 	~default
+			 		Others.
+		<}
+		-p
+			You can use the empty structure to do execute something php code, like assigns a variable.
+		-code(htsl){>
+			 ~( $variable= 'some value' )
+		<}
+		-p
+			To execute a group of php code, use php embedment is better.
+		-code(htsl){>
+			 -php{>
+			 	 #do something
+			 	 #do something
+			 <}
+		<}

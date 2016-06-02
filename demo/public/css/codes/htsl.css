@@ -1,0 +1,240 @@
+code[type="htsl"]
+	.doctype
+		{
+			color:burlywood;
+		}
+
+
+code[type="htsl"]
+	.comment-line
+		{
+			color:thistle;
+		}
+
+
+code[type="htsl"]
+	.string-line
+		{
+			color:gray;
+		}
+
+
+code[type="htsl"]
+	.tag-line
+		.tag-sign
+			{
+				color:darkgrey;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.tag-name
+			{
+				color:brown;
+			}
+
+
+code[type="htsl"]
+	.tag-line
+		.tag-param-sign
+			{
+				color:darkgrey;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.tag-param
+			{
+				color:green;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.tag-param-separator
+			{
+				color:darkgrey;
+			}
+
+
+code[type="htsl"]
+	.tag-line
+		.id-sign
+			{
+				color:coral;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.id
+			{
+				color:red;
+				font-weight:bolder;
+			}
+
+
+code[type="htsl"]
+	.tag-line
+		.title-sign
+			{
+				color:sienna;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.title
+			{
+				color:tan;
+			}
+
+
+code[type="htsl"]
+	.tag-line
+		.class-name-sign
+			{
+				color:magenta;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.class-name
+			{
+				color:plum;
+			}
+
+
+code[type="htsl"]
+	.tag-line
+		.link-sign
+			{
+				color:blueviolet;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.link
+			{
+				color:deepskyblue;
+			}
+
+
+code[type="htsl"]
+	.tag-line
+		.name-value-wrapper
+			{
+				color:darksalmon;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.name-value-item
+			{
+				color:darkorchid;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.name-value-separator
+			{
+				color:turquoise;
+			}
+
+
+code[type="htsl"]
+	.tag-line
+		.style-wrapper
+			{
+				color:hotpink;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.style-name
+			{
+				color:coral;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.style-delimiter
+			{
+				color:plum;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.style-value
+			{
+				color:hotpink;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.style-separator
+			{
+				color:purple;
+			}
+
+
+code[type="htsl"]
+	.tag-line
+		.attribute-wrapper
+			{
+				color:lightgreen;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.attribute-name
+			{
+				color:limegreen;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.attribute-delimiter
+			{
+				color:springgreen;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.attribute-value
+			{
+				color:skyblue;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.attribute-separator
+			{
+				color:green;
+			}
+
+
+code[type="htsl"]
+	.tag-line
+		.event-sign
+			{
+				color:blue;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.event-name
+			{
+				color:royalblue;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.event-listener-wrapper
+			{
+				color:dodgerblue;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.event-listener
+			{
+				color:cadetblue;
+			}
