@@ -22,7 +22,7 @@ class DefaultConfigs
 				'XHTML'=> ENT_XHTML,
 				'HTML4'=> ENT_HTML401,
 			],
-			'control_structures'=> [
+			'control_nodes'=> [
 				''=> [
 					'opener'=> '<?php %s?>',
 				],
@@ -80,12 +80,12 @@ class DefaultConfigs
 						'switch'=> [
 							'opener'=> '<?php default:?>',
 							'closer'=> '<?php break;?>',
-							'scope'=> 'case',
+							'scope'=> 'default',
 						],
-						'case'=> [
+						'root-case'=> [
 							'opener'=> '<?php case %s:?>',
 							'closer'=> '',
-							'scope'=> 'case',
+							'scope'=> 'default-in-case',
 						],
 					],
 				],
@@ -94,19 +94,24 @@ class DefaultConfigs
 						'switch'=> [
 							'opener'=> '<?php case %s:?>',
 							'closer'=> '<?php break;?>',
-							'scope'=> 'case',
+							'scope'=> 'root-case',
 						],
-						'case'=> [
+						'root-case'=> [
 							'opener'=> '<?php case %s:?>',
 							'closer'=> '',
-							'scope'=> 'case',
+							'scope'=> 'case-in-case',
+						],
+						'default'=> [
+							'opener'=> '<?php case %s:?>',
+							'closer'=> '',
+							'scope'=> 'case-in-case',
 						],
 					],
 				],
 			],
-			'tags'=>[
+			'tag_nodes'=>[
 				'HTML5'=> [
-					'-'=> [],
+					'*'=> [],
 					'charset'=> [
 						'name'=> 'meta',
 						'params'=> ['charset',],
@@ -176,6 +181,11 @@ class DefaultConfigs
 						'name'=> 'link',
 						'default_attributes'=> ['rel'=>'icon',],
 						'params'=> ['sizes',],
+						'link'=> 'href',
+					],
+					'shortcut'=> [
+						'name'=> 'link',
+						'default_attributes'=> ['rel'=>'shortcut icon','type'=>'image/x-icon',],
 						'link'=> 'href',
 					],
 					'link'=> [

@@ -7,10 +7,11 @@ use Htsl\ReadingBuffer\StringBuffer;
 use Htsl\ReadingBuffer\FileBuffer;
 use Htsl\Parser\Document;
 use Htsl\Helper\DefaultConfigs;
+use Htsl\Helper\IConfigProvider;
 
 ////////////////////////////////////////////////////////////////
 
-class Htsl
+class Htsl implements IConfigProvider
 {
 	use Helper\TGetter;
 

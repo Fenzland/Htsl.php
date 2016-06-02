@@ -12,20 +12,6 @@ use ArrayAccess;
 class TagNode extends ANode implements ArrayAccess
 {
 	/**
-	 * The config.
-	 *
-	 * @var array
-	 */
-	private $config;
-
-	/**
-	 * The name of the tag.
-	 *
-	 * @var string
-	 */
-	private $name;
-
-	/**
 	 * The html name of the tag.
 	 *
 	 * @var string
@@ -52,36 +38,9 @@ class TagNode extends ANode implements ArrayAccess
 		$name= $this->line->pregGet('/(?<=^-)[\w-:]+/');
 		$this->name=$name;
 
-		$config= $this->getTagConfig($name) ?: $this->getTagConfig('-');
+		$this->loadConfig($name,$this->document);
 
-		if( isset($config['multiple']) ){
-			foreach( $config['multiple'] as $value ){
-				if( $this->line->pregGet($value['pattern']) ){
-					$config= $value;
-					break;
-				}
-			}
-		}
-
-		if( isset($config['in']) ){
-			$config=(function( array$config )use($name){
-				foreach( $config['in'] as $key=>$value ){
-					if( $this->document->scope && $this->document->scope->scope===$key ){
-						$value['in_scope']= $key;
-						return $value;
-					}
-				}
-				if( !isset($config['out']) ){
-					$this->document->throw("Tag $name only use in scope ".implode(',',array_keys($config['in'])));
-				}
-				return $config['out'];
-			})($config);
-		}
-
-		if( !is_array($config) ){$this->document->throw("Tag name $name is not supported.");}
-
-		$this->config=$config;
-		$this->tagName=$config['name']??$name;
+		$this->tagName=$this->config['name']??$name;
 		$this->isEmpty= $this->line->getChar(-1)=='/' || $this->document->getConfig('empty_tags',$this->tagName);
 		$this->attributes= $this->config['default_attributes']??[];
 
@@ -130,7 +89,7 @@ class TagNode extends ANode implements ArrayAccess
 
 	protected function parseParams():self
 	{
-		$params= preg_split('/(?<!\\\\)\\|/',$this->line->pregGet('/^-[\w-:]+\((.*?)\)(?= |$)/',1));
+		$params= preg_split('/(?<!\\\\)\\|/',$this->line->pregGet('/^-[\w-:]+\((.*?)\)(?= |(\\{>)?$)/',1));
 
 		if( ($m= count($params)) != ($n= count($this->config['params'])) ){$this->document->throw("Tag $this->name has $n parameters $m given.");}
 
@@ -215,12 +174,6 @@ class TagNode extends ANode implements ArrayAccess
 
 		return $this;
 	}
-
-	protected function getTagConfig( string...$name )
-	{
-		return $this->document->getConfig('tags',...$name);
-	}
-
 
 	public function offsetExists( $offset ):bool
 	{

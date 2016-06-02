@@ -6,6 +6,7 @@ use Htsl\Htsl;
 use Htsl\ReadingBuffer\Contracts\ABuffer as Buffer;
 use Htsl\ReadingBuffer\Line;
 use Htsl\Helper\TGetter;
+use Htsl\Helper\IConfigProvider;
 use Htsl\Parser\Node\TagNode;
 use Htsl\Parser\Node\StringNode;
 use Htsl\Parser\Node\CommentNode;
@@ -15,7 +16,7 @@ use Htsl\Parser\Node\Contracts\ANode as Node;
 
 ////////////////////////////////////////////////////////////////
 
-class Document
+class Document implements IConfigProvider
 {
 	use TGetter;
 
@@ -169,9 +170,9 @@ class Document
 		return $this->buffer->getLine();
 	}
 
-	public function getConfig( string$name, string...$keys )
+	public function getConfig( string...$keys )
 	{
-		return $this->htsl->getConfig($name,$this->docType,...$keys);
+		return $this->htsl->getConfig(array_shift($keys),$this->docType,...$keys);
 	}
 
 	public function getDoctype():string
