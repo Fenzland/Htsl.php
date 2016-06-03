@@ -61,6 +61,9 @@ class TagNode extends ANode implements ArrayAccess
 		if( isset($this->config['link']) )
 			{ $this->parseLink(); }
 
+		if( isset($this->config['target']) )
+			{ $this->parseTarget(); }
+
 		$this->parseCommonAttributes();
 
 		if( isset($this->config['in_scope']) && isset($this->config['scope_function']) && is_callable($this->config['scope_function']) )
@@ -112,11 +115,22 @@ class TagNode extends ANode implements ArrayAccess
 		$link= $this->line->pregGet('/ @([^ ]+)(?= |$)/',1);
 
 		if( strlen($link) ){
-			if( ':'===$link{0} ){
+			if( isset($this->config['target']) && ':'===$link{0} ){
 				$this->setAttribute($this->config['link'],'javascript'.$link);
 			}else{
 				$this->setAttribute($this->config['link'],$this->checkExpression($link));
 			}
+		}
+
+		return $this;
+	}
+
+	protected function parseTarget():self
+	{
+		$target= $this->line->pregGet('/ >([^ ]+)(?= |$)/',1);
+
+		if( strlen($target) ){
+			$this->setAttribute($this->config['target'],$target);
 		}
 
 		return $this;
