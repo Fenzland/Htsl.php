@@ -9,7 +9,18 @@ use Htsl\Parser\Document;
 
 abstract class AEmbedment
 {
-	protected $content;
+	/**
+	 * Embed content
+	 *
+	 * @var string
+	 */
+	protected $content='';
+
+	/**
+	 * The main document which this embedment embedding into.
+	 *
+	 * @var [type]
+	 */
 	protected $document;
 
 	final public function __construct(Document $document)
