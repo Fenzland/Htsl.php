@@ -196,14 +196,15 @@ class DefaultConfigs
 					'a'=> [
 						'link'=> 'href',
 						'name_value'=> ['name',],
+						'target'=> 'target',
 					],
 					'img'=>[
 						'link'=> 'src',
 					],
-					'form'=>   ['name'=> 'form', 'link'=> 'action', 'name_value'=>['name',], 'default_attributes'=> ['method'=>'post',],],
-					'post'=>   ['name'=> 'form', 'link'=> 'action', 'name_value'=>['name',], 'default_attributes'=> ['method'=>'post',],],
-					'upload'=> ['name'=> 'form', 'link'=> 'action', 'name_value'=>['name',], 'default_attributes'=> ['method'=>'post','enctype'=>'multipart/form-data',],],
-					'get'=>    ['name'=> 'form', 'link'=> 'action', 'name_value'=>['name',], 'default_attributes'=> ['method'=>'get',],],
+					'form'=>   ['name'=> 'form', 'link'=> 'action', 'target'=> 'target', 'name_value'=>['name',], 'default_attributes'=> ['method'=>'post',],],
+					'post'=>   ['name'=> 'form', 'link'=> 'action', 'target'=> 'target', 'name_value'=>['name',], 'default_attributes'=> ['method'=>'post',],],
+					'upload'=> ['name'=> 'form', 'link'=> 'action', 'target'=> 'target', 'name_value'=>['name',], 'default_attributes'=> ['method'=>'post','enctype'=>'multipart/form-data',],],
+					'get'=>    ['name'=> 'form', 'link'=> 'action', 'target'=> 'target', 'name_value'=>['name',], 'default_attributes'=> ['method'=>'get',],],
 
 					'input'=>          ['name'=> 'input',  'default_attributes'=> ['type'=>'hidden',],         'name_value'=> ['name', 'value', 'form',],],
 					'text'=>           ['name'=> 'input',  'default_attributes'=> ['type'=>'text',],           'name_value'=> ['name', 'value', 'placeholder', 'form',],],
@@ -225,7 +226,7 @@ class DefaultConfigs
 					'color'=>          ['name'=> 'input',  'default_attributes'=> ['type'=>'color',],          'name_value'=> ['name', 'value', 'form',],],
 					'file'=>           ['name'=> 'input',  'default_attributes'=> ['type'=>'file',],           'name_value'=> ['name', 'form',], 'params'=>['accept',],],
 
-					'submit'=>         ['name'=> 'button', 'default_attributes'=> ['type'=>'submit',],         'name_value'=> ['name', 'value','form'], 'link'=> ' formaction',],
+					'submit'=>         ['name'=> 'button', 'default_attributes'=> ['type'=>'submit',],         'name_value'=> ['name', 'value','form'], 'link'=> ' formaction', 'target'=> 'formtarget',],
 					'reset'=>          ['name'=> 'button', 'default_attributes'=> ['type'=>'reset',],          'name_value'=> ['form',]],
 					'button'=>         ['name'=> 'button', 'default_attributes'=> ['type'=>'button',],],
 
