@@ -32,13 +32,70 @@
 			 -equiv <set-cookie|cookies>
 			 -charset(utf-8)
 		<}
+		-code(html){>
+			 <meta name="keywords" content="Foo,Bar" />
+			 <meta name="set-cookie" content="cookies" />
+			 <meta charset="utf-8" />
+		<}
 		-h3
-			 -link, -css, -icon, -js
+			links -link, -css, -shortcut, -icon, -js
 		-p
 			HTML use <link> tag or <script> tag with src property to link other file. In HTSL we use -css, -icon and -js to link CSS file, icon file and Javascript file, and use -link tag to link other kinds of files.
 		-code(htsl){>
 			 -css @demo.css
 			 -js @demo.js
-			 -icon(16x16) @demo.ico
+			 -shortcut  @favicon.ico
+			 -icon(16x16) @demo.gif {type=image/gif;}
 			 -link(help) @help.html
 		<}
+		-code(html){>
+			 -css @demo.css
+			 <link rel="stylesheet" type="text/css" href="demo.css" />
+			 <script src="demo.js"></script>
+			 <link rel="shortcut icon" type="image/x-icon" href="demo.css" />
+			 <link rel="icon" sizes="16x16" type="image/gif" href="demo.gif" />
+			 <link rel="help" href="help.html" />
+		<}
+		-h3
+			 -a
+		-p
+			For HTML anchor tag <a>, HTSL provide @ for href > for target target <> for anchor name. When a tag has target property, the 'javascript' of @javascript:jscode... can be omitted, besides -a there are forms and -submit have this feature.
+		-code(htsl){>
+			 -a @http://htsl.fenzland.com
+			 -a @/ >_blank
+			 -a @:alert();
+			 -a @#anchor_name
+			 -a <anchor_name>
+		<}
+		-code(html){>
+			 <a href="http://htsl.fenzland.com"></a>
+			 <a href="/" target="_blank"></a>
+			 <a href="javascript:alert();"></a>
+			 <a href="#anchor_name"></a>
+			 <a name="#anchor_name"></a>
+		<}
+		-p
+			Here is '@' '>' '@:' useage of forms and -submit.
+		-code(htsl){>
+			 -post @/ >_blank
+			 -get @:alert();
+			 -submit @/ >_blank
+			 -submit @:alert();
+		<}
+		-code(html){>
+			 <form method="post" action="/" target="_blank"></form>
+			 <form method="get" action="javascript:alert();"></form>
+			 <button type="submit" formaction="/" formtarget="_blank"></button>
+			 <button type="submit" formaction="javascript:alert();"></button>
+		<}
+		-h3
+			Images
+		-p
+			 -img @ is for src
+		-code(htsl){>
+			 -img @foo.jpg
+		<}
+		-code(html){>
+			 <img src="foo.jpg" />
+		<}
+
