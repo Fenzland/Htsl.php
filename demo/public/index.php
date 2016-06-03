@@ -16,7 +16,9 @@ $basePath= dirname(__DIR__).'/views';
 
 $htsl->setBasePath($basePath);
 
-$filePath= $basePath.(($_SERVER['REQUEST_URI']==='/'?'/index':$_SERVER['REQUEST_URI']).'.htsl');
+$pathInfo= $_SERVER['PATHINFO']??strtok($_SERVER['REQUEST_URI'],'?');
+
+$filePath= $basePath.(($pathInfo==='/'?'/index':$pathInfo).'.htsl');
 $compiledPath= '/tmp/htsl_compiled/'.md5($filePath);
 
 file_exists('/tmp/htsl_compiled') or mkdir('/tmp/htsl_compiled');
