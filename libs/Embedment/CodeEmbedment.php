@@ -11,7 +11,7 @@ class CodeEmbedment extends AEmbedment
 {
 	public function parseLine( Line$line ):parent
 	{
-		$content= '<code>'.$this->document->htmlEntities($line->fullContent).'</code>';
+		$content= '<code>'.htmlentities($line->fullContent).'</code>';
 
 		$indentation= $this->document->indentation;
 
