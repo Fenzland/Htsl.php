@@ -42,10 +42,10 @@
 			 			-post @login.php
 			 				-label
 			 					Name:
-			 				-text <name||Please input your name> {required;}
+			 				-text <name> {placeholder=Please input your name;required;}
 			 				-label
 			 					Password
-			 				-password <password||Please input your password>
+			 				-password <password> {placeholder=Please input your password;}
 			 				-submit <_action|login> %click{>alert('Sorry, this is just a demo.');return false;<}
 			 					Login
 		<}

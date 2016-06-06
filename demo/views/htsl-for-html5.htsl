@@ -89,6 +89,100 @@
 			 <button type="submit" formaction="javascript:alert();"></button>
 		<}
 		-h3
+			Forms
+		-p
+			 HTSL provide several tags for different forms. The -post and the -get tags with different request methods. And the -upload tag for upload files. The -form is just an alias of the -post.
+		-code(htsl){>
+			 -post
+			 -get
+			 -upload
+		<}
+		-code(html){>
+			 <form method="post"></form>
+			 <form method="get"></form>
+			 <form method="post" enctype="multipart/form-data"></form>
+		<}
+		-p
+			 We use <> for name property of forms, use @ and > for action and target properties.
+		-code(htsl){>
+			 -form <form_name>
+			 -form @/login >_blank
+		<}
+		-code(html){>
+			 <form method="post" name="form_name"></form>
+			 <form method="post" action="form_name" target="_blank"></form>
+		<}
+		-h3
+			Fields
+		-p
+			Just like the <form>, the <input> into HTSL become several different tags. They are named as the type property of <input>, except the hidden fields which named -input. The -number, the -range and the -file have some parameters. The -number and the -range have 3 parameters which are min, step and max. The -file has a property named accept.
+		-code(htsl){>
+			 -input
+			 -text
+			 -search
+			 -password
+			 -email
+			 -url
+			 -tel
+			 -number(0|1|100)
+			 -range(0|0.1|1)
+			 -radio
+			 -checkbox
+			 -date
+			 -month
+			 -week
+			 -time
+			 -datetime
+			 -datetime
+			 -color
+			 -file(image/*)
+		<}
+		-code(html){>
+			 <input type="hidden" />
+			 <input type="text" />
+			 <input type="search" />
+			 <input type="password" />
+			 <input type="email" />
+			 <input type="url" />
+			 <input type="tel" />
+			 <input min="0" step="1" max="100" type="number" />
+			 <input min="0" step="0.1" max="1" type="range" />
+			 <input type="radio" />
+			 <input type="checkbox" />
+			 <input type="date" />
+			 <input type="month" />
+			 <input type="week" />
+			 <input type="time" />
+			 <input type="datetime" />
+			 <input type="datetime" />
+			 <input type="color" />
+			 <input accept="image/*" type="file" />
+		<}
+		-p
+			We use <name|value> to define their name and value, or <name|value|form> for their name, value and form. The -file specially not has value property, so it become <name> or <name|form> (Currently, the Htsl.php treat the third parameters between <> as placeholder, it's not well readable and confusing, so it will change).If you just want to define name and form with out value, just use twe | and let it empty between them.
+		-code(htsl){>
+			 -color <bg_color|#6495ED>
+			 -email <e-mail|uukoo@163.com|the_form>
+			 -file(image/*) <logo|the_form>
+			 -text <name||the_form>
+		<}
+		-code(html){>
+			 <input type="email" name="e-mail" value="uukoo@163.com" />
+			 <input type="color" name="bg_color" value="#6495ED" />
+			 <input accept="*" type="file" name="logo" form="the_form" />
+			 <input type="text" name="name" form="the_form" />
+		<}
+		-p
+			 There are two fields tag not named input in HTML, they are <textarea> and <select>. But HTSL will treat them the same as other fields, value of -textarea instead of innerHTML, value of -select instead of selected of option (Currently, the Htsl.php has not achieved this feature, it will done in future).
+		-code(htsl){>
+			 -textarea
+			 -select
+		<}
+		-code(html){>
+			 <textarea></textarea>
+			 <select></select>
+		<}
+		-h3
 			Images
 		-p
 			 -img @ is for src
