@@ -64,6 +64,9 @@ class TagNode extends ANode implements ArrayAccess
 		if( isset($this->config['target']) )
 			{ $this->parseTarget(); }
 
+		if( isset($this->config['alt']) )
+			{ $this->parseAlt(); }
+
 		$this->parseCommonAttributes();
 
 		if( isset($this->config['in_scope']) && isset($this->config['scope_function']) && is_callable($this->config['scope_function']) )
@@ -131,6 +134,17 @@ class TagNode extends ANode implements ArrayAccess
 
 		if( strlen($target) ){
 			$this->setAttribute($this->config['target'],$this->checkExpression($target));
+		}
+
+		return $this;
+	}
+
+	protected function parseAlt():self
+	{
+		$alt= $this->line->pregGet('/ _((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp))+?\)))(?= |$)/',1);
+
+		if( strlen($alt) ){
+			$this->setAttribute($this->config['alt'],$this->checkExpression($alt));
 		}
 
 		return $this;
