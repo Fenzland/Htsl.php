@@ -35,17 +35,17 @@
 			 	-body {lang=en;}
 			 		!Login Page
 			 		-header .float-clear
-			 			-img @logo.png #logo .logo.float-left ^HTSL-Demo
+			 			-img @logo.png #logo .logo.float-left ^HTSL Demo _Demo
 			 			-h1
 			 				Demo
 			 		-section [width:1024px;margin:auto;]
-			 			-post @login.php
+			 			-post @login.php >_blank
 			 				-label
 			 					Name:
-			 				-text <name> {placeholder=Please input your name;required;}
+			 				-text <name> _Please input your name {required;}
 			 				-label
 			 					Password
-			 				-password <password> {placeholder=Please input your password;}
+			 				-password <password> _Please input your password
 			 				-submit <_action|login> %click{>alert('Sorry, this is just a demo.');return false;<}
 			 					Login
 		<}
@@ -63,7 +63,7 @@
 			 	<body lang="en">
 			 		<!-- Login Page -->
 			 		<header class="float-clear">
-			 			<img class="logo float-left" id="logo" src="logo.png" title="HTSL-Demo" />
+			 			<img class="logo float-left" id="logo" src="logo.png" title="HTSL Demo" alt="Demo" />
 			 			<h1>Demo</h1>
 			 		</header>
 			 		<section style="width:1024px;margin:auto;">
@@ -81,7 +81,7 @@
 		-p
 			Well there is a little different, the indent tabs and line-feeds in HTSL will not cause the shit white space between inline items. So in fact, that's equal to HTML as below.
 		-code(html){>
-			 <!DOCTYPE html><html><head><meta charset="utf-8" /><title>Demo Page</title><link href="style.css" rel="stylesheet" type="text/css" /><script src="init.js" type="text/javascript"></script></head><body lang="en"><!-- Login Page --><header class="float-clear"><img class="logo float-left" id="logo" src="logo.png" title="HTSL-Demo" /><h1>Demo</h1></header><section style="width:1024px;margin:auto;"><form action="login.php" method="post"><label>Name:</label><input name="name" placeholder="Please input your name" required="required" type="text" /><label>Password</label><input name="password" "Please input your password" type="password" /><button name="_action" onclick="alert('Sorry, this is just a demo.');return false;" value="login">Login</button></form></section></body></html>
+			 <!DOCTYPE html><html><head><meta charset="utf-8" /><title>Demo Page</title><link href="style.css" rel="stylesheet" type="text/css" /><script src="init.js" type="text/javascript"></script></head><body lang="en"><!-- Login Page --><header class="float-clear"><img class="logo float-left" id="logo" src="logo.png" title="HTSL Demo" alt="Demo" /><h1>Demo</h1></header><section style="width:1024px;margin:auto;"><form action="login.php" method="post"><label>Name:</label><input name="name" placeholder="Please input your name" required="required" type="text" /><label>Password</label><input name="password" "Please input your password" type="password" /><button name="_action" onclick="alert('Sorry, this is just a demo.');return false;" value="login">Login</button></form></section></body></html>
 		<}
 		-p
 			HTSL make world clean.

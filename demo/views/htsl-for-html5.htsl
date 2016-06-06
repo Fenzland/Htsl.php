@@ -159,7 +159,7 @@
 			 <input accept="image/*" type="file" />
 		<}
 		-p
-			We use <name|value> to define their name and value, or <name|value|form> for their name, value and form. The -file specially not has value property, so it become <name> or <name|form> (Currently, the Htsl.php treat the third parameters between <> as placeholder, it's not well readable and confusing, so it will change).If you just want to define name and form with out value, just use twe | and let it empty between them.
+			We use <name|value> to define their name and value, or <name|value|form> for their name, value and form. The -file specially not has value property, so it become <name> or <name|form>. If you just want to define name and form with out value, just use twe | and let it empty between them.
 		-code(htsl){>
 			 -color <bg_color|#6495ED>
 			 -email <e-mail|uukoo@163.com|the_form>
@@ -182,14 +182,28 @@
 			 <textarea></textarea>
 			 <select></select>
 		<}
+		-p
+			Some fields have placeholder, we use _ to define them.
+		-code(htsl){>
+			 -textarea _This is placeholder.&#10;Can you see?
+			 -password _Watch the eyes behind you!
+		<}
+		-code(html){>
+			 <textarea placeholder="This is placeholder.&#10;Can you see?"></textarea>
+			 <input type="password" placeholder="Watch the eyes behind you!" />
+		<}
 		-h3
 			Images
 		-p
-			 -img @ is for src
+			 In the -img @ is for src, _ for alt just as placeholder, alt is the of place holder of image, right? Besides, the common attribute ^title is always use in -img.
 		-code(htsl){>
 			 -img @foo.jpg
+			 -img @foo.jpg ^The title of image.
+			 -img @foo.jpg _The alt of image.
 		<}
 		-code(html){>
 			 <img src="foo.jpg" />
+			 <img src="foo.jpg" title="The title of image" />
+			 <img src="foo.jpg" alt="The alt of image" />
 		<}
 
