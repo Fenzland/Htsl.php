@@ -64,6 +64,9 @@ class TagNode extends ANode implements ArrayAccess
 		if( isset($this->config['target']) )
 			{ $this->parseTarget(); }
 
+		if( isset($this->config['alt']) )
+			{ $this->parseAlt(); }
+
 		$this->parseCommonAttributes();
 
 		if( isset($this->config['in_scope']) && isset($this->config['scope_function']) && is_callable($this->config['scope_function']) )
@@ -112,11 +115,15 @@ class TagNode extends ANode implements ArrayAccess
 
 	protected function parseLink():self
 	{
-		$link= $this->line->pregGet('/ @([^ ]+)(?= |$)/',1);
+		$link= $this->line->pregGet('/ @((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp))+?\)))(?= |$)/',1);
 
 		if( strlen($link) ){
 			if( isset($this->config['target']) && ':'===$link{0} ){
 				$this->setAttribute($this->config['link'],'javascript'.$link);
+			}elseif( '/'===$link{0} && '/'===$link{1} ){
+				$this->setAttribute($this->config['link'],'http:'.$link);
+			}elseif( '\\'===$link{0} && '\\'===$link{1} ){
+				$this->setAttribute($this->config['link'],'https://'.substr($link,2));
 			}else{
 				$this->setAttribute($this->config['link'],$this->checkExpression($link));
 			}
@@ -127,10 +134,21 @@ class TagNode extends ANode implements ArrayAccess
 
 	protected function parseTarget():self
 	{
-		$target= $this->line->pregGet('/ >([^ ]+)(?= |$)/',1);
+		$target= $this->line->pregGet('/ >((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp))+?\)))(?= |$)/',1);
 
 		if( strlen($target) ){
-			$this->setAttribute($this->config['target'],$target);
+			$this->setAttribute($this->config['target'],$this->checkExpression($target));
+		}
+
+		return $this;
+	}
+
+	protected function parseAlt():self
+	{
+		$alt= $this->line->pregGet('/ _((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp))+?\)))(?= |$)/',1);
+
+		if( strlen($alt) ){
+			$this->setAttribute($this->config['alt'],$this->checkExpression($alt));
 		}
 
 		return $this;
@@ -140,7 +158,7 @@ class TagNode extends ANode implements ArrayAccess
 	{
 		$attributes= '';
 
-		$id= $this->line->pregGet('/ #([^ ]+)(?= |$)/',1)
+		$id= $this->line->pregGet('/ #([^ ]+|(?<exp>\((?:[^()]+|(?&exp))+?\)))(?= |$)/',1)
 		 and $this->setAttribute('id',$id);
 
 		$classes= $this->line->pregGet('/ \.[^ ]+(?= |$)/')
@@ -148,7 +166,7 @@ class TagNode extends ANode implements ArrayAccess
 		  and $classes= implode(' ',array_filter(array_map(function( $className ){return $this->checkExpression($className);},$matches[1])))
 		   and $this->setAttribute('class',$classes);
 
-		$title= $this->line->pregGet('/ \^([^ ]+)(?= |$)/',1)
+		$title= $this->line->pregGet('/ \^((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp))+?\)))(?= |$)/',1)
 		 and $this->setAttribute('title',$title);
 
 		$style= $this->line->pregGet('/ \[([^\]]+;)(?=\]( |$))/',1)

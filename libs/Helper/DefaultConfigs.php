@@ -200,6 +200,7 @@ class DefaultConfigs
 					],
 					'img'=>[
 						'link'=> 'src',
+						'alt'=> 'alt',
 					],
 					'form'=>   ['name'=> 'form', 'link'=> 'action', 'target'=> 'target', 'name_value'=>['name',], 'default_attributes'=> ['method'=>'post',],],
 					'post'=>   ['name'=> 'form', 'link'=> 'action', 'target'=> 'target', 'name_value'=>['name',], 'default_attributes'=> ['method'=>'post',],],
@@ -207,13 +208,13 @@ class DefaultConfigs
 					'get'=>    ['name'=> 'form', 'link'=> 'action', 'target'=> 'target', 'name_value'=>['name',], 'default_attributes'=> ['method'=>'get',],],
 
 					'input'=>          ['name'=> 'input',  'default_attributes'=> ['type'=>'hidden',],         'name_value'=> ['name', 'value', 'form',],],
-					'text'=>           ['name'=> 'input',  'default_attributes'=> ['type'=>'text',],           'name_value'=> ['name', 'value', 'placeholder', 'form',],],
-					'search'=>         ['name'=> 'input',  'default_attributes'=> ['type'=>'search',],         'name_value'=> ['name', 'value', 'placeholder', 'form',],],
-					'password'=>       ['name'=> 'input',  'default_attributes'=> ['type'=>'password',],       'name_value'=> ['name', 'value', 'placeholder', 'form',],],
-					'email'=>          ['name'=> 'input',  'default_attributes'=> ['type'=>'email',],          'name_value'=> ['name', 'value', 'placeholder', 'form',],],
-					'url'=>            ['name'=> 'input',  'default_attributes'=> ['type'=>'url',],            'name_value'=> ['name', 'value', 'placeholder', 'form',],],
-					'tel'=>            ['name'=> 'input',  'default_attributes'=> ['type'=>'tel',],            'name_value'=> ['name', 'value', 'placeholder', 'form',],],
-					'number'=>         ['name'=> 'input',  'default_attributes'=> ['type'=>'number',],         'name_value'=> ['name', 'value', 'placeholder', 'form',], 'params'=>['min', 'step', 'max',],],
+					'text'=>           ['name'=> 'input',  'default_attributes'=> ['type'=>'text',],           'name_value'=> ['name', 'value', 'form',], 'alt'=> 'placeholder',],
+					'search'=>         ['name'=> 'input',  'default_attributes'=> ['type'=>'search',],         'name_value'=> ['name', 'value', 'form',], 'alt'=> 'placeholder',],
+					'password'=>       ['name'=> 'input',  'default_attributes'=> ['type'=>'password',],       'name_value'=> ['name', 'value', 'form',], 'alt'=> 'placeholder',],
+					'email'=>          ['name'=> 'input',  'default_attributes'=> ['type'=>'email',],          'name_value'=> ['name', 'value', 'form',], 'alt'=> 'placeholder',],
+					'url'=>            ['name'=> 'input',  'default_attributes'=> ['type'=>'url',],            'name_value'=> ['name', 'value', 'form',], 'alt'=> 'placeholder',],
+					'tel'=>            ['name'=> 'input',  'default_attributes'=> ['type'=>'tel',],            'name_value'=> ['name', 'value', 'form',], 'alt'=> 'placeholder',],
+					'number'=>         ['name'=> 'input',  'default_attributes'=> ['type'=>'number',],         'name_value'=> ['name', 'value', 'form',], 'alt'=> 'placeholder', 'params'=>['min', 'step', 'max',],],
 					'range'=>          ['name'=> 'input',  'default_attributes'=> ['type'=>'range',],          'name_value'=> ['name', 'value', 'form',],                'params'=>['min', 'step', 'max',],],
 					'radio'=>          ['name'=> 'input',  'default_attributes'=> ['type'=>'radio',],          'name_value'=> ['name', 'value', 'form',],],
 					'checkbox'=>       ['name'=> 'input',  'default_attributes'=> ['type'=>'checkbox',],       'name_value'=> ['name', 'value', 'form',],],
@@ -230,7 +231,7 @@ class DefaultConfigs
 					'reset'=>          ['name'=> 'button', 'default_attributes'=> ['type'=>'reset',],          'name_value'=> ['form',]],
 					'button'=>         ['name'=> 'button', 'default_attributes'=> ['type'=>'button',],],
 
-					'textarea'=>       ['name'=> 'textarea', 'name_value'=>['name','value','placeholder','form',],],
+					'textarea'=>       ['name'=> 'textarea', 'name_value'=>['name','value','form',],'alt'=>'placeholder',],
 //*
 					'select'=> [
 						'name_value'=> ['name', 'value','form',],
