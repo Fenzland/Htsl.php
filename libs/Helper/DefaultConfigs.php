@@ -334,8 +334,8 @@ class DefaultConfigs
 				'HTML5'=> false,
 				'HTML4'=> false,
 				'XHTML'=> false,
-				'XML1'=> ENT_XML1,
-				'SVG1.1'=> ENT_XML1,
+				'XML1'=> "\t",
+				'SVG1.1'=> "\t",
 			],
 		];
 	}
