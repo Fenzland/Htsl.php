@@ -89,6 +89,21 @@ code[type="htsl"]
 
 code[type="htsl"]
 	.tag-line
+		.alt-sign
+			{
+				color:black;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.alt
+			{
+				color:darkgray;
+			}
+
+
+code[type="htsl"]
+	.tag-line
 		.class-name-sign
 			{
 				color:magenta;
@@ -114,6 +129,21 @@ code[type="htsl"]
 		.link
 			{
 				color:deepskyblue;
+			}
+
+
+code[type="htsl"]
+	.tag-line
+		.target-sign
+			{
+				color:cornflowerblue;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.target
+			{
+				color:aquamarine;
 			}
 
 
