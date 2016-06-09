@@ -30,6 +30,11 @@ class Line
 		return $this->content;
 	}
 
+	public function slice( int$start=0, int...$lengths):string
+	{
+		return substr($this->getContent(),$start,...array_slice($lengths,0,1));
+	}
+
 	public function getChar( int$offset ):string
 	{
 		$content= $this->getcontent();
