@@ -286,7 +286,10 @@ class Document implements IConfigProvider
 				$this->parseStringLine($line);
 			}break;
 			case '`':{
-				$this->parseHtmlLine($line);
+				if( '='===$line->getChar(1) )
+					{ $this->parseExpressionHtmlLine($line); }
+				else
+					{ $this->parseHtmlLine($line); }
 			}break;
 			case '=':{
 				$this->parseExpressionLine($line);
@@ -313,7 +316,7 @@ class Document implements IConfigProvider
 
 		$this->openNode($node);
 
-		$this->appendLine(substr($line->getContent(),1));
+		$this->appendLine($line->slice(1));
 
 		return $this;
 	}
@@ -335,7 +338,23 @@ class Document implements IConfigProvider
 
 		$this->openNode($node);
 
-		$this->appendLine("<?$line->content?>");
+		$content=  $line->slice(1);
+		$ent_flag= $this->htsl->getConfig('ENT_flags',$this->docType);
+
+		$this->appendLine("<?=htmlentities($content,'$ent_flag','UTF-8',false);?>");
+
+		return $this;
+	}
+
+	protected function parseExpressionHtmlLine( Line$line ):self
+	{
+		$node= new StringNode($this,$line);
+
+		$this->openNode($node);
+
+		$content=  $line->slice(1);
+
+		$this->appendLine("<?$content?>");
 
 		return $this;
 	}
