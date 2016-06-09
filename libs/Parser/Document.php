@@ -313,7 +313,7 @@ class Document implements IConfigProvider
 
 		$this->openNode($node);
 
-		$this->appendLine(substr($line->getContent(),1));
+		$this->appendLine($line->slice(1));
 
 		return $this;
 	}
