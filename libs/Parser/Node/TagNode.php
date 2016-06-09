@@ -120,9 +120,9 @@ class TagNode extends ANode implements ArrayAccess
 		if( strlen($link) ){
 			if( isset($this->config['target']) && ':'===$link{0} ){
 				$this->setAttribute($this->config['link'],'javascript'.$link);
-			}elseif( '/'===$link{0} && '/'===$link{1} ){
+			}elseif( '//'===($firstTwoLetters=substr($link,0,2)) ){
 				$this->setAttribute($this->config['link'],'http:'.$link);
-			}elseif( '\\'===$link{0} && '\\'===$link{1} ){
+			}elseif( '\\\\'===$firstTwoLetters ){
 				$this->setAttribute($this->config['link'],'https://'.substr($link,2));
 			}else{
 				$this->setAttribute($this->config['link'],$this->checkExpression($link));
