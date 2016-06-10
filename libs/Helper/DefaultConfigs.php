@@ -45,6 +45,34 @@ class DefaultConfigs
 						'/.?/'=> '<?php endforeach;endif;?>',
 					],
 				],*/
+				'continue'=> [
+					'multiple'=>[
+						[
+							'pattern'=> '/\)$/',
+							'opener'=> '<?php if( %s ) continue;?>',
+							'closer'=> '',
+						],
+						[
+							'pattern'=> '/;$/',
+							'opener'=> '<?php continue;?>',
+							'closer'=> '',
+						],
+					],
+				],
+				'break'=> [
+					'multiple'=>[
+						[
+							'pattern'=> '/\)$/',
+							'opener'=> '<?php if( %s ) break;?>',
+							'closer'=> '',
+						],
+						[
+							'pattern'=> '/;$/',
+							'opener'=> '<?php break;?>',
+							'closer'=> '',
+						],
+					],
+				],
 				'if'=> [
 					'opener'=> '<?php if( %s ):?>',
 					'closer'=> [
@@ -110,6 +138,42 @@ class DefaultConfigs
 				],
 			],
 			'tag_nodes'=>[
+				'SVG1.1'=> $svgTags= [
+					'svg'=> [
+						'default_attributes'=> ['xmlns'=>'http://www.w3.org/2000/svg','version'=>'1.1',],
+						'params'=> ['viewBox',],
+						'scope'=> 'svg',
+					],
+					'*'=> [],
+					'polygon'=> [
+						'params'=> ['points',],
+						'only_in'=> ['svg',],
+					],
+					'polyline'=> [
+						'params'=> ['points',],
+						'only_in'=> ['svg',],
+					],
+					'path'=> [
+						'params'=> ['d',],
+						'only_in'=> ['svg',],
+					],
+					'line'=> [
+						'params'=> ['x1','y1','x2','y2',],
+						'only_in'=> ['svg',],
+					],
+					'rect'=> [
+						'params'=> ['x','y','width','height','rx','ry',],
+						'only_in'=> ['svg',],
+					],
+					'circle'=> [
+						'params'=> ['cx','cy','r',],
+						'only_in'=> ['svg',],
+					],
+					'ellipse'=> [
+						'params'=> ['cx','cy','rx','ry',],
+						'only_in'=> ['svg',],
+					],
+				],
 				'HTML5'=> [
 					'*'=> [],
 					'charset'=> [
@@ -198,6 +262,11 @@ class DefaultConfigs
 						'name_value'=> ['name',],
 						'target'=> 'target',
 					],
+					'iframe'=>[
+						'link'=> 'src',
+						'default_attributes'=> ['frameborder'=>'0',],
+						'name_value'=> ['name',],
+					],
 					'img'=>[
 						'link'=> 'src',
 						'alt'=> 'alt',
@@ -269,56 +338,7 @@ class DefaultConfigs
 						'params'=> ['viewBox',],
 						'scope'=> 'svg',
 					],
-					'polygon'=> [
-						'in'=> [
-							'svg'=>[
-								'params'=> ['points',],
-							],
-						],
-					],
-					'path'=> [
-						'in'=> [
-							'svg'=>[
-								'params'=> ['d',],
-							],
-						],
-					],
-					'circle'=> [
-						'in'=> [
-							'svg'=>[
-								'params'=> ['r','cx','cy',],
-							],
-						],
-					],
-				],
-				'SVG1.1'=> [
-					'svg'=> [
-						'default_attributes'=> ['xmlns'=>'http://www.w3.org/2000/svg','version'=>'1.1',],
-						'params'=> ['viewBox',],
-						'scope'=> 'svg',
-					],
-					'polygon'=> [
-						'in'=> [
-							'svg'=>[
-								'params'=> ['points',],
-							],
-						],
-					],
-					'path'=> [
-						'in'=> [
-							'svg'=>[
-								'params'=> ['d',],
-							],
-						],
-					],
-					'circle'=> [
-						'in'=> [
-							'svg'=>[
-								'params'=> ['r','cx','cy',],
-							],
-						],
-					],
-				],
+				]+$svgTags,
 			],
 			'empty_tags'=> [
 				'HTML5'=> [

@@ -94,6 +94,10 @@ abstract class ANode
 				}
 				return $config['out'];
 			})($config);
+		}elseif( isset($config['only_in']) && (!$this->document->scope || !in_array($this->document->scope->scope,$config['only_in'])) ){
+			$this->document->throw("The $this->nodeType node $name only use in scope ".implode(',',$config['only_in']));
+		}elseif( isset($config['not_in']) && (!$this->document->scope || !in_array($this->document->scope->scope,$config['not_in'])) ){
+			$this->document->throw("The $this->nodeType node $name not use in scope ".implode(',',$config['not_in']));
 		}
 
 		if( !is_array($config) ){$this->document->throw("The $this->nodeType node $name is not supported.");}
