@@ -226,6 +226,11 @@ class DefaultConfigs
 						'name_value'=> ['name',],
 						'target'=> 'target',
 					],
+					'iframe'=>[
+						'link'=> 'src',
+						'default_attributes'=> ['frameborder'=>'0',],
+						'name_value'=> ['name',],
+					],
 					'img'=>[
 						'link'=> 'src',
 						'alt'=> 'alt',
