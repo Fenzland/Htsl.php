@@ -45,6 +45,34 @@ class DefaultConfigs
 						'/.?/'=> '<?php endforeach;endif;?>',
 					],
 				],*/
+				'continue'=> [
+					'multiple'=>[
+						[
+							'pattern'=> '/\)$/',
+							'opener'=> '<?php if( %s ) continue;?>',
+							'closer'=> '',
+						],
+						[
+							'pattern'=> '/;$/',
+							'opener'=> '<?php continue;?>',
+							'closer'=> '',
+						],
+					],
+				],
+				'break'=> [
+					'multiple'=>[
+						[
+							'pattern'=> '/\)$/',
+							'opener'=> '<?php if( %s ) break;?>',
+							'closer'=> '',
+						],
+						[
+							'pattern'=> '/;$/',
+							'opener'=> '<?php break;?>',
+							'closer'=> '',
+						],
+					],
+				],
 				'if'=> [
 					'opener'=> '<?php if( %s ):?>',
 					'closer'=> [
