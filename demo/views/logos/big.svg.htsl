@@ -5,4 +5,4 @@ SVG1.1
 	-path(M 343 80 h 620 l -21 80 h -271 l -149 560 h -80 l 150 -560 h -270) [fill:cornflowerblue;]
 	-path(M 983 80 h 80 l -150 560 h 240 l -21 80 h -320 Z) [fill:cornflowerblue;]
 	-path(M 923 227 a 160 160 0 0 0 -254.5 187.5 a 80 80 0 0 0 76 115 a 80 80 0 0 1 -130 88.5 l -30 -30 -26.5 85.5 a 160 160 0 0 0 254 -187 a 80 80 0 0 0 -76 -116 a 80 80 0 0 1 130.5 -88 l 30 30 Z) [fill:cornflowerblue;]
-	-circle(40|740|450) [fill:coral;]
+	-circle(740|450|40) [fill:coral;]
