@@ -144,7 +144,12 @@ class DefaultConfigs
 						'params'=> ['viewBox',],
 						'scope'=> 'svg',
 					],
+					'*'=> [],
 					'polygon'=> [
+						'params'=> ['points',],
+						'only_in'=> ['svg',],
+					],
+					'polyline'=> [
 						'params'=> ['points',],
 						'only_in'=> ['svg',],
 					],
@@ -152,8 +157,20 @@ class DefaultConfigs
 						'params'=> ['d',],
 						'only_in'=> ['svg',],
 					],
+					'line'=> [
+						'params'=> ['x1','y1','x2','y2',],
+						'only_in'=> ['svg',],
+					],
+					'rect'=> [
+						'params'=> ['x','y','width','height','rx','ry',],
+						'only_in'=> ['svg',],
+					],
 					'circle'=> [
-						'params'=> ['r','cx','cy',],
+						'params'=> ['cx','cy','r',],
+						'only_in'=> ['svg',],
+					],
+					'ellipse'=> [
+						'params'=> ['cx','cy','rx','ry',],
 						'only_in'=> ['svg',],
 					],
 				],
