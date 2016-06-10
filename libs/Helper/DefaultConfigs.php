@@ -138,6 +138,25 @@ class DefaultConfigs
 				],
 			],
 			'tag_nodes'=>[
+				'SVG1.1'=> $svgTags= [
+					'svg'=> [
+						'default_attributes'=> ['xmlns'=>'http://www.w3.org/2000/svg','version'=>'1.1',],
+						'params'=> ['viewBox',],
+						'scope'=> 'svg',
+					],
+					'polygon'=> [
+						'params'=> ['points',],
+						'only_in'=> ['svg',],
+					],
+					'path'=> [
+						'params'=> ['d',],
+						'only_in'=> ['svg',],
+					],
+					'circle'=> [
+						'params'=> ['r','cx','cy',],
+						'only_in'=> ['svg',],
+					],
+				],
 				'HTML5'=> [
 					'*'=> [],
 					'charset'=> [
@@ -302,56 +321,7 @@ class DefaultConfigs
 						'params'=> ['viewBox',],
 						'scope'=> 'svg',
 					],
-					'polygon'=> [
-						'in'=> [
-							'svg'=>[
-								'params'=> ['points',],
-							],
-						],
-					],
-					'path'=> [
-						'in'=> [
-							'svg'=>[
-								'params'=> ['d',],
-							],
-						],
-					],
-					'circle'=> [
-						'in'=> [
-							'svg'=>[
-								'params'=> ['r','cx','cy',],
-							],
-						],
-					],
-				],
-				'SVG1.1'=> [
-					'svg'=> [
-						'default_attributes'=> ['xmlns'=>'http://www.w3.org/2000/svg','version'=>'1.1',],
-						'params'=> ['viewBox',],
-						'scope'=> 'svg',
-					],
-					'polygon'=> [
-						'in'=> [
-							'svg'=>[
-								'params'=> ['points',],
-							],
-						],
-					],
-					'path'=> [
-						'in'=> [
-							'svg'=>[
-								'params'=> ['d',],
-							],
-						],
-					],
-					'circle'=> [
-						'in'=> [
-							'svg'=>[
-								'params'=> ['r','cx','cy',],
-							],
-						],
-					],
-				],
+				]+$svgTags,
 			],
 			'empty_tags'=> [
 				'HTML5'=> [
