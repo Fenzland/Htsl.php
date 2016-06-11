@@ -106,9 +106,9 @@ class TagNode extends ANode implements ArrayAccess
 
 	protected function parseNameValue():self
 	{
-		$params= preg_split('/(?<!\\\\)\\|/',$this->line->pregGet('/ <(.*?)>(?= |$)/',1));
-
-		array_map(function( $key, $value ){return isset($key)&&isset($value) ? $this->setAttribute($key,$this->checkExpression(str_replace('\\|','|',$value))) : '';},$this->config['name_value'],$params);
+		$params= $this->line->pregGet('/ <(.*?)>(?= |$)/',1)
+		 and $params= preg_split('/(?<!\\\\)\\|/',$params)
+		  and array_map(function( $key, $value ){return isset($key)&&isset($value) ? $this->setAttribute($key,$this->checkExpression(str_replace('\\|','|',$value))) : '';},$this->config['name_value'],$params);
 
 		return $this;
 	}
