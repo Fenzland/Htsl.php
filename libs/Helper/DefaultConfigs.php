@@ -140,9 +140,16 @@ class DefaultConfigs
 			'tag_nodes'=>[
 				'SVG1.1'=> $svgTags= [
 					'svg'=> [
-						'default_attributes'=> ['xmlns'=>'http://www.w3.org/2000/svg','version'=>'1.1',],
-						'params'=> ['viewBox',],
-						'scope'=> 'svg',
+						'out'=>[
+							'default_attributes'=> ['xmlns'=>'http://www.w3.org/2000/svg','version'=>'1.1',],
+							'params'=> ['viewBox',],
+							'scope'=> 'svg',
+						],
+						'in'=>[
+							'svg'=>[
+								'params'=> ['x','y','width','height',],
+							],
+						],
 					],
 					'*'=> [],
 					'polygon'=> [
@@ -162,7 +169,7 @@ class DefaultConfigs
 						'only_in'=> ['svg',],
 					],
 					'rect'=> [
-						'params'=> ['x','y','width','height','rx','ry',],
+						'params'=> ['x','y','width','height',],
 						'only_in'=> ['svg',],
 					],
 					'circle'=> [
@@ -171,6 +178,10 @@ class DefaultConfigs
 					],
 					'ellipse'=> [
 						'params'=> ['cx','cy','rx','ry',],
+						'only_in'=> ['svg',],
+					],
+					'text'=> [
+						'params'=> ['x','y',],
 						'only_in'=> ['svg',],
 					],
 				],
@@ -277,7 +288,7 @@ class DefaultConfigs
 					'get'=>    ['name'=> 'form', 'link'=> 'action', 'target'=> 'target', 'name_value'=>['name',], 'default_attributes'=> ['method'=>'get',],],
 
 					'input'=>          ['name'=> 'input',  'default_attributes'=> ['type'=>'hidden',],         'name_value'=> ['name', 'value', 'form',],],
-					'text'=>           ['name'=> 'input',  'default_attributes'=> ['type'=>'text',],           'name_value'=> ['name', 'value', 'form',], 'alt'=> 'placeholder',],
+					'text'=>  ['out'=> ['name'=> 'input',  'default_attributes'=> ['type'=>'text',],           'name_value'=> ['name', 'value', 'form',], 'alt'=> 'placeholder',], 'in'=>['svg'=>['params'=>['x','y',],],]],
 					'search'=>         ['name'=> 'input',  'default_attributes'=> ['type'=>'search',],         'name_value'=> ['name', 'value', 'form',], 'alt'=> 'placeholder',],
 					'password'=>       ['name'=> 'input',  'default_attributes'=> ['type'=>'password',],       'name_value'=> ['name', 'value', 'form',], 'alt'=> 'placeholder',],
 					'email'=>          ['name'=> 'input',  'default_attributes'=> ['type'=>'email',],          'name_value'=> ['name', 'value', 'form',], 'alt'=> 'placeholder',],
@@ -333,11 +344,6 @@ class DefaultConfigs
 						],
 					],
 //*/
-					'svg'=> [
-						'default_attributes'=> ['xmlns'=>'http://www.w3.org/2000/svg','version'=>'1.1',],
-						'params'=> ['viewBox',],
-						'scope'=> 'svg',
-					],
 				]+$svgTags,
 			],
 			'empty_tags'=> [
