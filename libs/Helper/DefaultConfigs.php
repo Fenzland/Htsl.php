@@ -140,9 +140,16 @@ class DefaultConfigs
 			'tag_nodes'=>[
 				'SVG1.1'=> $svgTags= [
 					'svg'=> [
-						'default_attributes'=> ['xmlns'=>'http://www.w3.org/2000/svg','version'=>'1.1',],
-						'params'=> ['viewBox',],
-						'scope'=> 'svg',
+						'out'=>[
+							'default_attributes'=> ['xmlns'=>'http://www.w3.org/2000/svg','version'=>'1.1',],
+							'params'=> ['viewBox',],
+							'scope'=> 'svg',
+						],
+						'in'=>[
+							'svg'=>[
+								'params'=> ['x','y','width','height',],
+							],
+						],
 					],
 					'*'=> [],
 					'polygon'=> [
@@ -337,11 +344,6 @@ class DefaultConfigs
 						],
 					],
 //*/
-					'svg'=> [
-						'default_attributes'=> ['xmlns'=>'http://www.w3.org/2000/svg','version'=>'1.1',],
-						'params'=> ['viewBox',],
-						'scope'=> 'svg',
-					],
 				]+$svgTags,
 			],
 			'empty_tags'=> [
