@@ -162,7 +162,7 @@ class DefaultConfigs
 						'only_in'=> ['svg',],
 					],
 					'rect'=> [
-						'params'=> ['x','y','width','height','rx','ry',],
+						'params'=> ['x','y','width','height',],
 						'only_in'=> ['svg',],
 					],
 					'circle'=> [
