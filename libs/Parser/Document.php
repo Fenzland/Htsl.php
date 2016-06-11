@@ -496,6 +496,8 @@ class Document implements IConfigProvider
 
 		$this->sectionLevel= isset($sectionName) ? $this->level+1 : 0;
 
+		$this->append('');
+
 		return $this;
 	}
 
