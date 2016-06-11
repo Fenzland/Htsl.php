@@ -173,6 +173,10 @@ class DefaultConfigs
 						'params'=> ['cx','cy','rx','ry',],
 						'only_in'=> ['svg',],
 					],
+					'text'=> [
+						'params'=> ['x','y',],
+						'only_in'=> ['svg',],
+					],
 				],
 				'HTML5'=> [
 					'*'=> [],
@@ -277,7 +281,7 @@ class DefaultConfigs
 					'get'=>    ['name'=> 'form', 'link'=> 'action', 'target'=> 'target', 'name_value'=>['name',], 'default_attributes'=> ['method'=>'get',],],
 
 					'input'=>          ['name'=> 'input',  'default_attributes'=> ['type'=>'hidden',],         'name_value'=> ['name', 'value', 'form',],],
-					'text'=>           ['name'=> 'input',  'default_attributes'=> ['type'=>'text',],           'name_value'=> ['name', 'value', 'form',], 'alt'=> 'placeholder',],
+					'text'=>  ['out'=> ['name'=> 'input',  'default_attributes'=> ['type'=>'text',],           'name_value'=> ['name', 'value', 'form',], 'alt'=> 'placeholder',], 'in'=>['svg'=>['params'=>['x','y',],],]],
 					'search'=>         ['name'=> 'input',  'default_attributes'=> ['type'=>'search',],         'name_value'=> ['name', 'value', 'form',], 'alt'=> 'placeholder',],
 					'password'=>       ['name'=> 'input',  'default_attributes'=> ['type'=>'password',],       'name_value'=> ['name', 'value', 'form',], 'alt'=> 'placeholder',],
 					'email'=>          ['name'=> 'input',  'default_attributes'=> ['type'=>'email',],          'name_value'=> ['name', 'value', 'form',], 'alt'=> 'placeholder',],
