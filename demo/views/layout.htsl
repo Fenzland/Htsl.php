@@ -11,6 +11,7 @@ HTML5
 		-icon(any) @/logos/small.svg {type=image/svg+xml;}
 		-css @/css/codes/htsl.css
 		-css @/css/codes/html.css
+		-css @/css/codes/haml.css
 	-body
 		-header
 			-h1

@@ -1,0 +1,176 @@
+code[type="haml"]
+	.doctype
+		{
+			color:burlywood;
+		}
+
+
+code[type="haml"]
+	.comment-line
+		{
+			color:thistle;
+		}
+
+
+code[type="haml"]
+	.string-line,
+code[type="haml"]
+	.tag-line
+		.string
+			{
+				color:gray;
+			}
+
+
+code[type="haml"]
+	.tag-line
+		.tag-sign
+			{
+				color:darkgrey;
+			}
+
+code[type="haml"]
+	.tag-line
+		.tag-name
+			{
+				color:brown;
+			}
+
+
+code[type="haml"]
+	.tag-line
+		.id-sign
+			{
+				color:coral;
+			}
+
+code[type="haml"]
+	.tag-line
+		.id
+			{
+				color:red;
+				font-weight:bolder;
+			}
+
+
+code[type="haml"]
+	.tag-line
+		.class-name-sign
+			{
+				color:magenta;
+			}
+
+code[type="haml"]
+	.tag-line
+		.class-name
+			{
+				color:plum;
+			}
+
+
+code[type="haml"]
+	.tag-line
+		.ruby-attribute-wrapper
+			{
+				color:hotpink;
+			}
+
+code[type="haml"]
+	.tag-line
+		.ruby-attribute-name
+			{
+				color:coral;
+			}
+
+code[type="haml"]
+	.tag-line
+		.ruby-attribute-name-sign
+			{
+				color:coral;
+			}
+
+code[type="haml"]
+	.tag-line
+		.ruby-attribute-delimiter
+			{
+				color:plum;
+			}
+
+code[type="haml"]
+	.tag-line
+		.ruby-attribute-value
+			{
+				color:hotpink;
+			}
+
+code[type="haml"]
+	.tag-line
+		.ruby-attribute-separator
+			{
+				color:purple;
+			}
+
+
+code[type="haml"]
+	.tag-line
+		.html-attribute-wrapper
+			{
+				color:lightgreen;
+			}
+
+code[type="haml"]
+	.tag-line
+		.html-attribute-name
+			{
+				color:limegreen;
+			}
+
+code[type="haml"]
+	.tag-line
+		.html-attribute-delimiter
+			{
+				color:springgreen;
+			}
+
+code[type="haml"]
+	.tag-line
+		.html-attribute-value
+			{
+				color:skyblue;
+			}
+
+code[type="haml"]
+	.tag-line
+		.html-attribute-separator
+			{
+				color:green;
+			}
+
+
+code[type="haml"]
+	.tag-line
+		.event-sign
+			{
+				color:blue;
+			}
+
+code[type="haml"]
+	.tag-line
+		.event-name
+			{
+				color:royalblue;
+			}
+
+code[type="haml"]
+	.tag-line
+		.event-listener-wrapper
+			{
+				color:dodgerblue;
+			}
+
+code[type="haml"]
+	.tag-line
+		.event-listener
+			{
+				color:cadetblue;
+			}
