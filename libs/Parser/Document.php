@@ -109,7 +109,7 @@ class Document implements IConfigProvider
 	 *
 	 * @var array
 	 */
-	private $sections;
+	private $sections=[];
 
 	/**
 	 * Whether the document is executed.
@@ -121,7 +121,7 @@ class Document implements IConfigProvider
 	/**
 	 * The document content.
 	 *
-	 * @var string
+	 * @var \Htsl\Parser\Section
 	 */
 	private $currentSection;
 
@@ -148,7 +148,12 @@ class Document implements IConfigProvider
 
 	public function execute():self
 	{
-		return $this->isExecuted ? $this : $this->lineByLine();
+		if( $this->isExecuted ){
+			return $this;
+		}
+		return $this->lineByLine()
+		            ->bubbleSections()
+		;
 	}
 
 	public function __toString():string
@@ -475,28 +480,48 @@ class Document implements IConfigProvider
 
 	public function getSectionContent( string$sectionName ):string
 	{
-		if( $this->parent ){
-			return $this->parent->getSectionContent($sectionName);
-		}
-
 		if( !isset($this->sections[$sectionName]) ){
 			$this->throw("Section $sectionName not found.");
 		}
 
-		return $this->sections[$sectionName];
+		return $this->sections[$sectionName]->content;
 	}
 
 	public function setSection( string$sectionName=null ):self
 	{
-		if( $this->currentSection && isset($setSection) ){
+		if( !isset($sectionName) ){
+			$this->sectionLevel= 0;
+			$this->currentSection= null;
+
+			return $this;
+		}
+
+		if( $this->currentSection && isset($sectionName) ){
 			$this->throw('Nesting definition of section is forbidden.');
 		}
 
-		$this->currentSection= $sectionName;
+		if( isset($this->parent->sections[$sectionName]) ){
+			$this->throw("Section $sectionName already defined.");
+		}
 
-		$this->sectionLevel= isset($sectionName) ? $this->level+1 : 0;
+		$this->parent->sections[$sectionName]=
+		                $this->currentSection= new Section($sectionName)
+		;
 
-		$this->append('');
+		$this->sectionLevel= $this->level+1;
+
+		return $this;
+	}
+
+	protected function bubbleSections()
+	{
+		if( $this->parent ){
+			foreach( $this->sections as $name=>$section ){
+				if( !isset($this->parent->sections[$name]) ){
+					$this->parent->sections[$name]=$section;
+				};
+			}
+		}
 
 		return $this;
 	}
@@ -578,21 +603,11 @@ class Document implements IConfigProvider
 	protected function append( string$content ):self
 	{
 		if( $this->currentSection ){
-			$this->appendToSecttion($this->currentSection,$content);
+			$this->currentSection->append($content);
 		}else{
 			$this->content.=$content;
 		}
 
-		return $this;
-	}
-
-	protected function appendToSecttion( string$sectionName , string$content ):self
-	{
-		if( $this->parent ){
-			$this->parent->appendToSecttion($sectionName,$content);
-		}else{
-			$this->sections[$sectionName]= ( $this->sections[$sectionName]??'' ).$content;
-		}
 		return $this;
 	}
 
