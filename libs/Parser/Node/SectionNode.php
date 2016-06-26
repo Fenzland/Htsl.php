@@ -5,6 +5,7 @@ namespace Htsl\Parser\Node;
 use Htsl\Htsl;
 use Htsl\ReadingBuffer\Line;
 use Htsl\Parser\Node\Contracts\ANode;
+use Htsl\Parser\Section;
 
 ////////////////////////////////////////////////////////////////
 
@@ -26,7 +27,7 @@ class SectionNode extends ANode
 
 	public function open():string
 	{
-		$this->document->setSection($this->name);
+		$this->document->setSection(new Section($this->name));
 
 		return '';
 	}

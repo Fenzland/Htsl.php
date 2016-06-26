@@ -487,26 +487,28 @@ class Document implements IConfigProvider
 		return $this->sections[$sectionName]->content;
 	}
 
-	public function setSection( string$sectionName=null ):self
+	public function setSection( Section$section=null ):self
 	{
-		if( !isset($sectionName) ){
+		if( !$section ){
 			$this->sectionLevel= 0;
 			$this->currentSection= null;
 
 			return $this;
 		}
 
-		if( $this->currentSection && isset($sectionName) ){
+		if( $this->currentSection ){
 			$this->throw('Nesting definition of section is forbidden.');
 		}
 
-		if( isset($this->parent->sections[$sectionName]) ){
+		if( isset($this->parent->sections[$section->name]) ){
 			$this->throw("Section $sectionName already defined.");
 		}
 
-		$this->parent->sections[$sectionName]=
-		                $this->currentSection= new Section($sectionName)
-		;
+		$this->currentSection= $section;
+
+		if( $section->name ){
+			$this->parent->sections[$section->name]=$section;
+		}
 
 		$this->sectionLevel= $this->level+1;
 
