@@ -9,7 +9,7 @@ use Htsl\Parser\Section;
 
 ////////////////////////////////////////////////////////////////
 
-class SectionNode extends ANode
+class NamelessSectionNode extends ANode
 {
 	/**
 	 * The name of the section.
@@ -20,7 +20,7 @@ class SectionNode extends ANode
 
 	protected function construct():parent
 	{
-		$this->name= $this->line->pregGet('/(?<=\( ).*(?= \))/');
+		$this->name= null;
 
 		return $this;
 	}

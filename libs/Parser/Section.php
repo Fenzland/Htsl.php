@@ -24,7 +24,7 @@ class Section
 	 */
 	private $content='';
 
-	public function __construct( string$name )
+	public function __construct( string$name=null )
 	{
 		$this->name = $name;
 	}
@@ -39,5 +39,10 @@ class Section
 	public function getContent():string
 	{
 		return $this->content;
+	}
+
+	public function getName()//:string|null
+	{
+		return $this->name;
 	}
 }
