@@ -12,6 +12,7 @@ use Htsl\Parser\Node\StringNode;
 use Htsl\Parser\Node\CommentNode;
 use Htsl\Parser\Node\ControlNode;
 use Htsl\Parser\Node\SectionNode;
+use Htsl\Parser\Node\NamelessSectionNode;
 use Htsl\Parser\Node\Contracts\ANode as Node;
 
 ////////////////////////////////////////////////////////////////
@@ -463,7 +464,13 @@ class Document implements IConfigProvider
 	protected function showSection( Line$line ):self
 	{
 		$sectionName= $line->pregGet('/(?<=\( ).*(?= \))/');
-		$content= $this->getSectionContent($sectionName);
+
+		if( !isset($this->sections[$sectionName]) ){
+			$this->openNode(new StringNode($this,$line));
+
+			return $this;
+		}
+		$content= $this->sections[$sectionName]->content;
 
 		if( false!==$this->indentation ){
 			$content= preg_replace('/(?<=^|\\n)(?!$)/',str_repeat($this->indentation,$this->level),$content);
@@ -471,20 +478,13 @@ class Document implements IConfigProvider
 
 		$this->append($content);
 
-		$node= new StringNode($this,$line);
+		$node= new NamelessSectionNode($this,$line);
+
+		$node->open();
 
 		$this->openNode($node);
 
 		return $this;
-	}
-
-	public function getSectionContent( string$sectionName ):string
-	{
-		if( !isset($this->sections[$sectionName]) ){
-			$this->throw("Section $sectionName not found.");
-		}
-
-		return $this->sections[$sectionName]->content;
 	}
 
 	public function setSection( Section$section=null ):self
