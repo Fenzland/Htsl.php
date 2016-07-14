@@ -80,14 +80,14 @@ class DefaultConfigs
 						'/.?/'=> '<?php endif;?>',
 					],
 				],
-				'ifnot'=> [
+				'if-not'=> [
 					'opener'=> '<?php if( !(%s) ):?>',
 					'closer'=> [
 						'/else/'=> '',
 						'/.?/'=> '<?php endif;?>',
 					],
 				],
-				'elseif'=> [
+				'else-if'=> [
 					'opener'=> '<?php elseif( %s ):?>',
 					'closer'=> [
 						'/else/'=> '',
