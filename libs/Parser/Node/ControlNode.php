@@ -33,21 +33,23 @@ class ControlNode extends ANode
 
 	protected function construct():parent
 	{
-		$name= $this->line->pregGet('/(?<=^~)[\w]*/');
+		$name= $this->line->pregGet('/(?<=^~)[\w-]*/');
 		$this->name=$name;
 
 		$this->loadConfig($name,$this->htsl);
 
-		$this->param= $this->line->pregGet('/^~[\w]*\( (.*) \)/',1);
+		$this->param= $this->line->pregGet('/^~[\w-]*\( (.*) \)/',1);
 
 		$this->structureName=$this->config['name']??$name;
+
+		$this->id=strtoupper(uniqid());
 
 		return $this;
 	}
 
 	public function open():string
 	{
-		return sprintf($this->config['opener'],$this->param);
+		return $this->withParam($this->config['opener']);
 	}
 
 	public function getScope()
@@ -62,13 +64,26 @@ class ControlNode extends ANode
 			{ return ''; }
 
 		if( !is_array($this->config['closer']) )
-			{ return $this->config['closer']; }
+			{ return $this->withParam($this->config['closer']); }
 
 		foreach( $this->config['closer'] as $key=>$value ){
 			if( $closerLine->pregMatch($key) ){
-				return $value;
+				return $this->withParam($value);
 			}
 		}
 		return '';
+	}
+
+	private function withParam( string$input )
+	{
+		return str_replace('$_FLAG_$',"__HTSL_CTRL_FLAG_{$this->id}__",preg_replace_callback('/(?<!%)%s(\\/.+?(?<!\\\\)\\/)?/',function( array$matches ){
+			return ($matches[1]?
+				(preg_match($matches[1],$this->param,$m)?
+					$m[0]:
+					''
+				):
+				$this->param
+			);
+		},$input));
 	}
 }
