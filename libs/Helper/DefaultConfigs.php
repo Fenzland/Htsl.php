@@ -80,27 +80,34 @@ class DefaultConfigs
 				'if'=> [
 					'opener'=> '<?php if( %s ):?>',
 					'closer'=> [
-						'/else/'=> '',
+						'/else|then/'=> '',
 						'/.?/'=> '<?php endif;?>',
 					],
 				],
 				'if-not'=> [
 					'opener'=> '<?php if( !(%s) ):?>',
 					'closer'=> [
-						'/else/'=> '',
+						'/else|then/'=> '',
 						'/.?/'=> '<?php endif;?>',
 					],
 				],
 				'else-if'=> [
 					'opener'=> '<?php elseif( %s ):?>',
 					'closer'=> [
-						'/else/'=> '',
+						'/else|then/'=> '',
 						'/.?/'=> '<?php endif;?>',
 					],
 				],
 				'else'=> [
 					'opener'=> '<?php else:?>',
 					'closer'=> '<?php endif;?>',
+				],
+				'then'=> [
+					'opener'=> '',
+					'closer'=> [
+						'/else|then/'=> '',
+						'/.?/'=> '<?php endif;?>',
+					],
 				],
 				'switch'=> [
 					'opener'=> '<?php switch( %s ):?>',
