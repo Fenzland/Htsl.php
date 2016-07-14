@@ -34,6 +34,10 @@ class DefaultConfigs
 					'opener'=> '<?php while( %s ):?>',
 					'closer'=> '<?php endwhile;?>',
 				],
+				'do-while'=> [
+					'opener'=> '<?php do{?>',
+					'closer'=> '<?php }while( %s );?>',
+				],
 				'foreach'=> [
 					'opener'=> '<?php foreach( %s ):?>',
 					'closer'=> '<?php endforeach;?>',
