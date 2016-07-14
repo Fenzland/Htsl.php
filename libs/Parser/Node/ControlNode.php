@@ -47,7 +47,7 @@ class ControlNode extends ANode
 
 	public function open():string
 	{
-		return sprintf($this->config['opener'],$this->param);
+		return $this->withParam($this->config['opener']);
 	}
 
 	public function getScope()
@@ -62,13 +62,26 @@ class ControlNode extends ANode
 			{ return ''; }
 
 		if( !is_array($this->config['closer']) )
-			{ return $this->config['closer']; }
+			{ return $this->withParam($this->config['closer']); }
 
 		foreach( $this->config['closer'] as $key=>$value ){
 			if( $closerLine->pregMatch($key) ){
-				return $value;
+				return $this->withParam($value);
 			}
 		}
 		return '';
+	}
+
+	private function withParam( string$input )
+	{
+		return preg_replace_callback('/(?<!%)%s(\\/.+?(?<!\\\\)\\/)?/',function( array$matches ){
+			return ($matches[1]?
+				(preg_match($matches[1],$this->param,$m)?
+					$m[0]:
+					''
+				):
+				$this->param
+			);
+		},$input);
 	}
 }
