@@ -33,12 +33,12 @@ class ControlNode extends ANode
 
 	protected function construct():parent
 	{
-		$name= $this->line->pregGet('/(?<=^~)[\w]*/');
+		$name= $this->line->pregGet('/(?<=^~)[\w-]*/');
 		$this->name=$name;
 
 		$this->loadConfig($name,$this->htsl);
 
-		$this->param= $this->line->pregGet('/^~[\w]*\( (.*) \)/',1);
+		$this->param= $this->line->pregGet('/^~[\w-]*\( (.*) \)/',1);
 
 		$this->structureName=$this->config['name']??$name;
 
