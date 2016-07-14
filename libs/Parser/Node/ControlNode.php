@@ -42,6 +42,8 @@ class ControlNode extends ANode
 
 		$this->structureName=$this->config['name']??$name;
 
+		$this->id=strtoupper(uniqid());
+
 		return $this;
 	}
 
@@ -74,7 +76,7 @@ class ControlNode extends ANode
 
 	private function withParam( string$input )
 	{
-		return preg_replace_callback('/(?<!%)%s(\\/.+?(?<!\\\\)\\/)?/',function( array$matches ){
+		return str_replace('$_FLAG_$',"__HTSL_CTRL_FLAG_{$this->id}__",preg_replace_callback('/(?<!%)%s(\\/.+?(?<!\\\\)\\/)?/',function( array$matches ){
 			return ($matches[1]?
 				(preg_match($matches[1],$this->param,$m)?
 					$m[0]:
@@ -82,6 +84,6 @@ class ControlNode extends ANode
 				):
 				$this->param
 			);
-		},$input);
+		},$input));
 	}
 }
