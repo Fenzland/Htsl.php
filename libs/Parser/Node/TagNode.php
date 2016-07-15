@@ -179,12 +179,9 @@ class TagNode extends ANode implements ArrayAccess
 
 		$other= $this->line->pregGet('/(?<=\{).*?(?=;\}( |$))/')
 		 and array_map(function( $keyValue ){
-			if( strpos($keyValue,'=') ){
-				list($key,$value)= [strtok($keyValue,'='),strtok(''),];
-				$this->setAttribute($key,$this->checkExpression($value));
-			}else{
-				$this->setAttribute($keyValue,$keyValue);
-			}
+			preg_replace_callback('/^([\w-:]+)(?:\?(.+?))?(?:\=(.*))?$/',function($matches){
+				$this->setAttribute($matches[1],($matches[3]??$matches[1])?:$matches[1],$matches[2]??null);
+			},$keyValue);
 		},explode(';',$other));
 
 		return $attributes;
@@ -198,11 +195,23 @@ class TagNode extends ANode implements ArrayAccess
 	protected function getAttributesString():string
 	{
 		ksort($this->attributes);
-		return implode('',array_map(static function( $key, $value ){return " $key=\"$value\"";},array_keys($this->attributes),$this->attributes));
+		return implode('',array_map(static function( string$key, array$data ){
+			return (isset($data['condition'])&&strlen($data['condition'])?
+				"<?php if( {$data['condition']} ){?> $key=\"{$data['value']}\"<?php }?>"
+				:
+				" $key=\"{$data['value']}\""
+			);
+		},array_keys($this->attributes),$this->attributes));
 	}
-	protected function setAttribute( string$key , string$value ):self
+	protected function setAttribute( string$key, string$value, string$condition=null ):self
 	{
-		$this->attributes[$key]=$value;
+		if( isset($this->attributes[$key]) )
+			{ $this->document->throw("Attribute $key of $this->name cannot redeclare."); }
+
+		$this->attributes[$key]=[
+			'value'=> $value,
+			'condition'=> $condition,
+		];
 
 		return $this;
 	}
