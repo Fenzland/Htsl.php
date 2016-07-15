@@ -42,7 +42,7 @@ class TagNode extends ANode implements ArrayAccess
 
 		$this->tagName=$this->config['name']??$name;
 		$this->isEmpty= $this->line->getChar(-1)=='/' || $this->document->getConfig('empty_tags',$this->tagName);
-		$this->attributes= $this->config['default_attributes']??[];
+		isset($this->config['default_attributes']) and array_walk($this->config['default_attributes'],function( $value,$key ){ $this->setAttribute($key,$value); });
 
 		return $this;
 	}
@@ -217,7 +217,7 @@ class TagNode extends ANode implements ArrayAccess
 	}
 	public function offsetSet( $offset, $value )
 	{
-		$this->attributes[$offset]= $value;
+		$this->setAttribute($offset,$value);
 	}
 	public function offsetUnset( $offset )
 	{
