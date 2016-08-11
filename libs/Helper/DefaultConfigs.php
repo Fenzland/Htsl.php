@@ -28,32 +28,32 @@ class DefaultConfigs
 				],
 				'for'=> [
 					'opener'=> '<?php $$_FLAG_$=false;for( %s ):$$_FLAG_$=true;?>',
-					'closer'=> [
+					'close_by'=> [
 						'/else|then/'=> '<?php endfor;if( $$_FLAG_$ ):?>',
-						'/.?/'=> '<?php endfor;?>',
 					],
+					'closer'=> '<?php endfor;?>',
 				],
 				'while'=> [
 					'opener'=> '<?php $$_FLAG_$=false;while( %s ):$$_FLAG_$=true;?>',
-					'closer'=> [
+					'close_by'=> [
 						'/else|then/'=> '<?php endwhile;if( $$_FLAG_$ ):?>',
-						'/.?/'=> '<?php endwhile;?>',
 					],
+					'closer'=> '<?php endwhile;?>',
 				],
 				'do-while'=> [
 					'opener'=> '<?php $$_FLAG_$=0;do{++$$_FLAG_$;?>',
 					'closer'=> '<?php }while( %s );?>',
-					'closer'=> [
+					'close_by'=> [
 						'/else|then/'=> '<?php }while( %s );if( $$_FLAG_$>1 ):?>',
-						'/.?/'=> '<?php }while( %s );?>',
 					],
+					'closer'=> '<?php }while( %s );?>',
 				],
 				'foreach'=> [
 					'opener'=> '<?php $$_FLAG_$=false;foreach( %s ):$$_FLAG_$=true;?>',
-					'closer'=> [
+					'close_by'=> [
 						'/else|then/'=> '<?php endforeach;if( $$_FLAG_$ ):?>',
-						'/.?/'=> '<?php endforeach;?>',
 					],
+					'closer'=> '<?php endforeach;?>',
 				],
 				'continue'=> [
 					'multiple'=>[
@@ -85,24 +85,24 @@ class DefaultConfigs
 				],
 				'if'=> [
 					'opener'=> '<?php if( %s ):?>',
-					'closer'=> [
+					'close_by'=> [
 						'/else|then/'=> '',
-						'/.?/'=> '<?php endif;?>',
 					],
+					'closer'=> '<?php endif;?>',
 				],
 				'if-not'=> [
 					'opener'=> '<?php if( !(%s) ):?>',
-					'closer'=> [
+					'close_by'=> [
 						'/else|then/'=> '',
-						'/.?/'=> '<?php endif;?>',
 					],
+					'closer'=> '<?php endif;?>',
 				],
 				'else-if'=> [
 					'opener'=> '<?php elseif( %s ):?>',
-					'closer'=> [
+					'close_by'=> [
 						'/else|then/'=> '',
-						'/.?/'=> '<?php endif;?>',
 					],
+					'closer'=> '<?php endif;?>',
 				],
 				'else'=> [
 					'opener'=> '<?php else:?>',
@@ -110,10 +110,10 @@ class DefaultConfigs
 				],
 				'then'=> [
 					'opener'=> '',
-					'closer'=> [
+					'close_by'=> [
 						'/else|then/'=> '',
-						'/.?/'=> '<?php endif;?>',
 					],
+					'closer'=> '<?php endif;?>',
 				],
 				'switch'=> [
 					'opener'=> '<?php switch( %s ):?>',
