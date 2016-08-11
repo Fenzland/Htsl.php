@@ -60,17 +60,17 @@ class ControlNode extends ANode
 
 	public function close( Line$closerLine ):string
 	{
-		if( !isset($this->config['closer']) )
-			{ return ''; }
-
-		if( !is_array($this->config['closer']) )
-			{ return $this->withParam($this->config['closer']); }
-
-		foreach( $this->config['closer'] as $key=>$value ){
-			if( $closerLine->pregMatch($key) ){
-				return $this->withParam($value);
+		if( isset($this->config['close_by']) && $closerLine->indentLevel==$this->line->indentLevel ){
+			foreach( $this->config['close_by'] as $key=>$value ){
+				if( $closerLine->pregMatch($key) ){
+					return $this->withParam($value);
+				}
 			}
 		}
+
+		if( isset($this->config['closer']) )
+			{ return $this->withParam($this->config['closer']); }
+
 		return '';
 	}
 
