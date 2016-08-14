@@ -22,7 +22,7 @@ class Document implements IConfigProvider
 	use TGetter;
 
 	/**
-	 * Htsl main object.
+	 * Htsl main object owns this document.
 	 *
 	 * @var \Htsl\Htsl
 	 */
@@ -36,79 +36,79 @@ class Document implements IConfigProvider
 	private $parent;
 
 	/**
-	 * Reading buffer.
+	 * Reading buffer of this document.
 	 *
 	 * @var \Htsl\ReadingBuffer\IBuffer
 	 */
 	private $buffer;
 
 	/**
-	 * Whether output with \n and indent.
+	 * The indentation and whether output with linefeed and indent.
 	 *
-	 * @var bool
+	 * @var string | bool
 	 */
 	private $indentation;
 
 	/**
-	 * The document type.
+	 * Type of this document.
 	 *
 	 * @var string
 	 */
 	private $docType;
 
 	/**
-	 * The current embead script.
+	 * Current embead script.
 	 *
 	 * @var \Htsl\Embedment\Contract\Embedment
 	 */
 	private $embedment;
 
 	/**
-	 * The current indent level.
+	 * Current indent level.
 	 *
 	 * @var int
 	 */
 	private $level= 0;
 
 	/**
-	 * The section indent level.
+	 * Section indent level.
 	 *
 	 * @var int
 	 */
 	private $sectionLevel= 0;
 
 	/**
-	 * The opened nodes.
+	 * Opened nodes.
 	 *
-	 * @var array
+	 * @var [ Htsl\Parser\Node\Contracts\ANode, ]
 	 */
 	private $openedNodes= [];
 
 	/**
-	 * The current scopes.
+	 * Current scopes.
 	 *
-	 * @var array
+	 * @var [ Htsl\Parser\Node\Contracts\ANode, ]
 	 */
 	private $scopes= [];
 
 	/**
-	 * The current line number.
+	 * Current line number.
 	 *
 	 * @var int
 	 */
 	private $lineNumber= 0;
 
 	/**
-	 * The current line.
+	 * Current line.
 	 *
 	 * @var \Htsl\ReadingBuffer\Line
 	 */
 	private $currentLine;
 
 	/**
-	 * The document content.
+	 * Sections that can be show.
 	 *
-	 * @var array
+	 * @var [ Htsl\Parser\Section, ]
 	 */
 	private $sections=[];
 
@@ -120,19 +120,26 @@ class Document implements IConfigProvider
 	private $isExecuted;
 
 	/**
-	 * The document content.
+	 * Current Section.
 	 *
 	 * @var \Htsl\Parser\Section
 	 */
 	private $currentSection;
 
 	/**
-	 * The document content.
+	 * The content of this document.
 	 *
 	 * @var string
 	 */
 	private $content;
 
+	/**
+	 * Constructor of the Document.
+	 *
+	 * @param Htsl        $htsl
+	 * @param Buffer      $buffer
+	 * @param self | null $parent
+	 */
 	public function __construct( Htsl$htsl, Buffer$buffer, self$parent=null )
 	{
 		$this->htsl= $htsl;
@@ -147,6 +154,11 @@ class Document implements IConfigProvider
 		}
 	}
 
+	/**
+	 * Executing the document.
+	 *
+	 * @return self
+	 */
 	public function execute():self
 	{
 		if( $this->isExecuted ){
@@ -157,11 +169,21 @@ class Document implements IConfigProvider
 		;
 	}
 
+	/**
+	 * Alias of getContent.
+	 *
+	 * @return sting
+	 */
 	public function __toString():string
 	{
 		return $this->getContent();
 	}
 
+	/**
+	 * Getting the result of document executing.
+	 *
+	 * @return string
+	 */
 	protected function getContent():string
 	{
 		if( $this->parent ){
@@ -171,31 +193,62 @@ class Document implements IConfigProvider
 		}
 	}
 
+	/**
+	 * Getting the next line.
+	 *
+	 * @return Htsl\ReadingBuffer\Line
+	 */
 	protected function getLine():Line
 	{
 		return $this->buffer->getLine();
 	}
 
+	/**
+	 * Getting the config of type of this document.
+	 *
+	 * @param  [ string, ] $keys
+	 * @return mixed
+	 */
 	public function getConfig( string...$keys )
 	{
 		return $this->htsl->getConfig(array_shift($keys),$this->docType,...$keys);
 	}
 
+	/**
+	 * Getting the type of this document.
+	 *
+	 * @return string
+	 */
 	public function getDoctype():string
 	{
 		return $this->docType;
 	}
 
+	/**
+	 * Getting the indentation.
+	 *
+	 * @return string | bool
+	 */
 	public function getIndentation()
 	{
 		return $this->indentation;
 	}
 
+	/**
+	 * Getting the indent level.
+	 *
+	 * @return int
+	 */
 	public function getIndentLevel():int
 	{
 		return $this->level;
 	}
 
+	/**
+	 * Parsing the first line.
+	 *
+	 * @return self
+	 */
 	protected function parseFirstLine():self
 	{
 		$line= $this->getLine();
@@ -214,6 +267,11 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Setting that this document extends another document.
+	 *
+	 * @param Htsl\ReadingBuffer\Line $firstLine
+	 */
 	protected function setExtending( Line$firstLine ):self
 	{
 		switch( $name= $firstLine->pregGet('/(?<=^@)[\w-:]+/') ){
@@ -233,6 +291,11 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Parsing this document line by line.
+	 *
+	 * @return self
+	 */
 	protected function lineByLine():self
 	{
 		while( ($line= $this->getLine())->hasMore() ){
@@ -254,6 +317,13 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Parsing embedded line.
+	 *
+	 * @param  Htsl\ReadingBuffer\Line   $line
+	 *
+	 * @return self
+	 */
 	protected function embeddingParse( Line$line ):self
 	{
 		if( $line->content==='<}' ){
@@ -264,6 +334,13 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Starting the embedding.
+	 *
+	 * @param  string $embedType
+	 *
+	 * @return self
+	 */
 	protected function startEmbedding( string$embedType ):self
 	{
 		$embedmentClass= '\\Htsl\\Embedment\\'.ucfirst($embedType).'Embedment';
@@ -274,6 +351,11 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Ending the embedding.
+	 *
+	 * @return self
+	 */
 	public function breakEmbedding():self
 	{
 		$this->append($this->embedment->getContent());
@@ -282,6 +364,13 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Parsing line.
+	 *
+	 * @param  Htsl\ReadingBuffer\Line   $line
+	 *
+	 * @return self
+	 */
 	protected function parseLine( Line$line ):self
 	{
 		$this->currentLine= $line;
@@ -316,6 +405,13 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Parsing line as HTML content.
+	 *
+	 * @param  Htsl\ReadingBuffer\Line   $line
+	 *
+	 * @return self
+	 */
 	protected function parseHtmlLine( Line$line ):self
 	{
 		$node= new StringNode($this,$line);
@@ -327,6 +423,13 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Parsing line as string content.
+	 *
+	 * @param  Htsl\ReadingBuffer\Line   $line
+	 *
+	 * @return self
+	 */
 	protected function parseStringLine( Line$line ):self
 	{
 		$node= new StringNode($this,$line);
@@ -338,6 +441,13 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Parsing line as PHP expression.
+	 *
+	 * @param  Htsl\ReadingBuffer\Line   $line
+	 *
+	 * @return self
+	 */
 	protected function parseExpressionLine( Line$line ):self
 	{
 		$node= new StringNode($this,$line);
@@ -352,6 +462,13 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Parsing line as PHP expression with HTML result.
+	 *
+	 * @param  Htsl\ReadingBuffer\Line   $line
+	 *
+	 * @return self
+	 */
 	protected function parseExpressionHtmlLine( Line$line ):self
 	{
 		$node= new StringNode($this,$line);
@@ -365,6 +482,13 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Parsing line as comment.
+	 *
+	 * @param  Htsl\ReadingBuffer\Line   $line
+	 *
+	 * @return self
+	 */
 	protected function parseCommentLine( Line$line ):self
 	{
 		$node= new CommentNode($this,$line);
@@ -376,6 +500,13 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Parsing line as HTSL tag.
+	 *
+	 * @param  Htsl\ReadingBuffer\Line   $line
+	 *
+	 * @return self
+	 */
 	protected function parseTagLine( Line$line ):self
 	{
 		$tag= new TagNode($this,$line);
@@ -389,6 +520,13 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Parsing line as control node of Htsl.php.
+	 *
+	 * @param  Htsl\ReadingBuffer\Line   $line
+	 *
+	 * @return self
+	 */
 	protected function parseControlLine( Line$line ):self
 	{
 		$controlStructure= new ControlNode($this,$line);
@@ -400,6 +538,13 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Parsing line as document control node of Htsl.php.
+	 *
+	 * @param  Htsl\ReadingBuffer\Line   $line
+	 *
+	 * @return self
+	 */
 	protected function parseDocControlLine( Line$line ):self
 	{
 		switch( $name= $line->pregGet('/(?<=^@)[\w-:]+/') ){
@@ -423,6 +568,13 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Parsing extending defination.
+	 *
+	 * @param  string $fileName
+	 *
+	 * @return self
+	 */
 	protected function extend( string$fileName ):self
 	{
 		$this->parent= new static($this->htsl,$this->buffer->goSide($fileName),null,$this->indentation);
@@ -433,6 +585,13 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Include another document.
+	 *
+	 * @param  Htsl\ReadingBuffer\Line   $line
+	 *
+	 * @return self
+	 */
 	protected function include( Line$line ):self
 	{
 		$inclued= (new static($this->htsl,$this->buffer->goSide($line->pregGet('/(?<=\( ).*(?= \))/')),$this,$this->indentation))->execute()->content;
@@ -450,6 +609,13 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Starting to define a section.
+	 *
+	 * @param  Htsl\ReadingBuffer\Line   $line
+	 *
+	 * @return self
+	 */
 	protected function defineSection( Line$line ):self
 	{
 		$node= new SectionNode($this,$line);
@@ -461,6 +627,13 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Showing a section.
+	 *
+	 * @param  Htsl\ReadingBuffer\Line   $line
+	 *
+	 * @return self
+	 */
 	protected function showSection( Line$line ):self
 	{
 		$sectionName= $line->pregGet('/(?<=\( ).*(?= \))/');
@@ -487,6 +660,11 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Setting document as section definer.
+	 *
+	 * @param Section | null $section
+	 */
 	public function setSection( Section$section=null ):self
 	{
 		if( !$section ){
@@ -515,7 +693,12 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
-	protected function bubbleSections()
+	/**
+	 * Bubble the sections to parent document.
+	 *
+	 * @return self
+	 */
+	protected function bubbleSections():self
 	{
 		if( $this->parent ){
 			foreach( $this->sections as $name=>$section ){
@@ -528,11 +711,23 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Escaping characters to HTML entities.
+	 *
+	 * @param  string $input
+	 *
+	 * @return string
+	 */
 	public function htmlEntities( string$input ):string
 	{
 		return htmlentities($input,$this->htsl->getConfig('ENT_flags',$this->docType),'UTF-8',false);
 	}
 
+	/**
+	 * Setting indent level of this document.
+	 *
+	 * @param int $level
+	 */
 	protected function setLevel( int$level ):self
 	{
 		$level-= $this->level;
@@ -548,6 +743,13 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Opening a node.
+	 *
+	 * @param  Htsl\Parser\Node\Contracts\ANode $node
+	 *
+	 * @return self
+	 */
 	protected function openNode( Node$node ):self
 	{
 		array_push($this->openedNodes,$node);
@@ -557,6 +759,13 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Closing open node or nodes.
+	 *
+	 * @param  int $level
+	 *
+	 * @return self
+	 */
 	protected function closeNodes( int$level=0 ):self
 	{
 		if( empty($this->openedNodes) ) return $this;
@@ -574,16 +783,33 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Pushing a scope to stack.
+	 *
+	 * @param Node $scope
+	 */
 	protected function setScope( Node$scope ):int
 	{
 		return array_unshift($this->scopes,$scope);
 	}
 
+	/**
+	 * Getting current scope on top of stack.
+	 *
+	 * @return Htsl\Parser\Node\Contracts\ANode | null
+	 */
 	public function getScope()
 	{
 		return $this->scopes[0]??null;
 	}
 
+	/**
+	 * Pop a scope from stack.
+	 *
+	 * @param  Htsl\Parser\Node\Contracts\ANode $scope
+	 *
+	 * @return self
+	 */
 	protected function removeScope( Node$scope ):self
 	{
 		if( $scope!==array_shift($this->scopes) ){
@@ -593,6 +819,13 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Appending a line of content to parsing result.
+	 *
+	 * @param  string $content
+	 *
+	 * @return self
+	 */
 	protected function appendLine( string$content ):self
 	{
 		if( false!==$this->indentation ){
@@ -602,6 +835,13 @@ class Document implements IConfigProvider
 		return $this->append($content);
 	}
 
+	/**
+	 * Appending some content to parsing result.
+	 *
+	 * @param  string $content
+	 *
+	 * @return self
+	 */
 	protected function append( string$content ):self
 	{
 		if( $this->currentSection ){
@@ -613,11 +853,23 @@ class Document implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Getting the Htsl main object.
+	 *
+	 * @return Htsl\Htsl
+	 */
 	public function getHtsl()
 	{
 		return $this->htsl;
 	}
 
+	/**
+	 * Throw exception with document name and line number.
+	 *
+	 * @param  string $message
+	 *
+	 * @throw Htsl\Parser\HtslParsingException
+	 */
 	public function throw( string$message )
 	{
 		throw new HtslParsingException("$message at file {$this->buffer->fileName} line $this->lineNumber");

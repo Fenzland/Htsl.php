@@ -40,7 +40,7 @@ class Htsl implements IConfigProvider
 	}
 
 	/**
-	 * To parse a HTSL code string into HTML or PHP code string.
+	 * Parsing a HTSL code string into HTML or PHP code string.
 	 *
 	 * @param  string $content
 	 *
@@ -52,7 +52,7 @@ class Htsl implements IConfigProvider
 	}
 
 	/**
-	 * To compile a HTSL file into a HTML or PHP file.
+	 * Compiling a HTSL file into a HTML or PHP file.
 	 *
 	 * @param  string $fromFile
 	 * @param  string $toFile
@@ -72,6 +72,11 @@ class Htsl implements IConfigProvider
 		}
 	}
 
+	/**
+	 * Setting the file getter.
+	 *
+	 * @param callable $fileGetter
+	 */
 	public function setFileGetter( callable$fileGetter ):self
 	{
 		$this->fileGetter=$fileGetter;
@@ -79,6 +84,13 @@ class Htsl implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Setting the base path of the HTSL project to parse.
+	 *
+	 * @param string $basePath
+	 *
+	 * @return self
+	 */
 	public function setBasePath( string$basePath ):self
 	{
 		$this->basePath= '/'===substr($basePath,-1) ? substr($basePath,0,-1) : $basePath;
@@ -86,15 +98,21 @@ class Htsl implements IConfigProvider
 		return $this;
 	}
 
+	/**
+	 * Returning whether the debug model is on or off.
+	 *
+	 * @return boolean
+	 */
 	public function isDebug():bool
 	{
 		return !!$this->getConfig('debug');
 	}
 
 	/**
-	 * Execute the parsing.
+	 * Executing the parsing.
 	 *
 	 * @param  \Helper\ReadingBuffer\IBuffer $buffer
+	 *
 	 * @return string
 	 */
 	protected function execute( ABuffer$buffer ):string
@@ -103,7 +121,7 @@ class Htsl implements IConfigProvider
 	}
 
 	/**
-	 * Get the config of Htsl.
+	 * Getting the config of Htsl.
 	 *
 	 * @param  string $key
 	 *
@@ -123,6 +141,14 @@ class Htsl implements IConfigProvider
 		return $result;
 	}
 
+	/**
+	 * Getting the real file path of the HTSL file by relative path.
+	 *
+	 * @param  string      $filePath
+	 * @param  string|null $path
+	 *
+	 * @return string
+	 */
 	public function getFilePath( string$filePath, string$path=null ):string
 	{
 		if( !isset($this->basePath) )
@@ -147,13 +173,19 @@ class Htsl implements IConfigProvider
 
 	}
 
+	/**
+	 * Getting the content of file.
+	 *
+	 * @param  string $filePath
+	 * @return string
+	 */
 	public function getFileContent( string$filePath ):string
 	{
 		return isset($this->fileGetter) ? $this->fileGetter($filePath) : file_get_contents($filePath);
 	}
 
 	/**
-	 * Get default config.
+	 * Getting default config.
 	 *
 	 * @return array
 	 */
