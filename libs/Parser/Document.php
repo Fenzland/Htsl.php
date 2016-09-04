@@ -38,7 +38,7 @@ class Document implements IConfigProvider
 	/**
 	 * Reading buffer of this document.
 	 *
-	 * @var \Htsl\ReadingBuffer\IBuffer
+	 * @var \Htsl\ReadingBuffer\Contracts\ABuffer
 	 */
 	private $buffer;
 
@@ -136,9 +136,9 @@ class Document implements IConfigProvider
 	/**
 	 * Constructor of the Document.
 	 *
-	 * @param Htsl        $htsl
-	 * @param Buffer      $buffer
-	 * @param self | null $parent
+	 * @param \Htsl\Htsl                            $htsl
+	 * @param \Htsl\ReadingBuffer\Contracts\ABuffer $buffer
+	 * @param \Htsl\Parser\Document | null          $parent
 	 */
 	public function __construct( Htsl$htsl, Buffer$buffer, self$parent=null )
 	{
@@ -157,7 +157,7 @@ class Document implements IConfigProvider
 	/**
 	 * Executing the document.
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	public function execute():self
 	{
@@ -196,7 +196,7 @@ class Document implements IConfigProvider
 	/**
 	 * Getting the next line.
 	 *
-	 * @return Htsl\ReadingBuffer\Line
+	 * @return \Htsl\ReadingBuffer\Line
 	 */
 	protected function getLine():Line
 	{
@@ -206,7 +206,7 @@ class Document implements IConfigProvider
 	/**
 	 * Getting the config of type of this document.
 	 *
-	 * @param  [ string, ] $keys
+	 * @param  [ string, ] ...$keys
 	 * @return mixed
 	 */
 	public function getConfig( string...$keys )
@@ -247,7 +247,7 @@ class Document implements IConfigProvider
 	/**
 	 * Parsing the first line.
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function parseFirstLine():self
 	{
@@ -270,7 +270,7 @@ class Document implements IConfigProvider
 	/**
 	 * Setting that this document extends another document.
 	 *
-	 * @param Htsl\ReadingBuffer\Line $firstLine
+	 * @param \Htsl\ReadingBuffer\Line $firstLine
 	 */
 	protected function setExtending( Line$firstLine ):self
 	{
@@ -294,7 +294,7 @@ class Document implements IConfigProvider
 	/**
 	 * Parsing this document line by line.
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function lineByLine():self
 	{
@@ -320,9 +320,9 @@ class Document implements IConfigProvider
 	/**
 	 * Parsing embedded line.
 	 *
-	 * @param  Htsl\ReadingBuffer\Line   $line
+	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function embeddingParse( Line$line ):self
 	{
@@ -339,7 +339,7 @@ class Document implements IConfigProvider
 	 *
 	 * @param  string $embedType
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function startEmbedding( string$embedType ):self
 	{
@@ -354,7 +354,7 @@ class Document implements IConfigProvider
 	/**
 	 * Ending the embedding.
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	public function breakEmbedding():self
 	{
@@ -367,9 +367,9 @@ class Document implements IConfigProvider
 	/**
 	 * Parsing line.
 	 *
-	 * @param  Htsl\ReadingBuffer\Line   $line
+	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function parseLine( Line$line ):self
 	{
@@ -408,9 +408,9 @@ class Document implements IConfigProvider
 	/**
 	 * Parsing line as HTML content.
 	 *
-	 * @param  Htsl\ReadingBuffer\Line   $line
+	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function parseHtmlLine( Line$line ):self
 	{
@@ -426,9 +426,9 @@ class Document implements IConfigProvider
 	/**
 	 * Parsing line as string content.
 	 *
-	 * @param  Htsl\ReadingBuffer\Line   $line
+	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function parseStringLine( Line$line ):self
 	{
@@ -444,9 +444,9 @@ class Document implements IConfigProvider
 	/**
 	 * Parsing line as PHP expression.
 	 *
-	 * @param  Htsl\ReadingBuffer\Line   $line
+	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function parseExpressionLine( Line$line ):self
 	{
@@ -465,9 +465,9 @@ class Document implements IConfigProvider
 	/**
 	 * Parsing line as PHP expression with HTML result.
 	 *
-	 * @param  Htsl\ReadingBuffer\Line   $line
+	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function parseExpressionHtmlLine( Line$line ):self
 	{
@@ -485,9 +485,9 @@ class Document implements IConfigProvider
 	/**
 	 * Parsing line as comment.
 	 *
-	 * @param  Htsl\ReadingBuffer\Line   $line
+	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function parseCommentLine( Line$line ):self
 	{
@@ -503,9 +503,9 @@ class Document implements IConfigProvider
 	/**
 	 * Parsing line as HTSL tag.
 	 *
-	 * @param  Htsl\ReadingBuffer\Line   $line
+	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function parseTagLine( Line$line ):self
 	{
@@ -523,9 +523,9 @@ class Document implements IConfigProvider
 	/**
 	 * Parsing line as control node of Htsl.php.
 	 *
-	 * @param  Htsl\ReadingBuffer\Line   $line
+	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function parseControlLine( Line$line ):self
 	{
@@ -541,9 +541,9 @@ class Document implements IConfigProvider
 	/**
 	 * Parsing line as document control node of Htsl.php.
 	 *
-	 * @param  Htsl\ReadingBuffer\Line   $line
+	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function parseDocControlLine( Line$line ):self
 	{
@@ -573,7 +573,7 @@ class Document implements IConfigProvider
 	 *
 	 * @param  string $fileName
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function extend( string$fileName ):self
 	{
@@ -588,9 +588,9 @@ class Document implements IConfigProvider
 	/**
 	 * Include another document.
 	 *
-	 * @param  Htsl\ReadingBuffer\Line   $line
+	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function include( Line$line ):self
 	{
@@ -612,9 +612,9 @@ class Document implements IConfigProvider
 	/**
 	 * Starting to define a section.
 	 *
-	 * @param  Htsl\ReadingBuffer\Line   $line
+	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function defineSection( Line$line ):self
 	{
@@ -630,9 +630,9 @@ class Document implements IConfigProvider
 	/**
 	 * Showing a section.
 	 *
-	 * @param  Htsl\ReadingBuffer\Line   $line
+	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function showSection( Line$line ):self
 	{
@@ -696,7 +696,7 @@ class Document implements IConfigProvider
 	/**
 	 * Bubble the sections to parent document.
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function bubbleSections():self
 	{
@@ -746,9 +746,9 @@ class Document implements IConfigProvider
 	/**
 	 * Opening a node.
 	 *
-	 * @param  Htsl\Parser\Node\Contracts\ANode $node
+	 * @param  \Htsl\Parser\Node\Contracts\ANode $node
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function openNode( Node$node ):self
 	{
@@ -764,7 +764,7 @@ class Document implements IConfigProvider
 	 *
 	 * @param  int $level
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function closeNodes( int$level=0 ):self
 	{
@@ -786,7 +786,7 @@ class Document implements IConfigProvider
 	/**
 	 * Pushing a scope to stack.
 	 *
-	 * @param Node $scope
+	 * @param \Htsl\Parser\Node\Contracts\ANode $scope
 	 */
 	protected function setScope( Node$scope ):int
 	{
@@ -796,7 +796,7 @@ class Document implements IConfigProvider
 	/**
 	 * Getting current scope on top of stack.
 	 *
-	 * @return Htsl\Parser\Node\Contracts\ANode | null
+	 * @return \Htsl\Parser\Node\Contracts\ANode | null
 	 */
 	public function getScope()
 	{
@@ -806,9 +806,9 @@ class Document implements IConfigProvider
 	/**
 	 * Pop a scope from stack.
 	 *
-	 * @param  Htsl\Parser\Node\Contracts\ANode $scope
+	 * @param  \Htsl\Parser\Node\Contracts\ANode $scope
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function removeScope( Node$scope ):self
 	{
@@ -824,7 +824,7 @@ class Document implements IConfigProvider
 	 *
 	 * @param  string $content
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function appendLine( string$content ):self
 	{
@@ -840,7 +840,7 @@ class Document implements IConfigProvider
 	 *
 	 * @param  string $content
 	 *
-	 * @return self
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function append( string$content ):self
 	{
@@ -856,7 +856,7 @@ class Document implements IConfigProvider
 	/**
 	 * Getting the Htsl main object.
 	 *
-	 * @return Htsl\Htsl
+	 * @return \Htsl\Htsl
 	 */
 	public function getHtsl()
 	{
@@ -868,7 +868,7 @@ class Document implements IConfigProvider
 	 *
 	 * @param  string $message
 	 *
-	 * @throw Htsl\Parser\HtslParsingException
+	 * @throw \Htsl\Parser\HtslParsingException
 	 */
 	public function throw( string$message )
 	{

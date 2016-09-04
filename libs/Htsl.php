@@ -111,7 +111,7 @@ class Htsl implements IConfigProvider
 	/**
 	 * Executing the parsing.
 	 *
-	 * @param  \Helper\ReadingBuffer\IBuffer $buffer
+	 * @param  \Htsl\ReadingBuffer\Contracts\ABuffer $buffer
 	 *
 	 * @return string
 	 */

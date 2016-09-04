@@ -23,19 +23,39 @@ abstract class AEmbedment
 	 */
 	protected $document;
 
-	final public function __construct(Document $document)
+	/**
+	 * Constructor.
+	 *
+	 * @param \Htsl\Parser\Document $document
+	 */
+	final public function __construct( Document$document )
 	{
 		$this->document= $document;
 
 		$this->construct();
 	}
 
+	/**
+	 * Getting content.
+	 *
+	 * @return string
+	 */
 	final public function getContent():string
 	{
 		return $this->content;
 	}
 
+	/**
+	 * Real constructor to be rewrite.
+	 */
 	protected function construct(){}
 
+	/**
+	 * Parsing line.
+	 *
+	 * @param  \Htsl\ReadingBuffer\Line $line
+	 *
+	 * @return \Htsl\Embedment\Contracts
+	 */
 	abstract public function parseLine( Line$line ):self;
 }
