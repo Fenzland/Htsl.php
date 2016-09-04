@@ -17,12 +17,22 @@ class CommentNode extends ANode
 	 */
 	private $htmlComment;
 
+	/**
+	 * Real contructor.
+	 *
+	 * @return \Htsl\Parser\Node\Contracts\ANode
+	 */
 	protected function construct():parent
 	{
 		$this->htmlComment= '!'!==$this->line->getChar(1);
 		return $this;
 	}
 
+	/**
+	 * Opening this node, and returning node opener.
+	 *
+	 * @return string
+	 */
 	public function open():string
 	{
 		return $this->htmlComment ?
@@ -30,6 +40,13 @@ class CommentNode extends ANode
 		                         '<?php /* '.substr($this->line->getContent(),2);
 	}
 
+	/**
+	 * Close this node, and returning node closer.
+	 *
+	 * @param  \Htsl\ReadingBuffer\Line   $closerLine  The line when node closed.
+	 *
+	 * @return string
+	 */
 	public function close( Line$closerLine ):string
 	{
 		return $this->htmlComment ? '-->' : ' */ ?>';

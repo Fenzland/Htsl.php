@@ -15,6 +15,12 @@ class FileBuffer extends Contracts\ABuffer
 	 */
 	private $handle;
 
+	/**
+	 * Constructing a file buffer reading HTSL content from file system.
+	 *
+	 * @param Htsl   $htsl     Main Htsl object
+	 * @param string $filePath
+	 */
 	public function __construct( Htsl$htsl, string$filePath )
 	{
 		substr($filePath,-5)==='.htsl' or $filePath.= '.htsl';
@@ -30,11 +36,19 @@ class FileBuffer extends Contracts\ABuffer
 		parent::__construct($htsl);
 	}
 
+	/**
+	 * Destructor
+	 */
 	public function __destruct()
 	{
 		fclose($this->handle);
 	}
 
+	/**
+	 * Getting first line or next line.
+	 *
+	 * @return \Htsl\ReadingBuffer\Line
+	 */
 	public function getLine():Line
 	{
 		while( "\n"===$content= fgets($this->handle) );
@@ -42,6 +56,13 @@ class FileBuffer extends Contracts\ABuffer
 		return new Line($content);
 	}
 
+	/**
+	 * Getting another file reference file of this buffer.
+	 *
+	 * @param  string $filePath
+	 *
+	 * @return \Htsl\ReadingBuffer\Contracts\ABuffer
+	 */
 	public function goSide( $filePath ):parent
 	{
 		$filePath= $this->htsl->getFilePath($filePath,dirname($this->filePath));
