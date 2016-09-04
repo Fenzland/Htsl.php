@@ -45,5 +45,12 @@ abstract class ABuffer
 		return $this->fileName;
 	}
 
+	/**
+	 * Getting another file reference file of this buffer.
+	 *
+	 * @param  string $filePath
+	 *
+	 * @return \Htsl\ReadingBuffer\Contracts\ABuffer
+	 */
 	abstract public function goSide( $fileName ):self;
 }

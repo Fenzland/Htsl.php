@@ -9,6 +9,13 @@ use Htsl\ReadingBuffer\Line;
 
 class CodeEmbedment extends AEmbedment
 {
+	/**
+	 * Parsing line.
+	 *
+	 * @param  \Htsl\ReadingBuffer\Line $line
+	 *
+	 * @return \Htsl\Embedment\Contracts
+	 */
 	public function parseLine( Line$line ):parent
 	{
 		$content= '<code>'.htmlentities($line->fullContent).'</code>';

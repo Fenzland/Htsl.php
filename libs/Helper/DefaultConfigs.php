@@ -6,6 +6,11 @@ namespace Htsl\Helper;
 
 class DefaultConfigs
 {
+	/**
+	 * Getting default configurations of HTSL and Htsl.php
+	 *
+	 * @return array
+	 */
 	public static function get():array
 	{
 		return [
