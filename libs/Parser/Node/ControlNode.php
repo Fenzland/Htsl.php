@@ -76,14 +76,27 @@ class ControlNode extends ANode
 
 	private function withParam( string$input )
 	{
-		return str_replace('$_FLAG_$',"__HTSL_CTRL_FLAG_{$this->id}__",preg_replace_callback('/(?<!%)%s(\\/.+?(?<!\\\\)\\/)?/',function( array$matches ){
-			return (isset($matches[1])?
-				(preg_match($matches[1],$this->param,$m)?
-					$m[0]:
-					''
-				):
-				$this->param
-			);
+		return str_replace('$_FLAG_$',"__HTSL_CTRL_FLAG_{$this->id}__",preg_replace_callback('/(?<!%)%s((?:\\/.+?(?<!\\\\)\\/.+?(?<!\\\\)\\/)+)?/',function( array$matches ){
+			$param= $this->param;
+
+			if( isset($matches[1]) ){
+				array_map(...[
+					function($replacer)use(&$param){
+						list($pattern,$replacement,)= preg_split('/(?<!\\\\)\\//',$replacer);
+						$param= preg_replace(...[
+							"/$pattern/",
+							$replacement,
+							$param,
+						]);
+					},
+					preg_split(
+						'/(?<!\\\\)\\/\\//'
+						,
+						trim($matches[1],'/')
+					),
+				]);
+			}
+			return $param;
 		},$input));
 	}
 }
