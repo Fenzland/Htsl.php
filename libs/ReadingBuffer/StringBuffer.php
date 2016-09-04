@@ -23,7 +23,7 @@ class StringBuffer extends Contracts\ABuffer
 
 		$this->filePath= $filePath;
 
-		$this->lines= array_filter(explode("\n",$content));
+		$this->lines= array_filter(explode("\n",$content),'strlen');
 		array_unshift($this->lines,null);
 
 		parent::__construct($htsl);

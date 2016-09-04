@@ -76,6 +76,11 @@ class Line
 		return $this->getContent();
 	}
 
+	public function isEmpty():bool
+	{
+		return !strlen($this->content);
+	}
+
 	public function isLast():bool
 	{
 		return $this->isLast;
