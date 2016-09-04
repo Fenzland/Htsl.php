@@ -51,7 +51,9 @@ class FileBuffer extends Contracts\ABuffer
 	 */
 	public function getLine():Line
 	{
-		return new Line(fgets($this->handle));
+		while( "\n"===$content= fgets($this->handle) );
+
+		return new Line($content);
 	}
 
 	/**

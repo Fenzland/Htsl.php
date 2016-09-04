@@ -151,6 +151,16 @@ class Line
 	}
 
 	/**
+	 * Wether this line is empty.
+	 *
+	 * @return bool
+	 */
+	public function isEmpty():bool
+	{
+		return !strlen($this->content);
+	}
+
+	/**
 	 * Whether this line is last line.
 	 *
 	 * @return bool

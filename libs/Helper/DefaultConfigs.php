@@ -102,6 +102,13 @@ class DefaultConfigs
 					],
 					'closer'=> '<?php endif;?>',
 				],
+				'if-all'=> [
+					'opener'=> '<?php if( %s/^/( //, / )and( //,$/ )/ ):?>',
+					'close_by'=> [
+						'/else|then/'=> '<?php endif; if( %s/^/( //, / )or( //,$/ )/ ):?>',
+					],
+					'closer'=> '<?php endif;?>',
+				],
 				'else-if'=> [
 					'opener'=> '<?php elseif( %s ):?>',
 					'close_by'=> [

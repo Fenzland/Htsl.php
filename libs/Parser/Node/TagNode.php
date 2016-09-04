@@ -156,7 +156,7 @@ class TagNode extends ANode implements ArrayAccess
 	 */
 	protected function parseLink():self
 	{
-		$link= $this->line->pregGet('/ @((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp))+?\)))(?= |$)/',1);
+		$link= $this->line->pregGet('/ @((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp)?)+?\)))(?= |$)/',1);
 
 		if( strlen($link) ){
 			if( isset($this->config['target']) && ':'===$link{0} ){
@@ -180,7 +180,7 @@ class TagNode extends ANode implements ArrayAccess
 	 */
 	protected function parseTarget():self
 	{
-		$target= $this->line->pregGet('/ >((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp))+?\)))(?= |$)/',1);
+		$target= $this->line->pregGet('/ >((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp)?)+?\)))(?= |$)/',1);
 
 		if( strlen($target) ){
 			$this->setAttribute($this->config['target'],$this->checkExpression($target));
@@ -196,7 +196,7 @@ class TagNode extends ANode implements ArrayAccess
 	 */
 	protected function parseAlt():self
 	{
-		$alt= $this->line->pregGet('/ _((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp))+?\)))(?= |$)/',1);
+		$alt= $this->line->pregGet('/ _((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp)?)+?\)))(?= |$)/',1);
 
 		if( strlen($alt) ){
 			$this->setAttribute($this->config['alt'],$this->checkExpression($alt));
@@ -214,15 +214,15 @@ class TagNode extends ANode implements ArrayAccess
 	{
 		$attributes= '';
 
-		$id= $this->line->pregGet('/ #([^ ]+|(?<exp>\((?:[^()]+|(?&exp))+?\)))(?= |$)/',1)
+		$id= $this->line->pregGet('/ #([^ ]+|(?<exp>\((?:[^()]+|(?&exp)?)+?\)))(?= |$)/',1)
 		 and $this->setAttribute('id',$id);
 
 		$classes= $this->line->pregGet('/ \.[^ ]+(?= |$)/')
-		 and preg_match_all('/\.((?(?!\()[^.]+|(?<exp>\((?:[^()]+|(?&exp))+?\))))/',$classes,$matches)
+		 and preg_match_all('/\.((?(?!\()[^.]+|(?<exp>\((?:[^()]+|(?&exp)?)+?\))))/',$classes,$matches)
 		  and $classes= implode(' ',array_filter(array_map(function( $className ){return $this->checkExpression($className);},$matches[1])))
 		   and $this->setAttribute('class',$classes);
 
-		$title= $this->line->pregGet('/ \^((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp))+?\)))(?= |$)/',1)
+		$title= $this->line->pregGet('/ \^((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp)?)+?\)))(?= |$)/',1)
 		 and $this->setAttribute('title',$title);
 
 		$style= $this->line->pregGet('/ \[([^\]]+;)(?=\]( |$))/',1)
