@@ -36,7 +36,7 @@ class Htsl implements IConfigProvider
 	 */
 	public function __construct( array$config=[] )
 	{
-		$this->config= $config+$this->getDefaultConfigs();
+		$this->config= array_replace_recursive($this->getDefaultConfigs(),$config);
 	}
 
 	/**
