@@ -173,7 +173,11 @@ class Document implements IConfigProvider
 
 	protected function getLine():Line
 	{
-		return $this->buffer->getLine();
+		do{
+			$line= $this->buffer->getLine();
+		}while( $line->isEmpty() && $line->hasMore() );
+
+		return $line;
 	}
 
 	public function getConfig( string...$keys )
