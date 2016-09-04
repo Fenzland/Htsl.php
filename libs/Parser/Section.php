@@ -24,24 +24,45 @@ class Section
 	 */
 	private $content='';
 
+	/**
+	 * Setting name and constructing instance of Section.
+	 *
+	 * @param string | null $name
+	 */
 	public function __construct( string$name=null )
 	{
 		$this->name = $name;
 	}
 
-	public function append($content):self
+	/**
+	 * Appending content to this section.
+	 *
+	 * @param  string $content
+	 * @return self
+	 */
+	public function append( string$content ):self
 	{
 		$this->content.=$content;
 
 		return $this;
 	}
 
+	/**
+	 * Getting content of this section.
+	 *
+	 * @return string
+	 */
 	public function getContent():string
 	{
 		return $this->content;
 	}
 
-	public function getName()//:string|null
+	/**
+	 * Getting name of this section
+	 *
+	 * @return string | null
+	 */
+	public function getName()#:string|null
 	{
 		return $this->name;
 	}

@@ -6,6 +6,11 @@ namespace Htsl\Helper;
 
 class DefaultConfigs
 {
+	/**
+	 * Getting default configurations of HTSL and Htsl.php
+	 *
+	 * @return array
+	 */
 	public static function get():array
 	{
 		return [
@@ -94,6 +99,13 @@ class DefaultConfigs
 					'opener'=> '<?php if( !(%s) ):?>',
 					'close_by'=> [
 						'/else|then/'=> '',
+					],
+					'closer'=> '<?php endif;?>',
+				],
+				'if-all'=> [
+					'opener'=> '<?php if( %s/^/( //, / )and( //,$/ )/ ):?>',
+					'close_by'=> [
+						'/else|then/'=> '<?php endif; if( %s/^/( //, / )or( //,$/ )/ ):?>',
 					],
 					'closer'=> '<?php endif;?>',
 				],

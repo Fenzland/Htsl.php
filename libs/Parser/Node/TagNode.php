@@ -12,26 +12,31 @@ use ArrayAccess;
 class TagNode extends ANode implements ArrayAccess
 {
 	/**
-	 * The html name of the tag.
+	 * The html tag name of this node.
 	 *
 	 * @var string
 	 */
 	private $tagName;
 
 	/**
-	 * Whether the tag is empty.
+	 * Whether the html tag is empty.
 	 *
 	 * @var bool
 	 */
 	private $isEmpty;
 
 	/**
-	 * The attributes of the tag.
+	 * The attributes of this node.
 	 *
 	 * @var array
 	 */
 	private $attributes=[];
 
+	/**
+	 * Real constructor.
+	 *
+	 * @return \Htsl\Parser\Node\Contracts\ANode
+	 */
 	protected function construct():parent
 	{
 
@@ -47,6 +52,11 @@ class TagNode extends ANode implements ArrayAccess
 		return $this;
 	}
 
+	/**
+	 * Opening this tag node, and returning node opener.
+	 *
+	 * @return string
+	 */
 	public function open():string
 	{
 		if( isset($this->config['opener']) )
@@ -77,22 +87,43 @@ class TagNode extends ANode implements ArrayAccess
 		return "<{$this->tagName}{$this->attributesString}{$finisher}";
 	}
 
+	/**
+	 * Close this tag node, and returning node closer.
+	 *
+	 * @param  \Htsl\ReadingBuffer\Line   $closerLine  The line when node closed.
+	 *
+	 * @return string
+	 */
 	public function close( Line$Line ):string
 	{
 		return $this->isEmpty ? '' : $this->config['closer']??"</{$this->tagName}>";
 	}
 
+	/**
+	 * Getting whether this is embedding node and embeding type.
+	 *
+	 * @return string
+	 */
 	public function getEmbed():string
 	{
 		return $this->config['embedding']??'';
 	}
 
+	/**
+	 * Getting whether this node contains a scope and scope name.
+	 *
+	 * @return string | null
+	 */
 	public function getScope()
 	{
 		return $this->config['scope']??null;
 	}
 
-
+	/**
+	 * Parsing node parameters if needed.
+	 *
+	 * @return \Htsl\Parser\Node\TagNode
+	 */
 	protected function parseParams():self
 	{
 		$params= preg_split('/(?<!\\\\)\\|/',$this->line->pregGet('/^-[\w-:]+\((.*?)\)(?= |(\\{>)?$)/',1));
@@ -104,6 +135,11 @@ class TagNode extends ANode implements ArrayAccess
 		return $this;
 	}
 
+	/**
+	 * Parsing <name|value> attributes.
+	 *
+	 * @return \Htsl\Parser\Node\TagNode
+	 */
 	protected function parseNameValue():self
 	{
 		$params= $this->line->pregGet('/ <(.*?)>(?= |$)/',1)
@@ -113,9 +149,14 @@ class TagNode extends ANode implements ArrayAccess
 		return $this;
 	}
 
+	/**
+	 * Parsing @links.
+	 *
+	 * @return \Htsl\Parser\Node\TagNode
+	 */
 	protected function parseLink():self
 	{
-		$link= $this->line->pregGet('/ @((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp))+?\)))(?= |$)/',1);
+		$link= $this->line->pregGet('/ @((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp)?)+?\)))(?= |$)/',1);
 
 		if( strlen($link) ){
 			if( isset($this->config['target']) && ':'===$link{0} ){
@@ -132,9 +173,14 @@ class TagNode extends ANode implements ArrayAccess
 		return $this;
 	}
 
+	/**
+	 * Parsing >target.
+	 *
+	 * @return \Htsl\Parser\Node\TagNode
+	 */
 	protected function parseTarget():self
 	{
-		$target= $this->line->pregGet('/ >((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp))+?\)))(?= |$)/',1);
+		$target= $this->line->pregGet('/ >((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp)?)+?\)))(?= |$)/',1);
 
 		if( strlen($target) ){
 			$this->setAttribute($this->config['target'],$this->checkExpression($target));
@@ -143,9 +189,14 @@ class TagNode extends ANode implements ArrayAccess
 		return $this;
 	}
 
+	/**
+	 * Parsing _placeholders.
+	 *
+	 * @return \Htsl\Parser\Node\TagNode
+	 */
 	protected function parseAlt():self
 	{
-		$alt= $this->line->pregGet('/ _((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp))+?\)))(?= |$)/',1);
+		$alt= $this->line->pregGet('/ _((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp)?)+?\)))(?= |$)/',1);
 
 		if( strlen($alt) ){
 			$this->setAttribute($this->config['alt'],$this->checkExpression($alt));
@@ -154,19 +205,24 @@ class TagNode extends ANode implements ArrayAccess
 		return $this;
 	}
 
+	/**
+	 * Parsing #ids .classes ^titles [styles] %event{>listeners<} and {other attributes}
+	 *
+	 * @return \Htsl\Parser\Node\TagNode
+	 */
 	protected function parseCommonAttributes():string
 	{
 		$attributes= '';
 
-		$id= $this->line->pregGet('/ #([^ ]+|(?<exp>\((?:[^()]+|(?&exp))+?\)))(?= |$)/',1)
+		$id= $this->line->pregGet('/ #([^ ]+|(?<exp>\((?:[^()]+|(?&exp)?)+?\)))(?= |$)/',1)
 		 and $this->setAttribute('id',$id);
 
 		$classes= $this->line->pregGet('/ \.[^ ]+(?= |$)/')
-		 and preg_match_all('/\.((?(?!\()[^.]+|(?<exp>\((?:[^()]+|(?&exp))+?\))))/',$classes,$matches)
+		 and preg_match_all('/\.((?(?!\()[^.]+|(?<exp>\((?:[^()]+|(?&exp)?)+?\))))/',$classes,$matches)
 		  and $classes= implode(' ',array_filter(array_map(function( $className ){return $this->checkExpression($className);},$matches[1])))
 		   and $this->setAttribute('class',$classes);
 
-		$title= $this->line->pregGet('/ \^((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp))+?\)))(?= |$)/',1)
+		$title= $this->line->pregGet('/ \^((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp)?)+?\)))(?= |$)/',1)
 		 and $this->setAttribute('title',$title);
 
 		$style= $this->line->pregGet('/ \[([^\]]+;)(?=\]( |$))/',1)
@@ -187,11 +243,23 @@ class TagNode extends ANode implements ArrayAccess
 		return $attributes;
 	}
 
+	/**
+	 * Checking and parse PHP expressions.
+	 *
+	 * @param  string $value
+	 *
+	 * @return string
+	 */
 	protected function checkExpression( string$value ):string
 	{
 		return preg_match('/^\(.*\)$/',$value) ? '<?='.substr($value,1,-1).';?>' : str_replace('"','&quot;',$value);
 	}
 
+	/**
+	 * Getting attribute string with HTML syntax.
+	 *
+	 * @return string
+	 */
 	protected function getAttributesString():string
 	{
 		ksort($this->attributes);
@@ -203,6 +271,14 @@ class TagNode extends ANode implements ArrayAccess
 			);
 		},array_keys($this->attributes),$this->attributes));
 	}
+
+	/**
+	 * Setting attribute.
+	 *
+	 * @param string      $key       Attribute name.
+	 * @param string      $value     Attribute value
+	 * @param string|null $condition Optional condition, If given, attribute will seted only when condition is true.
+	 */
 	protected function setAttribute( string$key, string$value, string$condition=null ):self
 	{
 		if( isset($this->attributes[$key]) )
@@ -216,18 +292,51 @@ class TagNode extends ANode implements ArrayAccess
 		return $this;
 	}
 
+
+	/*             *\
+	   ArrayAccess
+	\*             */
+
+	/**
+	 * Whether the attribute isset.
+	 *
+	 * @param  mixed $offset
+	 *
+	 * @return bool
+	 */
 	public function offsetExists( $offset ):bool
 	{
 		return isset($this->attributes[$offset]);
 	}
+
+	/**
+	 * Getting attribute with array access.
+	 *
+	 * @param  mixed $offset
+	 *
+	 * @return mixed
+	 */
 	public function offsetGet( $offset )
 	{
 		return $this->attributes[$offset]??null;
 	}
+
+	/**
+	 * Setting Attribute with array access.
+	 *
+	 * @param  mixed $offset
+	 * @param  mixed $value
+	 */
 	public function offsetSet( $offset, $value )
 	{
 		$this->setAttribute($offset,$value);
 	}
+
+	/**
+	 * Unset an attribute with array access.
+	 *
+	 * @param  mixed $offset
+	 */
 	public function offsetUnset( $offset )
 	{
 		if( isset($this->attributes[$offset]) )
