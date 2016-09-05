@@ -53,7 +53,7 @@ class DefaultConfigs
 					],
 					'closer'=> '<?php }while( %s );?>',
 				],
-				'foreach'=> [
+				'for-each'=> [
 					'opener'=> '<?php $$_FLAG_$=false;foreach( %s ):$$_FLAG_$=true;?>',
 					'close_by'=> [
 						'/else|then/'=> '<?php endforeach;if( $$_FLAG_$ ):?>',
