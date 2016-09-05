@@ -168,9 +168,9 @@
 		-code(htsl){>
 			 ~if( ture )
 			 	-something
-			 ~ifnot( ture or false )
+			 ~if-not( ture or false )
 			 	-something
-			 ~elseif( ture or false )
+			 ~else-if( ture or false )
 			 	-something
 			 ~else
 			 	-otherthing
@@ -182,7 +182,7 @@
 			 	~break( ture or false )
 		<}
 		-code(htsl){>
-			 ~foreach( ['a'=>'A','b'=>'B',] as $key=>$value )
+			 ~for-each( ['a'=>'A','b'=>'B',] as $key=>$value )
 			 	-something
 		<}
 		-p
