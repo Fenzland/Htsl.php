@@ -137,10 +137,10 @@ class DefaultConfigs
 						'switch'=> [
 							'opener'=> '<?php default:?>',
 							'closer'=> '<?php break;?>',
-							'scope'=> 'default',
+							'scope'=> 'root-default',
 						],
 						'root-case'=> [
-							'opener'=> '<?php case %s:?>',
+							'opener'=> '<?php default:?>',
 							'closer'=> '',
 							'scope'=> 'default-in-case',
 						],
@@ -158,7 +158,7 @@ class DefaultConfigs
 							'closer'=> '',
 							'scope'=> 'case-in-case',
 						],
-						'default'=> [
+						'root-default'=> [
 							'opener'=> '<?php case %s:?>',
 							'closer'=> '',
 							'scope'=> 'case-in-case',
