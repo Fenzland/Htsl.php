@@ -140,7 +140,7 @@ class DefaultConfigs
 							'scope'=> 'default',
 						],
 						'root-case'=> [
-							'opener'=> '<?php case %s:?>',
+							'opener'=> '<?php default:?>',
 							'closer'=> '',
 							'scope'=> 'default-in-case',
 						],
