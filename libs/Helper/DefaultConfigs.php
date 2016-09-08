@@ -32,7 +32,7 @@ class DefaultConfigs
 					'opener'=> '<?php %s?>',
 				],
 				'for'=> [
-					'opener'=> '<?php $$_FLAG_$=false;for( %s ):$$_FLAG_$=true;?>',
+					'opener'=> '<?php $$_FLAG_$=false;for( %s/[^;]*$|;$|;[^ ]/\_/ ):$$_FLAG_$=true;?>',
 					'close_by'=> [
 						'/else|then/'=> '<?php endfor;if( $$_FLAG_$ ):?>',
 					],
