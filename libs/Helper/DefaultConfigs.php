@@ -373,6 +373,9 @@ class DefaultConfigs
 						],
 					],
 //*/
+					'param'=> [
+						'name_value'=> ['name','value',],
+					],
 				]+$svgTags,
 			],
 			'empty_tags'=> [
@@ -384,6 +387,7 @@ class DefaultConfigs
 					'link'=> true,
 					'meta'=> true,
 					'option'=> true,
+					'param'=> true,
 				],
 			],
 			'indentation'=> [
