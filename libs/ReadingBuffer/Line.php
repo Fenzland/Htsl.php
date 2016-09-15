@@ -78,14 +78,7 @@ class Line
 	 */
 	public function getChar( int$offset ):string
 	{
-		$content= $this->getcontent();
-		$length= strlen($content);
-
-		if( $offset>=$length || $offset<-$length )return '';
-
-		return $offset>=0 ?
-		                 $content{$offset}:
-		                 strrev($content){-$offset};
+		return substr($this->getcontent(),$offset,1);
 	}
 
 	/**
