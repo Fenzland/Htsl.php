@@ -68,7 +68,7 @@ class DefaultConfigs
 							'closer'=> '',
 						],
 						[
-							'pattern'=> '/;$/',
+							'pattern'=> '/\\w$/',
 							'opener'=> '<?php continue;?>',
 							'closer'=> '',
 						],
@@ -82,7 +82,7 @@ class DefaultConfigs
 							'closer'=> '',
 						],
 						[
-							'pattern'=> '/;$/',
+							'pattern'=> '/\\w$/',
 							'opener'=> '<?php break;?>',
 							'closer'=> '',
 						],
