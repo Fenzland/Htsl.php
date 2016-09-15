@@ -18,7 +18,7 @@ class DefaultConfigs
 			'doc_types'=> [
 				'HTML5'=> '<!DOCTYPE html>',
 				'XML1'=> '<?xml version="1.0" encoding="%s"?>',
-				'SVG1.1'=> '<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">',
+				'SVG1.1'=> "<?xml version=\"1.0\" standalone=\"no\"?>\n<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">",
 			],
 			'ENT_flags'=> [
 				'HTML5'=> ENT_HTML5,
