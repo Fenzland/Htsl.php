@@ -229,7 +229,7 @@ class DefaultConfigs
 						'name_value'=> ['name','content','scheme',],
 					],
 					'php'=> [
-						'opener'=> '<?php',
+						'opener'=> '<?php ',
 						'closer'=> '?>',
 						'embedding'=> 'php',
 					],
