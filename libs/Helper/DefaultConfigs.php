@@ -32,31 +32,31 @@ class DefaultConfigs
 					'opener'=> '<?php %s?>',
 				],
 				'for'=> [
-					'opener'=> '<?php $$_FLAG_$=false;for( %s/[^;]*$|;$|;[^ ]/\_/ ):$$_FLAG_$=true;?>',
+					'opener'=> '<?php $$_FLAG_$=false; for( %s/[^;]*$|;$|;[^ ]/\_/ ): $$_FLAG_$=true;?>',
 					'close_by'=> [
-						'/else|then/'=> '<?php endfor;if( $$_FLAG_$ ):?>',
+						'/else|then/'=> '<?php endfor; if( $$_FLAG_$ ):?>',
 					],
 					'closer'=> '<?php endfor;?>',
 				],
 				'while'=> [
-					'opener'=> '<?php $$_FLAG_$=false;while( %s ):$$_FLAG_$=true;?>',
+					'opener'=> '<?php $$_FLAG_$=false; while( %s ): $$_FLAG_$=true;?>',
 					'close_by'=> [
-						'/else|then/'=> '<?php endwhile;if( $$_FLAG_$ ):?>',
+						'/else|then/'=> '<?php endwhile; if( $$_FLAG_$ ):?>',
 					],
 					'closer'=> '<?php endwhile;?>',
 				],
 				'do-while'=> [
-					'opener'=> '<?php $$_FLAG_$=0;do{++$$_FLAG_$;?>',
+					'opener'=> '<?php $$_FLAG_$=0; do{ ++$$_FLAG_$;?>',
 					'closer'=> '<?php }while( %s );?>',
 					'close_by'=> [
-						'/else|then/'=> '<?php }while( %s );if( $$_FLAG_$>1 ):?>',
+						'/else|then/'=> '<?php }while( %s ); if( $$_FLAG_$>1 ):?>',
 					],
 					'closer'=> '<?php }while( %s );?>',
 				],
 				'for-each'=> [
-					'opener'=> '<?php $$_FLAG_$=false;foreach( %s ):$$_FLAG_$=true;?>',
+					'opener'=> '<?php $$_FLAG_$=false; foreach( %s ): $$_FLAG_$=true;?>',
 					'close_by'=> [
-						'/else|then/'=> '<?php endforeach;if( $$_FLAG_$ ):?>',
+						'/else|then/'=> '<?php endforeach; if( $$_FLAG_$ ):?>',
 					],
 					'closer'=> '<?php endforeach;?>',
 				],
