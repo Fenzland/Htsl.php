@@ -46,7 +46,7 @@ class TagNode extends ANode implements ArrayAccess
 		$this->loadConfig($name,$this->document);
 
 		$this->tagName=$this->config['name']??$name;
-		$this->isEmpty= $this->line->getChar(-1)=='/' || $this->document->getConfig('empty_tags',$this->tagName);
+		$this->isEmpty= $this->line->getChar(-1)==='/' || $this->document->getConfig('empty_tags',$this->tagName);
 		isset($this->config['default_attributes']) and array_walk($this->config['default_attributes'],function( $value,$key ){ $this->setAttribute($key,$value); });
 
 		return $this;

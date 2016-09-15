@@ -18,7 +18,7 @@ class DefaultConfigs
 			'doc_types'=> [
 				'HTML5'=> '<!DOCTYPE html>',
 				'XML1'=> '<?xml version="1.0" encoding="%s"?>',
-				'SVG1.1'=> '<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">',
+				'SVG1.1'=> "<?xml version=\"1.0\" standalone=\"no\"?>\n<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">",
 			],
 			'ENT_flags'=> [
 				'HTML5'=> ENT_HTML5,
@@ -32,31 +32,31 @@ class DefaultConfigs
 					'opener'=> '<?php %s?>',
 				],
 				'for'=> [
-					'opener'=> '<?php $$_FLAG_$=false;for( %s/[^;]*$|;$|;[^ ]/\_/ ):$$_FLAG_$=true;?>',
+					'opener'=> '<?php $$_FLAG_$=false; for( %s/[^;]*$|;$|;[^ ]/\_/ ): $$_FLAG_$=true;?>',
 					'close_by'=> [
-						'/else|then/'=> '<?php endfor;if( $$_FLAG_$ ):?>',
+						'/else|then/'=> '<?php endfor; if( $$_FLAG_$ ):?>',
 					],
 					'closer'=> '<?php endfor;?>',
 				],
 				'while'=> [
-					'opener'=> '<?php $$_FLAG_$=false;while( %s ):$$_FLAG_$=true;?>',
+					'opener'=> '<?php $$_FLAG_$=false; while( %s ): $$_FLAG_$=true;?>',
 					'close_by'=> [
-						'/else|then/'=> '<?php endwhile;if( $$_FLAG_$ ):?>',
+						'/else|then/'=> '<?php endwhile; if( $$_FLAG_$ ):?>',
 					],
 					'closer'=> '<?php endwhile;?>',
 				],
 				'do-while'=> [
-					'opener'=> '<?php $$_FLAG_$=0;do{++$$_FLAG_$;?>',
+					'opener'=> '<?php $$_FLAG_$=0; do{ ++$$_FLAG_$;?>',
 					'closer'=> '<?php }while( %s );?>',
 					'close_by'=> [
-						'/else|then/'=> '<?php }while( %s );if( $$_FLAG_$>1 ):?>',
+						'/else|then/'=> '<?php }while( %s ); if( $$_FLAG_$>1 ):?>',
 					],
 					'closer'=> '<?php }while( %s );?>',
 				],
 				'for-each'=> [
-					'opener'=> '<?php $$_FLAG_$=false;foreach( %s ):$$_FLAG_$=true;?>',
+					'opener'=> '<?php $$_FLAG_$=false; foreach( %s ): $$_FLAG_$=true;?>',
 					'close_by'=> [
-						'/else|then/'=> '<?php endforeach;if( $$_FLAG_$ ):?>',
+						'/else|then/'=> '<?php endforeach; if( $$_FLAG_$ ):?>',
 					],
 					'closer'=> '<?php endforeach;?>',
 				],
@@ -68,7 +68,7 @@ class DefaultConfigs
 							'closer'=> '',
 						],
 						[
-							'pattern'=> '/;$/',
+							'pattern'=> '/\\w$/',
 							'opener'=> '<?php continue;?>',
 							'closer'=> '',
 						],
@@ -82,7 +82,7 @@ class DefaultConfigs
 							'closer'=> '',
 						],
 						[
-							'pattern'=> '/;$/',
+							'pattern'=> '/\\w$/',
 							'opener'=> '<?php break;?>',
 							'closer'=> '',
 						],
@@ -229,7 +229,7 @@ class DefaultConfigs
 						'name_value'=> ['name','content','scheme',],
 					],
 					'php'=> [
-						'opener'=> '<?php',
+						'opener'=> '<?php ',
 						'closer'=> '?>',
 						'embedding'=> 'php',
 					],
@@ -388,6 +388,15 @@ class DefaultConfigs
 					'meta'=> true,
 					'option'=> true,
 					'param'=> true,
+				],
+				'SVG1.1'=> [
+					'polygon'=> true,
+					'polyline'=> true,
+					'path'=> true,
+					'line'=> true,
+					'rect'=> true,
+					'circle'=> true,
+					'ellipse'=> true,
 				],
 			],
 			'indentation'=> [
