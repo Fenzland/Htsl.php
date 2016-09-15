@@ -114,7 +114,7 @@ class ControlNode extends ANode
 						list($pattern,$replacement,)= preg_split('/(?<!\\\\)\\//',$replacer);
 						$param= preg_replace(...[
 							"/$pattern/",
-							$replacement,
+							preg_replace('/^\\\\_$/','',$replacement),
 							$param,
 						]);
 					},

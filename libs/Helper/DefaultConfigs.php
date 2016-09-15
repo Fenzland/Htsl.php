@@ -32,7 +32,7 @@ class DefaultConfigs
 					'opener'=> '<?php %s?>',
 				],
 				'for'=> [
-					'opener'=> '<?php $$_FLAG_$=false;for( %s ):$$_FLAG_$=true;?>',
+					'opener'=> '<?php $$_FLAG_$=false;for( %s/[^;]*$|;$|;[^ ]/\_/ ):$$_FLAG_$=true;?>',
 					'close_by'=> [
 						'/else|then/'=> '<?php endfor;if( $$_FLAG_$ ):?>',
 					],
@@ -103,9 +103,9 @@ class DefaultConfigs
 					'closer'=> '<?php endif;?>',
 				],
 				'if-all'=> [
-					'opener'=> '<?php if( %s/^/( //, / )and( //,$/ )/ ):?>',
+					'opener'=> '<?php if( %s/[^;]*$/\_//^/( //; / )and( //;$/ )/ ):?>',
 					'close_by'=> [
-						'/else|then/'=> '<?php endif; if( %s/^/( //, / )or( //,$/ )/ ):?>',
+						'/else|then/'=> '<?php endif; if( %s/[^;]*$/\_//^/( //; / )or( //;$/ )/ ):?>',
 					],
 					'closer'=> '<?php endif;?>',
 				],
@@ -137,10 +137,10 @@ class DefaultConfigs
 						'switch'=> [
 							'opener'=> '<?php default:?>',
 							'closer'=> '<?php break;?>',
-							'scope'=> 'default',
+							'scope'=> 'root-default',
 						],
 						'root-case'=> [
-							'opener'=> '<?php case %s:?>',
+							'opener'=> '<?php default:?>',
 							'closer'=> '',
 							'scope'=> 'default-in-case',
 						],
@@ -158,7 +158,7 @@ class DefaultConfigs
 							'closer'=> '',
 							'scope'=> 'case-in-case',
 						],
-						'default'=> [
+						'root-default'=> [
 							'opener'=> '<?php case %s:?>',
 							'closer'=> '',
 							'scope'=> 'case-in-case',
@@ -373,6 +373,9 @@ class DefaultConfigs
 						],
 					],
 //*/
+					'param'=> [
+						'name_value'=> ['name','value',],
+					],
 				]+$svgTags,
 			],
 			'empty_tags'=> [
@@ -384,6 +387,7 @@ class DefaultConfigs
 					'link'=> true,
 					'meta'=> true,
 					'option'=> true,
+					'param'=> true,
 				],
 			],
 			'indentation'=> [
