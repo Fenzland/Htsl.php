@@ -1,6 +1,7 @@
 Htsl.php
 ================================
 
+[![Build Status](https://travis-ci.org/Fenzland/Htsl.php.svg?branch=test)](https://travis-ci.org/Fenzland/Htsl.php)
 [![Latest Stable Version](https://poser.pugx.org/fenzland/htsl/v/stable)](https://packagist.org/packages/fenzland/htsl)
 [![Latest Unstable Version](https://poser.pugx.org/fenzland/htsl/v/unstable)](https://packagist.org/packages/fenzland/htsl)
 [![License](https://poser.pugx.org/fenzland/htsl/license)](https://packagist.org/packages/fenzland/htsl)
