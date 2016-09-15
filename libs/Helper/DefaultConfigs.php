@@ -389,6 +389,15 @@ class DefaultConfigs
 					'option'=> true,
 					'param'=> true,
 				],
+				'SVG1.1'=> [
+					'polygon'=> true,
+					'polyline'=> true,
+					'path'=> true,
+					'line'=> true,
+					'rect'=> true,
+					'circle'=> true,
+					'ellipse'=> true,
+				],
 			],
 			'indentation'=> [
 				'HTML5'=> false,
