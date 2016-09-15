@@ -4,3 +4,6 @@ php:
 install:
   - composer install --dev
 script: phpunit tests/*
+branches:
+  only:
+    - test
