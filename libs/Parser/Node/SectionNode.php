@@ -2,57 +2,56 @@
 
 namespace Htsl\Parser\Node;
 
-use Htsl\Htsl;
-use Htsl\ReadingBuffer\Line;
 use Htsl\Parser\Node\Contracts\ANode;
 use Htsl\Parser\Section;
+use Htsl\ReadingBuffer\Line;
 
 ////////////////////////////////////////////////////////////////
 
 class SectionNode extends ANode
 {
-	/**
-	 * The name of the section.
-	 *
-	 * @var string
-	 */
-	private $name;
+    /**
+     * The name of the section.
+     *
+     * @var string
+     */
+    private $name;
 
-	/**
-	 * Real constructor.
-	 *
-	 * @return \Htsl\Parser\Node\Contracts\ANode
-	 */
-	protected function construct():parent
-	{
-		$this->name= $this->line->pregGet('/(?<=\( ).*(?= \))/');
+    /**
+     * Real constructor.
+     *
+     * @return \Htsl\Parser\Node\Contracts\ANode
+     */
+    protected function construct():parent
+    {
+        $this->name = $this->line->pregGet('/(?<=\( ).*(?= \))/');
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Opening this node, and returning node opener.
-	 *
-	 * @return string
-	 */
-	public function open():string
-	{
-		$this->document->setSection(new Section($this->name));
+    /**
+     * Opening this node, and returning node opener.
+     *
+     * @return string
+     */
+    public function open():string
+    {
+        $this->document->setSection(new Section($this->name));
 
-		return '';
-	}
+        return '';
+    }
 
-	/**
-	 * Close this node, and returning node closer.
-	 *
-	 * @param  \Htsl\ReadingBuffer\Line   $closerLine  The line when node closed.
-	 *
-	 * @return string
-	 */
-	public function close( Line$closerLine ):string
-	{
-		$this->document->setSection(null);
+    /**
+     * Close this node, and returning node closer.
+     *
+     * @param \Htsl\ReadingBuffer\Line $closerLine The line when node closed.
+     *
+     * @return string
+     */
+    public function close(Line $closerLine):string
+    {
+        $this->document->setSection(null);
 
-		return '';
-	}
+        return '';
+    }
 }

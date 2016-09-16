@@ -3,129 +3,129 @@
 namespace Htsl\Parser\Node;
 
 use Htsl\Htsl;
-use Htsl\ReadingBuffer\Line;
 use Htsl\Parser\Node\Contracts\ANode;
+use Htsl\ReadingBuffer\Line;
 
 ////////////////////////////////////////////////////////////////
 
 class ControlNode extends ANode
 {
-	/**
-	 * The name of the Htsl.php control structure.
-	 *
-	 * @var string
-	 */
-	private $name;
+    /**
+     * The name of the Htsl.php control structure.
+     *
+     * @var string
+     */
+    private $name;
 
-	/**
-	 * The name of the complied(PHP) control structure.
-	 *
-	 * @var string
-	 */
-	private $structureName;
+    /**
+     * The name of the complied(PHP) control structure.
+     *
+     * @var string
+     */
+    private $structureName;
 
-	/**
-	 * Parameters.
-	 *
-	 * @var string
-	 */
-	private $param;
+    /**
+     * Parameters.
+     *
+     * @var string
+     */
+    private $param;
 
-	/**
-	 * Real constructor.
-	 *
-	 * @return \Htsl\Parser\Node\Contracts\ANode
-	 */
-	protected function construct():parent
-	{
-		$name= $this->line->pregGet('/(?<=^~)[\w-]*/');
-		$this->name=$name;
+    /**
+     * Real constructor.
+     *
+     * @return \Htsl\Parser\Node\Contracts\ANode
+     */
+    protected function construct():parent
+    {
+        $name = $this->line->pregGet('/(?<=^~)[\w-]*/');
+        $this->name = $name;
 
-		$this->loadConfig($name,$this->htsl);
+        $this->loadConfig($name, $this->htsl);
 
-		$this->param= $this->line->pregGet('/^~[\w-]*\( (.*) \)/',1);
+        $this->param = $this->line->pregGet('/^~[\w-]*\( (.*) \)/', 1);
 
-		$this->structureName=$this->config['name']??$name;
+        $this->structureName = $this->config['name'] ?? $name;
 
-		$this->id=strtoupper(uniqid());
+        $this->id = strtoupper(uniqid());
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Opening this control node, and returning node opener.
-	 *
-	 * @return string
-	 */
-	public function open():string
-	{
-		return $this->withParam($this->config['opener']);
-	}
+    /**
+     * Opening this control node, and returning node opener.
+     *
+     * @return string
+     */
+    public function open():string
+    {
+        return $this->withParam($this->config['opener']);
+    }
 
-	/**
-	 * Getting whether this node contains a scope and scope name.
-	 *
-	 * @return string | null
-	 */
-	public function getScope()
-	{
-		return $this->config['scope']??null;
-	}
+    /**
+     * Getting whether this node contains a scope and scope name.
+     *
+     * @return string | null
+     */
+    public function getScope()
+    {
+        return $this->config['scope'] ?? null;
+    }
 
+    /**
+     * Close this control node, and returning node closer.
+     *
+     * @param \Htsl\ReadingBuffer\Line $closerLine The line when node closed.
+     *
+     * @return string
+     */
+    public function close(Line $closerLine):string
+    {
+        if (isset($this->config['close_by']) && $closerLine->indentLevel == $this->line->indentLevel) {
+            foreach ($this->config['close_by'] as $key => $value) {
+                if ($closerLine->pregMatch($key)) {
+                    return $this->withParam($value);
+                }
+            }
+        }
 
-	/**
-	 * Close this control node, and returning node closer.
-	 *
-	 * @param  \Htsl\ReadingBuffer\Line   $closerLine  The line when node closed.
-	 *
-	 * @return string
-	 */
-	public function close( Line$closerLine ):string
-	{
-		if( isset($this->config['close_by']) && $closerLine->indentLevel==$this->line->indentLevel ){
-			foreach( $this->config['close_by'] as $key=>$value ){
-				if( $closerLine->pregMatch($key) ){
-					return $this->withParam($value);
-				}
-			}
-		}
+        if (isset($this->config['closer'])) {
+            return $this->withParam($this->config['closer']);
+        }
 
-		if( isset($this->config['closer']) )
-			{ return $this->withParam($this->config['closer']); }
+        return '';
+    }
 
-		return '';
-	}
+    /**
+     * Parse opener or closer with parameters.
+     *
+     * @param string $input Opener or Closer
+     *
+     * @return string
+     */
+    private function withParam(string $input)
+    {
+        return str_replace('$_FLAG_$', "__HTSL_CTRL_FLAG_{$this->id}__", preg_replace_callback('/(?<!%)%s((?:\\/.+?(?<!\\\\)\\/.+?(?<!\\\\)\\/)+)?/', function (array $matches) {
+            $param = $this->param;
 
-	/**
-	 * Parse opener or closer with parameters.
-	 *
-	 * @param  string $input Opener or Closer
-	 *
-	 * @return string
-	 */
-	private function withParam( string$input )
-	{
-		return str_replace('$_FLAG_$',"__HTSL_CTRL_FLAG_{$this->id}__",preg_replace_callback('/(?<!%)%s((?:\\/.+?(?<!\\\\)\\/.+?(?<!\\\\)\\/)+)?/',function( array$matches ){
-			$param= $this->param;
+            if (isset($matches[1])) {
+                array_map(...[
+                    function ($replacer) use (&$param) {
+                        list($pattern, $replacement) = preg_split('/(?<!\\\\)\\//', $replacer);
+                        $param = preg_replace(...[
+                            "/$pattern/",
+                            preg_replace('/^\\\\_$/', '', $replacement),
+                            $param,
+                        ]);
+                    },
+                    preg_split(
+                        '/(?<!\\\\)\\/\\//',
+                        trim($matches[1], '/')
+                    ),
+                ]);
+            }
 
-			if( isset($matches[1]) ){
-				array_map(...[
-					function($replacer)use(&$param){
-						list($pattern,$replacement,)= preg_split('/(?<!\\\\)\\//',$replacer);
-						$param= preg_replace(...[
-							"/$pattern/",
-							preg_replace('/^\\\\_$/','',$replacement),
-							$param,
-						]);
-					},
-					preg_split(
-						'/(?<!\\\\)\\/\\//'
-						,
-						trim($matches[1],'/')
-					),
-				]);
-			}
-			return $param;
-		},$input));
-	}
+            return $param;
+        }, $input));
+    }
 }
