@@ -15,6 +15,7 @@ class DefaultConfigs
 	{
 		return [
 			'debug'=> false,
+			'charset'=> 'UTF-8',
 			'doc_types'=> [
 				'HTML5'=>  '<!DOCTYPE html>',
 				'XML1'=>   '<?xml version="1.0" encoding="%s"?>',
