@@ -13,12 +13,16 @@ class ControlNode extends ANode
 	/**
 	 * The name of the Htsl.php control structure.
 	 *
+	 * @access private
+	 *
 	 * @var string
 	 */
 	private $name;
 
 	/**
 	 * The name of the complied(PHP) control structure.
+	 *
+	 * @access private
 	 *
 	 * @var string
 	 */
@@ -27,12 +31,16 @@ class ControlNode extends ANode
 	/**
 	 * Parameters.
 	 *
+	 * @access private
+	 *
 	 * @var string
 	 */
 	private $param;
 
 	/**
 	 * Real constructor.
+	 *
+	 * @access protected
 	 *
 	 * @return \Htsl\Parser\Node\Contracts\ANode
 	 */
@@ -55,6 +63,8 @@ class ControlNode extends ANode
 	/**
 	 * Opening this control node, and returning node opener.
 	 *
+	 * @access public
+	 *
 	 * @return string
 	 */
 	public function open():string
@@ -64,6 +74,8 @@ class ControlNode extends ANode
 
 	/**
 	 * Getting whether this node contains a scope and scope name.
+	 *
+	 * @access public
 	 *
 	 * @return string | null
 	 */
@@ -75,6 +87,8 @@ class ControlNode extends ANode
 
 	/**
 	 * Close this control node, and returning node closer.
+	 *
+	 * @access public
 	 *
 	 * @param  \Htsl\ReadingBuffer\Line   $closerLine  The line when node closed.
 	 *
@@ -98,6 +112,8 @@ class ControlNode extends ANode
 
 	/**
 	 * Parse opener or closer with parameters.
+	 *
+	 * @access private
 	 *
 	 * @param  string $input Opener or Closer
 	 *

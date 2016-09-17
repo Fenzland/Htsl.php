@@ -11,12 +11,16 @@ class StringBuffer extends Contracts\ABuffer
 	/**
 	 * Array of lines.
 	 *
+	 * @access private
+	 *
 	 * @var array
 	 */
 	private $lines;
 
 	/**
 	 * Constructing a string buffer to provide lines base on string content.
+	 *
+	 * @access public
 	 *
 	 * @param \Htsl\Htsl   $htsl
 	 * @param string       $content
@@ -39,6 +43,8 @@ class StringBuffer extends Contracts\ABuffer
 	/**
 	 * Getting first line or next line.
 	 *
+	 * @access public
+	 *
 	 * @return \Htsl\ReadingBuffer\Line
 	 */
 	public function getLine():Line
@@ -48,6 +54,8 @@ class StringBuffer extends Contracts\ABuffer
 
 	/**
 	 * Getting another file reference fake file of this buffer.
+	 *
+	 * @access public
 	 *
 	 * @param  string $filePath
 	 *
