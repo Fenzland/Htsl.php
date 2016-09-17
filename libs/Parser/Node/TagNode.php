@@ -208,7 +208,7 @@ class TagNode extends ANode implements ArrayAccess
 	/**
 	 * Parsing #ids .classes ^titles [styles] %event{>listeners<} and {other attributes}
 	 *
-	 * @return \Htsl\Parser\Node\TagNode
+	 * @return string
 	 */
 	protected function parseCommonAttributes():string
 	{

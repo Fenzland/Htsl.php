@@ -172,7 +172,7 @@ class Document implements IConfigProvider
 	/**
 	 * Alias of getContent.
 	 *
-	 * @return sting
+	 * @return string
 	 */
 	public function __toString():string
 	{
@@ -211,6 +211,7 @@ class Document implements IConfigProvider
 	 * Getting the config of type of this document.
 	 *
 	 * @param  [ string, ] ...$keys
+	 *
 	 * @return mixed
 	 */
 	public function getConfig( string...$keys )

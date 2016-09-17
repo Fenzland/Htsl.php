@@ -32,13 +32,15 @@ abstract class ABuffer
 
 	/**
 	 * Get a line of the document.
+	 *
 	 * @return \Htsl\ReadingBuffer\Line
 	 */
 	abstract public function getLine();
 
 	/**
 	 * Get a line of the document.
-	 * @return \Htsl\ReadingBuffer\Line
+	 *
+	 * @return string
 	 */
 	public function getFileName():string
 	{
@@ -48,7 +50,7 @@ abstract class ABuffer
 	/**
 	 * Getting another file reference file of this buffer.
 	 *
-	 * @param  string $filePath
+	 * @param  string $fileName
 	 *
 	 * @return \Htsl\ReadingBuffer\Contracts\ABuffer
 	 */
