@@ -450,6 +450,76 @@ class HtslTest extends TestCase
 			),
 			'<!DOCTYPE html><empty-tag />',
 		]);
+
+
+		// Common attributes
+
+		// Tag id
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n-div #tag-id\n"
+			),
+			'<!DOCTYPE html><div id="tag-id"></div>',
+		]);
+
+		// Tag class
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n-div .class-1.class-2\n"
+			),
+			'<!DOCTYPE html><div class="class-1 class-2"></div>',
+		]);
+
+		// Tag title
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n-div ^Tag title\n"
+			),
+			'<!DOCTYPE html><div title="Tag title"></div>',
+		]);
+
+		// Inline styles
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n-div [width:100px;height:100px;]\n"
+			),
+			'<!DOCTYPE html><div style="width:100px;height:100px;"></div>',
+		]);
+
+		// Other attributes
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n-div {data-foo=value-foo;data-bar=value-bar;data-baz;}\n"
+			),
+			'<!DOCTYPE html><div data-bar="value-bar" data-baz="data-baz" data-foo="value-foo"></div>',
+		]);
+
+		// Event listener
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n-div %click{>alert('clicked');<}\n"
+			),
+			'<!DOCTYPE html><div onclick="alert(\'clicked\');"></div>',
+		]);
+
+
+		// Private
+
+		// Links
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n-img @foo.jpg\n-js @foo.js\n-css @foo.css\n-a @foo.html\n-iframe @foo.html\n-post @barring\n-submit @bazzing\n"
+			),
+			'<!DOCTYPE html><img src="foo.jpg" /><script src="foo.js" type="text/javascript"></script><link href="foo.css" rel="stylesheet" type="text/css" /><a href="foo.html"></a><iframe frameborder="0" src="foo.html"></iframe><form action="barring" method="post"></form><button formaction="bazzing" type="submit"></button>',
+		]);
+
+		// Place holders
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n-img _Place holder\n-text _Place holder\n-search _Place holder\n-password _Place holder\n-email _Place holder\n-url _Place holder\n-tel _Place holder\n-number(0|1|2) _Place holder\n-textarea _Place holder\n"
+			),
+			'<!DOCTYPE html><img alt="Place holder" /><input placeholder="Place holder" type="text" /><input placeholder="Place holder" type="search" /><input placeholder="Place holder" type="password" /><input placeholder="Place holder" type="email" /><input placeholder="Place holder" type="url" /><input placeholder="Place holder" type="tel" /><input max="2" min="0" placeholder="Place holder" step="1" type="number" /><textarea placeholder="Place holder"></textarea>',
+		]);
 	}
 
 	public function testSvg1TagNodes()
@@ -759,6 +829,65 @@ class HtslTest extends TestCase
 				"HTML5\n~break( \$foo==5 )\n"
 			),
 			'<!DOCTYPE html><?php if( $foo==5 ) break;?>',
+		]);
+	}
+
+	public function testExpressions()
+	{
+		// Showing expressions
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n=date('Y-m-d')\n"
+			),
+			'<!DOCTYPE html><?=htmlentities(date(\'Y-m-d\'),'.var_export(ENT_HTML5,true).',\'UTF-8\',false)?>',
+		]);
+
+		// Escaped showing expressions
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n`=\$htmlContent\n"
+			),
+			'<!DOCTYPE html><?=$htmlContent?>',
+		]);
+
+		// Tag class expressions
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n-div .foo.(\$class).bar\n"
+			),
+			'<!DOCTYPE html><div class="foo <?=$class?> bar"></div>',
+		]);
+
+		// Tag link expressions
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n-a @(\$link)\n"
+			),
+			'<!DOCTYPE html><a href="<?=$link?>"></a>',
+		]);
+
+		// Tag target expressions
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n-a @:; >(\$target)\n"
+			),
+			'<!DOCTYPE html><a href="javascript:;" target="<?=$target?>"></a>',
+		]);
+
+		// Tag target expressions
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n-text _(\$placeholder)\n"
+			),
+			'<!DOCTYPE html><input placeholder="<?=$placeholder?>" type="text" />',
+		]);
+
+		// Tag name-value expressions
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n-input <(\$name)|(\$value)>\n"
+			),
+			'<!DOCTYPE html><input name="<?=$name?>" type="hidden" value="<?=$value?>" />',
 		]);
 	}
 }
