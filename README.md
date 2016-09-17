@@ -2,6 +2,8 @@ Htsl.php
 ================================
 
 [![Build Status](https://travis-ci.org/Fenzland/Htsl.php.svg?branch=test)](https://travis-ci.org/Fenzland/Htsl.php)
+[![Build Status](https://scrutinizer-ci.com/g/Fenzland/Htsl.php/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Fenzland/Htsl.php/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Fenzland/Htsl.php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Fenzland/Htsl.php/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/fenzland/htsl/v/stable)](https://packagist.org/packages/fenzland/htsl)
 [![Latest Unstable Version](https://poser.pugx.org/fenzland/htsl/v/unstable)](https://packagist.org/packages/fenzland/htsl)
 [![License](https://poser.pugx.org/fenzland/htsl/license)](https://packagist.org/packages/fenzland/htsl)
