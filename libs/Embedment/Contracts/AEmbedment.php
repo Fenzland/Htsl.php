@@ -8,6 +8,9 @@ use Htsl\Helper\TGetter;
 
 ////////////////////////////////////////////////////////////////
 
+/**
+ * @property-read string $content Embedment content.
+ */
 abstract class AEmbedment
 {
 	use TGetter;
@@ -16,18 +19,24 @@ abstract class AEmbedment
 	 * Embed content
 	 *
 	 * @var string
+	 *
+	 * @access protected
 	 */
 	protected $content='';
 
 	/**
 	 * The main document which this embedment embedding into.
 	 *
-	 * @var [type]
+	 * @var \Htsl\Parser\Document
+	 *
+	 * @access protected
 	 */
 	protected $document;
 
 	/**
 	 * Constructor.
+	 *
+	 * @access public
 	 *
 	 * @param \Htsl\Parser\Document $document
 	 */
@@ -40,6 +49,8 @@ abstract class AEmbedment
 
 	/**
 	 * Getting content.
+	 *
+	 * @access public
 	 *
 	 * @return string
 	 */
@@ -55,6 +66,8 @@ abstract class AEmbedment
 
 	/**
 	 * Parsing line.
+	 *
+	 * @access public
 	 *
 	 * @param  \Htsl\ReadingBuffer\Line $line
 	 *

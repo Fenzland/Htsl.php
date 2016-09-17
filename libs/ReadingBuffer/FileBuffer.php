@@ -11,12 +11,16 @@ class FileBuffer extends Contracts\ABuffer
 	/**
 	 * File handle.
 	 *
+	 * @access private
+	 *
 	 * @var resource
 	 */
 	private $handle;
 
 	/**
 	 * Constructing a file buffer reading HTSL content from file system.
+	 *
+	 * @access public
 	 *
 	 * @param Htsl   $htsl     Main Htsl object
 	 * @param string $filePath
@@ -38,6 +42,8 @@ class FileBuffer extends Contracts\ABuffer
 
 	/**
 	 * Destructor
+	 *
+	 * @access public
 	 */
 	public function __destruct()
 	{
@@ -46,6 +52,8 @@ class FileBuffer extends Contracts\ABuffer
 
 	/**
 	 * Getting first line or next line.
+	 *
+	 * @access public
 	 *
 	 * @return \Htsl\ReadingBuffer\Line
 	 */
@@ -58,6 +66,8 @@ class FileBuffer extends Contracts\ABuffer
 
 	/**
 	 * Getting another file reference file of this buffer.
+	 *
+	 * @access public
 	 *
 	 * @param  string $filePath
 	 *

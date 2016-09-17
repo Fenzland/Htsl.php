@@ -11,12 +11,21 @@ use Htsl\Helper\IConfigProvider;
 
 ////////////////////////////////////////////////////////////////
 
+/**
+ * @link http://htsl.fenzland.com/ Document of Htsl.php
+ *
+ * @license https://opensource.org/licenses/MIT MIT
+ *
+ * @author Fenz <uukoo@163.com>
+ */
 class Htsl implements IConfigProvider
 {
 	/**
 	 * Getter of file content.
 	 *
 	 * @var callable
+	 *
+	 * @access protected
 	 */
 	protected $fileGetter;
 
@@ -24,11 +33,17 @@ class Htsl implements IConfigProvider
 	 * The base path.
 	 *
 	 * @var string
+	 *
+	 * @access protected
 	 */
 	protected $basePath;
 
 	/**
 	 * Constructor of HTSL
+	 *
+	 * @api
+	 *
+	 * @access public
 	 *
 	 * @param array $config
 	 */
@@ -39,6 +54,10 @@ class Htsl implements IConfigProvider
 
 	/**
 	 * Parsing a HTSL code string into HTML or PHP code string.
+	 *
+	 * @api
+	 *
+	 * @access public
 	 *
 	 * @param  string $content
 	 *
@@ -51,6 +70,10 @@ class Htsl implements IConfigProvider
 
 	/**
 	 * Compiling a HTSL file into a HTML or PHP file.
+	 *
+	 * @api
+	 *
+	 * @access public
 	 *
 	 * @param  string $fromFile
 	 * @param  string $toFile
@@ -73,6 +96,10 @@ class Htsl implements IConfigProvider
 	/**
 	 * Setting the file getter.
 	 *
+	 * @api
+	 *
+	 * @access public
+	 *
 	 * @param callable $fileGetter
 	 */
 	public function setFileGetter( callable$fileGetter ):self
@@ -84,6 +111,10 @@ class Htsl implements IConfigProvider
 
 	/**
 	 * Setting the base path of the HTSL project to parse.
+	 *
+	 * @api
+	 *
+	 * @access public
 	 *
 	 * @param string $basePath
 	 *
@@ -99,6 +130,10 @@ class Htsl implements IConfigProvider
 	/**
 	 * Returning whether the debug model is on or off.
 	 *
+	 * @api
+	 *
+	 * @access public
+	 *
 	 * @return boolean
 	 */
 	public function isDebug():bool
@@ -108,6 +143,10 @@ class Htsl implements IConfigProvider
 
 	/**
 	 * Executing the parsing.
+	 *
+	 * @internal
+	 *
+	 * @access protected
 	 *
 	 * @param  \Htsl\ReadingBuffer\Contracts\ABuffer $buffer
 	 *
@@ -120,6 +159,10 @@ class Htsl implements IConfigProvider
 
 	/**
 	 * Getting the config of Htsl.
+	 *
+	 * @internal
+	 *
+	 * @access public
 	 *
 	 * @param  string $keys
 	 *
@@ -141,6 +184,10 @@ class Htsl implements IConfigProvider
 
 	/**
 	 * Getting the real file path of the HTSL file by relative path.
+	 *
+	 * @internal
+	 *
+	 * @access public
 	 *
 	 * @param  string      $filePath
 	 * @param  string|null $path
@@ -174,6 +221,10 @@ class Htsl implements IConfigProvider
 	/**
 	 * Getting the content of file.
 	 *
+	 * @internal
+	 *
+	 * @access public
+	 *
 	 * @param  string $filePath
 	 *
 	 * @return string
@@ -185,6 +236,10 @@ class Htsl implements IConfigProvider
 
 	/**
 	 * Getting default config.
+	 *
+	 * @internal
+	 *
+	 * @access private
 	 *
 	 * @return array
 	 */

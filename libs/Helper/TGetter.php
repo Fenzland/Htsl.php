@@ -9,6 +9,8 @@ trait TGetter
 	/**
 	 * Allow setting fooBar getter with getFooBar().
 	 *
+	 * @access public
+	 *
 	 * @param  string $attribute
 	 *
 	 * @return mixed

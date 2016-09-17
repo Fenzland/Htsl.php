@@ -13,6 +13,8 @@ class StringNode extends ANode
 	/**
 	 * Real constructor.
 	 *
+	 * @access protected
+	 *
 	 * @return \Htsl\Parser\Node\Contracts\ANode
 	 */
 	protected function construct():parent
@@ -23,6 +25,8 @@ class StringNode extends ANode
 	/**
 	 * Opening this node, and returning node opener.
 	 *
+	 * @access public
+	 *
 	 * @return string
 	 */
 	public function open():string
@@ -32,6 +36,8 @@ class StringNode extends ANode
 
 	/**
 	 * Close this node, and returning node closer.
+	 *
+	 * @access public
 	 *
 	 * @param  \Htsl\ReadingBuffer\Line   $closerLine  The line when node closed.
 	 *

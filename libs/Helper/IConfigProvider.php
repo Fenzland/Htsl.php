@@ -9,6 +9,8 @@ interface IConfigProvider
 	/**
 	 * Getting configuration with cascaded keys.
 	 *
+	 * @access public
+	 *
 	 * @param  string ...$key
 	 *
 	 * @return mixed
