@@ -13,8 +13,6 @@ use Htsl\Helper\IConfigProvider;
 
 class Htsl implements IConfigProvider
 {
-	use Helper\TGetter;
-
 	/**
 	 * Getter of file content.
 	 *

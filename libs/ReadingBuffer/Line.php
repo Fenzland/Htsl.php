@@ -128,8 +128,6 @@ class Line
 	 */
 	public function getIndentLevel():int
 	{
-		// return (static function( $a ):int{$i=0;while($a{$i}==="\t")++$i;return $i;})($this->content);
-
 		return strlen($this->content)-strlen(ltrim($this->content,"\t"));
 	}
 
