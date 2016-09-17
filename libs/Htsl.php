@@ -123,7 +123,7 @@ class Htsl implements IConfigProvider
 	/**
 	 * Getting the config of Htsl.
 	 *
-	 * @param  string $key
+	 * @param  string $keys
 	 *
 	 * @return mixed
 	 */
@@ -177,6 +177,7 @@ class Htsl implements IConfigProvider
 	 * Getting the content of file.
 	 *
 	 * @param  string $filePath
+	 *
 	 * @return string
 	 */
 	public function getFileContent( string$filePath ):string
