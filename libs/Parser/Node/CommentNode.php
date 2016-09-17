@@ -13,12 +13,16 @@ class CommentNode extends ANode
 	/**
 	 * Whether the comment is html comment.
 	 *
+	 * @access private
+	 *
 	 * @var bool
 	 */
 	private $htmlComment;
 
 	/**
 	 * Real contructor.
+	 *
+	 * @access protected
 	 *
 	 * @return \Htsl\Parser\Node\Contracts\ANode
 	 */
@@ -31,6 +35,8 @@ class CommentNode extends ANode
 	/**
 	 * Opening this node, and returning node opener.
 	 *
+	 * @access public
+	 *
 	 * @return string
 	 */
 	public function open():string
@@ -42,6 +48,8 @@ class CommentNode extends ANode
 
 	/**
 	 * Close this node, and returning node closer.
+	 *
+	 * @access public
 	 *
 	 * @param  \Htsl\ReadingBuffer\Line   $closerLine  The line when node closed.
 	 *

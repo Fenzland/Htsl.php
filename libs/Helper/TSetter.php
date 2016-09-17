@@ -9,6 +9,8 @@ trait TSetter
 	/**
 	 * Allow setting fooBar setter with setFooBar().
 	 *
+	 * @access public
+	 *
 	 * @param  string $attribute
 	 * @param  mixed  $value
 	 */

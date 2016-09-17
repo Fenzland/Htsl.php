@@ -14,12 +14,16 @@ class TagNode extends ANode implements ArrayAccess
 	/**
 	 * The html tag name of this node.
 	 *
+	 * @access private
+	 *
 	 * @var string
 	 */
 	private $tagName;
 
 	/**
 	 * Whether the html tag is empty.
+	 *
+	 * @access private
 	 *
 	 * @var bool
 	 */
@@ -28,12 +32,16 @@ class TagNode extends ANode implements ArrayAccess
 	/**
 	 * The attributes of this node.
 	 *
+	 * @access private
+	 *
 	 * @var array
 	 */
 	private $attributes=[];
 
 	/**
 	 * Real constructor.
+	 *
+	 * @access protected
 	 *
 	 * @return \Htsl\Parser\Node\Contracts\ANode
 	 */
@@ -54,6 +62,8 @@ class TagNode extends ANode implements ArrayAccess
 
 	/**
 	 * Opening this tag node, and returning node opener.
+	 *
+	 * @access public
 	 *
 	 * @return string
 	 */
@@ -90,6 +100,8 @@ class TagNode extends ANode implements ArrayAccess
 	/**
 	 * Close this tag node, and returning node closer.
 	 *
+	 * @access public
+	 *
 	 * @param  \Htsl\ReadingBuffer\Line   $closerLine  The line when node closed.
 	 *
 	 * @return string
@@ -102,6 +114,8 @@ class TagNode extends ANode implements ArrayAccess
 	/**
 	 * Getting whether this is embedding node and embeding type.
 	 *
+	 * @access public
+	 *
 	 * @return string
 	 */
 	public function getEmbed():string
@@ -112,6 +126,8 @@ class TagNode extends ANode implements ArrayAccess
 	/**
 	 * Getting whether this node contains a scope and scope name.
 	 *
+	 * @access public
+	 *
 	 * @return string | null
 	 */
 	public function getScope()
@@ -121,6 +137,8 @@ class TagNode extends ANode implements ArrayAccess
 
 	/**
 	 * Parsing node parameters if needed.
+	 *
+	 * @access protected
 	 *
 	 * @return \Htsl\Parser\Node\TagNode
 	 */
@@ -138,6 +156,8 @@ class TagNode extends ANode implements ArrayAccess
 	/**
 	 * Parsing <name|value> attributes.
 	 *
+	 * @access protected
+	 *
 	 * @return \Htsl\Parser\Node\TagNode
 	 */
 	protected function parseNameValue():self
@@ -151,6 +171,8 @@ class TagNode extends ANode implements ArrayAccess
 
 	/**
 	 * Parsing @links.
+	 *
+	 * @access protected
 	 *
 	 * @return \Htsl\Parser\Node\TagNode
 	 */
@@ -176,6 +198,8 @@ class TagNode extends ANode implements ArrayAccess
 	/**
 	 * Parsing >target.
 	 *
+	 * @access protected
+	 *
 	 * @return \Htsl\Parser\Node\TagNode
 	 */
 	protected function parseTarget():self
@@ -192,6 +216,8 @@ class TagNode extends ANode implements ArrayAccess
 	/**
 	 * Parsing _placeholders.
 	 *
+	 * @access protected
+	 *
 	 * @return \Htsl\Parser\Node\TagNode
 	 */
 	protected function parseAlt():self
@@ -207,6 +233,8 @@ class TagNode extends ANode implements ArrayAccess
 
 	/**
 	 * Parsing #ids .classes ^titles [styles] %event{>listeners<} and {other attributes}
+	 *
+	 * @access protected
 	 *
 	 * @return string
 	 */
@@ -246,6 +274,8 @@ class TagNode extends ANode implements ArrayAccess
 	/**
 	 * Checking and parse PHP expressions.
 	 *
+	 * @access protected
+	 *
 	 * @param  string $value
 	 *
 	 * @return string
@@ -257,6 +287,8 @@ class TagNode extends ANode implements ArrayAccess
 
 	/**
 	 * Getting attribute string with HTML syntax.
+	 *
+	 * @access protected
 	 *
 	 * @return string
 	 */
@@ -274,6 +306,8 @@ class TagNode extends ANode implements ArrayAccess
 
 	/**
 	 * Setting attribute.
+	 *
+	 * @access protected
 	 *
 	 * @param string      $key       Attribute name.
 	 * @param string      $value     Attribute value
@@ -300,6 +334,8 @@ class TagNode extends ANode implements ArrayAccess
 	/**
 	 * Whether the attribute isset.
 	 *
+	 * @access public
+	 *
 	 * @param  mixed $offset
 	 *
 	 * @return bool
@@ -311,6 +347,8 @@ class TagNode extends ANode implements ArrayAccess
 
 	/**
 	 * Getting attribute with array access.
+	 *
+	 * @access public
 	 *
 	 * @param  mixed $offset
 	 *
@@ -324,6 +362,8 @@ class TagNode extends ANode implements ArrayAccess
 	/**
 	 * Setting Attribute with array access.
 	 *
+	 * @access public
+	 *
 	 * @param  mixed $offset
 	 * @param  mixed $value
 	 */
@@ -334,6 +374,8 @@ class TagNode extends ANode implements ArrayAccess
 
 	/**
 	 * Unset an attribute with array access.
+	 *
+	 * @access public
 	 *
 	 * @param  mixed $offset
 	 */

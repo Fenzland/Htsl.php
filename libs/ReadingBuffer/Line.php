@@ -6,12 +6,20 @@ use Htsl\Helper\TGetter;
 
 ////////////////////////////////////////////////////////////////
 
+/**
+ * @property-read string                      $content       Line content without indentation.
+ * @property-read string                      $fullContent   Full content of this line.
+ * @property-read int                         $indentLevel   Indent level of this line.
+ * @property-read \Htsl\ReadingBuffer\Line    $subIndentLine Subindent line.
+ */
 class Line
 {
 	use TGetter;
 
 	/**
 	 * Line content.
+	 *
+	 * @access private
 	 *
 	 * @var string
 	 */
@@ -20,12 +28,16 @@ class Line
 	/**
 	 * Whether this line is last line.
 	 *
+	 * @access private
+	 *
 	 * @var bool
 	 */
 	private $isLast=false;
 
 	/**
-	 * Constructor
+	 * Constructor.
+	 *
+	 * @access public
 	 *
 	 * @param string | bool $content String content for normal line and false for last line.
 	 */
@@ -39,6 +51,8 @@ class Line
 	/**
 	 * Getting content without indentation.
 	 *
+	 * @access public
+	 *
 	 * @return string
 	 */
 	public function getContent():string
@@ -49,6 +63,8 @@ class Line
 	/**
 	 * Getting full content.
 	 *
+	 * @access public
+	 *
 	 * @return string
 	 */
 	public function getFullContent():string
@@ -58,6 +74,8 @@ class Line
 
 	/**
 	 * Getting a section of content, like call substr().
+	 *
+	 * @access public
 	 *
 	 * @param  int $start
 	 * @param  int ...$lengths
@@ -72,6 +90,8 @@ class Line
 	/**
 	 * Getting single character from content.
 	 *
+	 * @access public
+	 *
 	 * @param  int    $offset
 	 *
 	 * @return string
@@ -84,6 +104,8 @@ class Line
 	/**
 	 * Matching a preg pattern and return whether matches.
 	 *
+	 * @access public
+	 *
 	 * @param  string $pattern
 	 *
 	 * @return bool
@@ -95,6 +117,8 @@ class Line
 
 	/**
 	 * Matching a preg pattern and return the all or one of groups of matchment.
+	 *
+	 * @access public
 	 *
 	 * @param  string       $pattern
 	 * @param  int | string $match   Group index or name
@@ -110,6 +134,8 @@ class Line
 	/**
 	 * Multiple matching a preg pattern and map result with a callback.
 	 *
+	 * @access public
+	 *
 	 * @param  string   $pattern
 	 * @param  callable $callback
 	 *
@@ -124,17 +150,19 @@ class Line
 	/**
 	 * Getting the indent level of this line, the number of starting tab characters.
 	 *
+	 * @access public
+	 *
 	 * @return int
 	 */
 	public function getIndentLevel():int
 	{
-		// return (static function( $a ):int{$i=0;while($a{$i}==="\t")++$i;return $i;})($this->content);
-
 		return strlen($this->content)-strlen(ltrim($this->content,"\t"));
 	}
 
 	/**
 	 * Converting this object to string, returning content without indentation.
+	 *
+	 * @access public
 	 *
 	 * @return string
 	 */
@@ -146,6 +174,8 @@ class Line
 	/**
 	 * Wether this line is empty.
 	 *
+	 * @access public
+	 *
 	 * @return bool
 	 */
 	public function isEmpty():bool
@@ -155,6 +185,8 @@ class Line
 
 	/**
 	 * Whether this line is last line.
+	 *
+	 * @access public
 	 *
 	 * @return bool
 	 */
@@ -166,6 +198,8 @@ class Line
 	/**
 	 * Whether this line is last line.
 	 *
+	 * @access public
+	 *
 	 * @return bool
 	 */
 	public function noMore():bool
@@ -176,6 +210,8 @@ class Line
 	/**
 	 * Whether next line exists.
 	 *
+	 * @access public
+	 *
 	 * @return bool
 	 */
 	public function hasMore():bool
@@ -185,6 +221,8 @@ class Line
 
 	/**
 	 * Getting line with sub level indent( tab space tab ).
+	 *
+	 * @access public
 	 *
 	 * @return \Htsl\ReadingBuffer\Line
 	 */
