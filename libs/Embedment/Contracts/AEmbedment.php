@@ -4,11 +4,14 @@ namespace Htsl\Embedment\Contracts;
 
 use Htsl\ReadingBuffer\Line;
 use Htsl\Parser\Document;
+use Htsl\Helper\TGetter;
 
 ////////////////////////////////////////////////////////////////
 
 abstract class AEmbedment
 {
+	use TGetter;
+
 	/**
 	 * Embed content
 	 *
