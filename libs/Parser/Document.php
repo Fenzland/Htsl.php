@@ -172,7 +172,7 @@ class Document implements IConfigProvider
 	/**
 	 * Alias of getContent.
 	 *
-	 * @return sting
+	 * @return string
 	 */
 	public function __toString():string
 	{
@@ -211,6 +211,7 @@ class Document implements IConfigProvider
 	 * Getting the config of type of this document.
 	 *
 	 * @param  [ string, ] ...$keys
+	 *
 	 * @return mixed
 	 */
 	public function getConfig( string...$keys )
@@ -459,9 +460,10 @@ class Document implements IConfigProvider
 		$this->openNode($node);
 
 		$content=  $line->slice(1);
-		$ent_flag= $this->htsl->getConfig('ENT_flags',$this->docType);
+		$ent_flag= var_export($this->htsl->getConfig('ENT_flags',$this->docType),true);
+		$charset=   var_export($this->htsl->getConfig('charset'),true);
 
-		$this->appendLine("<?=htmlentities($content,'$ent_flag','UTF-8',false);?>");
+		$this->appendLine("<?=htmlentities($content,$ent_flag,$charset,false)?>");
 
 		return $this;
 	}
@@ -724,7 +726,7 @@ class Document implements IConfigProvider
 	 */
 	public function htmlEntities( string$input ):string
 	{
-		return htmlentities($input,$this->htsl->getConfig('ENT_flags',$this->docType),'UTF-8',false);
+		return htmlentities($input,$this->htsl->getConfig('ENT_flags',$this->docType),$this->htsl->getConfig('charset'),false);
 	}
 
 	/**
