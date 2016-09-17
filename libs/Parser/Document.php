@@ -17,12 +17,22 @@ use Htsl\Parser\Node\Contracts\ANode as Node;
 
 ////////////////////////////////////////////////////////////////
 
+/**
+ * @property-read string                                   $content     Result of document executing.
+ * @property-read string                                   $doctype     Type of this document.
+ * @property-read string | bool                            $indentation Indentation of document.
+ * @property-read \Htsl\Parser\Node\Contracts\ANode | bool $scope       Current scope on top of stack.
+ * @property-read \Htsl\Htsl                               $htsl        Htsl main object of document.
+ * @property-read int                                      $indentLevel Current indent level.
+ */
 class Document implements IConfigProvider
 {
 	use TGetter;
 
 	/**
 	 * Htsl main object owns this document.
+	 *
+	 * @access private
 	 *
 	 * @var \Htsl\Htsl
 	 */
@@ -31,12 +41,16 @@ class Document implements IConfigProvider
 	/**
 	 * Parent document.
 	 *
+	 * @access private
+	 *
 	 * @var \Htsl\Parser\Document
 	 */
 	private $parent;
 
 	/**
 	 * Reading buffer of this document.
+	 *
+	 * @access private
 	 *
 	 * @var \Htsl\ReadingBuffer\Contracts\ABuffer
 	 */
@@ -45,12 +59,16 @@ class Document implements IConfigProvider
 	/**
 	 * The indentation and whether output with linefeed and indent.
 	 *
+	 * @access private
+	 *
 	 * @var string | bool
 	 */
 	private $indentation;
 
 	/**
 	 * Type of this document.
+	 *
+	 * @access private
 	 *
 	 * @var string
 	 */
@@ -59,12 +77,16 @@ class Document implements IConfigProvider
 	/**
 	 * Current embead script.
 	 *
+	 * @access private
+	 *
 	 * @var \Htsl\Embedment\Contract\Embedment
 	 */
 	private $embedment;
 
 	/**
 	 * Current indent level.
+	 *
+	 * @access private
 	 *
 	 * @var int
 	 */
@@ -73,12 +95,16 @@ class Document implements IConfigProvider
 	/**
 	 * Section indent level.
 	 *
+	 * @access private
+	 *
 	 * @var int
 	 */
 	private $sectionLevel= 0;
 
 	/**
 	 * Opened nodes.
+	 *
+	 * @access private
 	 *
 	 * @var [ Htsl\Parser\Node\Contracts\ANode, ]
 	 */
@@ -87,12 +113,16 @@ class Document implements IConfigProvider
 	/**
 	 * Current scopes.
 	 *
+	 * @access private
+	 *
 	 * @var [ Htsl\Parser\Node\Contracts\ANode, ]
 	 */
 	private $scopes= [];
 
 	/**
 	 * Current line number.
+	 *
+	 * @access private
 	 *
 	 * @var int
 	 */
@@ -101,12 +131,16 @@ class Document implements IConfigProvider
 	/**
 	 * Current line.
 	 *
+	 * @access private
+	 *
 	 * @var \Htsl\ReadingBuffer\Line
 	 */
 	private $currentLine;
 
 	/**
 	 * Sections that can be show.
+	 *
+	 * @access private
 	 *
 	 * @var [ Htsl\Parser\Section, ]
 	 */
@@ -115,12 +149,16 @@ class Document implements IConfigProvider
 	/**
 	 * Whether the document is executed.
 	 *
+	 * @access private
+	 *
 	 * @var bool
 	 */
 	private $isExecuted;
 
 	/**
 	 * Current Section.
+	 *
+	 * @access private
 	 *
 	 * @var \Htsl\Parser\Section
 	 */
@@ -129,12 +167,16 @@ class Document implements IConfigProvider
 	/**
 	 * The content of this document.
 	 *
+	 * @access private
+	 *
 	 * @var string
 	 */
 	private $content;
 
 	/**
 	 * Constructor of the Document.
+	 *
+	 * @access public
 	 *
 	 * @param \Htsl\Htsl                            $htsl
 	 * @param \Htsl\ReadingBuffer\Contracts\ABuffer $buffer
@@ -157,6 +199,8 @@ class Document implements IConfigProvider
 	/**
 	 * Executing the document.
 	 *
+	 * @access public
+	 *
 	 * @return \Htsl\Parser\Document
 	 */
 	public function execute():self
@@ -172,6 +216,8 @@ class Document implements IConfigProvider
 	/**
 	 * Alias of getContent.
 	 *
+	 * @access public
+	 *
 	 * @return string
 	 */
 	public function __toString():string
@@ -181,6 +227,8 @@ class Document implements IConfigProvider
 
 	/**
 	 * Getting the result of document executing.
+	 *
+	 * @access protected
 	 *
 	 * @return string
 	 */
@@ -196,6 +244,8 @@ class Document implements IConfigProvider
 	/**
 	 * Getting the next line.
 	 *
+	 * @access protected
+	 *
 	 * @return \Htsl\ReadingBuffer\Line
 	 */
 	protected function getLine():Line
@@ -210,6 +260,8 @@ class Document implements IConfigProvider
 	/**
 	 * Getting the config of type of this document.
 	 *
+	 * @access public
+	 *
 	 * @param  [ string, ] ...$keys
 	 *
 	 * @return mixed
@@ -222,6 +274,8 @@ class Document implements IConfigProvider
 	/**
 	 * Getting the type of this document.
 	 *
+	 * @access public
+	 *
 	 * @return string
 	 */
 	public function getDoctype():string
@@ -231,6 +285,8 @@ class Document implements IConfigProvider
 
 	/**
 	 * Getting the indentation.
+	 *
+	 * @access public
 	 *
 	 * @return string | bool
 	 */
@@ -242,6 +298,8 @@ class Document implements IConfigProvider
 	/**
 	 * Getting the indent level.
 	 *
+	 * @access public
+	 *
 	 * @return int
 	 */
 	public function getIndentLevel():int
@@ -251,6 +309,8 @@ class Document implements IConfigProvider
 
 	/**
 	 * Parsing the first line.
+	 *
+	 * @access protected
 	 *
 	 * @return \Htsl\Parser\Document
 	 */
@@ -275,6 +335,8 @@ class Document implements IConfigProvider
 	/**
 	 * Setting that this document extends another document.
 	 *
+	 * @access protected
+	 *
 	 * @param \Htsl\ReadingBuffer\Line $firstLine
 	 */
 	protected function setExtending( Line$firstLine ):self
@@ -298,6 +360,8 @@ class Document implements IConfigProvider
 
 	/**
 	 * Parsing this document line by line.
+	 *
+	 * @access protected
 	 *
 	 * @return \Htsl\Parser\Document
 	 */
@@ -325,6 +389,8 @@ class Document implements IConfigProvider
 	/**
 	 * Parsing embedded line.
 	 *
+	 * @access protected
+	 *
 	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
 	 * @return \Htsl\Parser\Document
@@ -341,6 +407,8 @@ class Document implements IConfigProvider
 
 	/**
 	 * Starting the embedding.
+	 *
+	 * @access protected
 	 *
 	 * @param  string $embedType
 	 *
@@ -359,6 +427,8 @@ class Document implements IConfigProvider
 	/**
 	 * Ending the embedding.
 	 *
+	 * @access public
+	 *
 	 * @return \Htsl\Parser\Document
 	 */
 	public function breakEmbedding():self
@@ -371,6 +441,8 @@ class Document implements IConfigProvider
 
 	/**
 	 * Parsing line.
+	 *
+	 * @access protected
 	 *
 	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
@@ -413,6 +485,8 @@ class Document implements IConfigProvider
 	/**
 	 * Parsing line as HTML content.
 	 *
+	 * @access protected
+	 *
 	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
 	 * @return \Htsl\Parser\Document
@@ -431,6 +505,8 @@ class Document implements IConfigProvider
 	/**
 	 * Parsing line as string content.
 	 *
+	 * @access protected
+	 *
 	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
 	 * @return \Htsl\Parser\Document
@@ -448,6 +524,8 @@ class Document implements IConfigProvider
 
 	/**
 	 * Parsing line as PHP expression.
+	 *
+	 * @access protected
 	 *
 	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
@@ -471,6 +549,8 @@ class Document implements IConfigProvider
 	/**
 	 * Parsing line as PHP expression with HTML result.
 	 *
+	 * @access protected
+	 *
 	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
 	 * @return \Htsl\Parser\Document
@@ -491,6 +571,8 @@ class Document implements IConfigProvider
 	/**
 	 * Parsing line as comment.
 	 *
+	 * @access protected
+	 *
 	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
 	 * @return \Htsl\Parser\Document
@@ -508,6 +590,8 @@ class Document implements IConfigProvider
 
 	/**
 	 * Parsing line as HTSL tag.
+	 *
+	 * @access protected
 	 *
 	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
@@ -529,6 +613,8 @@ class Document implements IConfigProvider
 	/**
 	 * Parsing line as control node of Htsl.php.
 	 *
+	 * @access protected
+	 *
 	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
 	 * @return \Htsl\Parser\Document
@@ -546,6 +632,8 @@ class Document implements IConfigProvider
 
 	/**
 	 * Parsing line as document control node of Htsl.php.
+	 *
+	 * @access protected
 	 *
 	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
@@ -577,6 +665,8 @@ class Document implements IConfigProvider
 	/**
 	 * Parsing extending defination.
 	 *
+	 * @access protected
+	 *
 	 * @param  string $fileName
 	 *
 	 * @return \Htsl\Parser\Document
@@ -593,6 +683,8 @@ class Document implements IConfigProvider
 
 	/**
 	 * Include another document.
+	 *
+	 * @access protected
 	 *
 	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
@@ -618,6 +710,8 @@ class Document implements IConfigProvider
 	/**
 	 * Starting to define a section.
 	 *
+	 * @access protected
+	 *
 	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
 	 * @return \Htsl\Parser\Document
@@ -635,6 +729,8 @@ class Document implements IConfigProvider
 
 	/**
 	 * Showing a section.
+	 *
+	 * @access protected
 	 *
 	 * @param  \Htsl\ReadingBuffer\Line   $line
 	 *
@@ -669,6 +765,8 @@ class Document implements IConfigProvider
 	/**
 	 * Setting document as section definer.
 	 *
+	 * @access public
+	 *
 	 * @param Section | null $section
 	 */
 	public function setSection( Section$section=null ):self
@@ -702,6 +800,8 @@ class Document implements IConfigProvider
 	/**
 	 * Bubble the sections to parent document.
 	 *
+	 * @access protected
+	 *
 	 * @return \Htsl\Parser\Document
 	 */
 	protected function bubbleSections():self
@@ -720,6 +820,8 @@ class Document implements IConfigProvider
 	/**
 	 * Escaping characters to HTML entities.
 	 *
+	 * @access public
+	 *
 	 * @param  string $input
 	 *
 	 * @return string
@@ -731,6 +833,8 @@ class Document implements IConfigProvider
 
 	/**
 	 * Setting indent level of this document.
+	 *
+	 * @access protected
 	 *
 	 * @param int $level
 	 */
@@ -752,6 +856,8 @@ class Document implements IConfigProvider
 	/**
 	 * Opening a node.
 	 *
+	 * @access protected
+	 *
 	 * @param  \Htsl\Parser\Node\Contracts\ANode $node
 	 *
 	 * @return \Htsl\Parser\Document
@@ -767,6 +873,8 @@ class Document implements IConfigProvider
 
 	/**
 	 * Closing open node or nodes.
+	 *
+	 * @access protected
 	 *
 	 * @param  int $level
 	 *
@@ -792,6 +900,8 @@ class Document implements IConfigProvider
 	/**
 	 * Pushing a scope to stack.
 	 *
+	 * @access protected
+	 *
 	 * @param \Htsl\Parser\Node\Contracts\ANode $scope
 	 */
 	protected function setScope( Node$scope ):int
@@ -802,6 +912,8 @@ class Document implements IConfigProvider
 	/**
 	 * Getting current scope on top of stack.
 	 *
+	 * @access public
+	 *
 	 * @return \Htsl\Parser\Node\Contracts\ANode | null
 	 */
 	public function getScope()
@@ -811,6 +923,8 @@ class Document implements IConfigProvider
 
 	/**
 	 * Pop a scope from stack.
+	 *
+	 * @access protected
 	 *
 	 * @param  \Htsl\Parser\Node\Contracts\ANode $scope
 	 *
@@ -828,6 +942,8 @@ class Document implements IConfigProvider
 	/**
 	 * Appending a line of content to parsing result.
 	 *
+	 * @access protected
+	 *
 	 * @param  string $content
 	 *
 	 * @return \Htsl\Parser\Document
@@ -843,6 +959,8 @@ class Document implements IConfigProvider
 
 	/**
 	 * Appending some content to parsing result.
+	 *
+	 * @access protected
 	 *
 	 * @param  string $content
 	 *
@@ -862,6 +980,8 @@ class Document implements IConfigProvider
 	/**
 	 * Getting the Htsl main object.
 	 *
+	 * @access public
+	 *
 	 * @return \Htsl\Htsl
 	 */
 	public function getHtsl()
@@ -871,6 +991,8 @@ class Document implements IConfigProvider
 
 	/**
 	 * Throw exception with document name and line number.
+	 *
+	 * @access public
 	 *
 	 * @param  string $message
 	 *

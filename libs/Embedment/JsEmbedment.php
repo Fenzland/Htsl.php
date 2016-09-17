@@ -20,6 +20,8 @@ class JsEmbedment extends AEmbedment
 	/**
 	 * Parsing line.
 	 *
+	 * @access public
+	 *
 	 * @param  \Htsl\ReadingBuffer\Line $line
 	 *
 	 * @return \Htsl\Embedment\Contracts

@@ -14,12 +14,16 @@ class NamelessSectionNode extends ANode
 	/**
 	 * The name of the section.
 	 *
+	 * @access private
+	 *
 	 * @var string
 	 */
 	private $name;
 
 	/**
 	 * Real constructor.
+	 *
+	 * @access protected
 	 *
 	 * @return \Htsl\Parser\Node\Contracts\ANode
 	 */
@@ -33,6 +37,8 @@ class NamelessSectionNode extends ANode
 	/**
 	 * Opening this node, and returning node opener.
 	 *
+	 * @access public
+	 *
 	 * @return string
 	 */
 	public function open():string
@@ -44,6 +50,8 @@ class NamelessSectionNode extends ANode
 
 	/**
 	 * Close this node, and returning node closer.
+	 *
+	 * @access public
 	 *
 	 * @param  \Htsl\ReadingBuffer\Line   $closerLine  The line when node closed.
 	 *

@@ -10,12 +10,18 @@ use Htsl\ReadingBuffer\Line;
 
 ////////////////////////////////////////////////////////////////
 
+/**
+ * @property-read string        $nodeType Type of this node.
+ * @property-read string | null $scope    Whether this node contains a scope and scope name
+ */
 abstract class ANode
 {
 	use TGetter;
 
 	/**
 	 * Htsl main object.
+	 *
+	 * @access protected
 	 *
 	 * @var \Htsl\Htsl
 	 */
@@ -24,12 +30,16 @@ abstract class ANode
 	/**
 	 * The document.
 	 *
+	 * @access protected
+	 *
 	 * @var \Htsl\Parser\Document
 	 */
 	protected $document;
 
 	/**
 	 * The document.
+	 *
+	 * @access protected
 	 *
 	 * @var \Htsl\ReadingBuffer\Line
 	 */
@@ -38,6 +48,8 @@ abstract class ANode
 	/**
 	 * The config.
 	 *
+	 * @access protected
+	 *
 	 * @var array
 	 */
 	protected $config;
@@ -45,6 +57,8 @@ abstract class ANode
 
 	/**
 	 * Fake contructor of Node.
+	 *
+	 * @access public
 	 *
 	 * @param \Htsl\Parser\Document     $document
 	 * @param \Htsl\ReadingBuffer\Line  $line
@@ -61,6 +75,8 @@ abstract class ANode
 	/**
 	 * Real contructor to be rewrite.
 	 *
+	 * @access protected
+	 *
 	 * @return \Htsl\Parser\Node\Contracts\ANode
 	 */
 	abstract protected function construct():self;
@@ -68,12 +84,16 @@ abstract class ANode
 	/**
 	 * Opening this node, and returning node opener.
 	 *
+	 * @access public
+	 *
 	 * @return string
 	 */
 	abstract public function open():string;
 
 	/**
 	 * Close this node, and returning node closer.
+	 *
+	 * @access public
 	 *
 	 * @param  \Htsl\ReadingBuffer\Line   $closerLine  The line when node closed.
 	 *
@@ -83,6 +103,8 @@ abstract class ANode
 
 	/**
 	 * Getting whether this node contains a scope and scope name.
+	 *
+	 * @access public
 	 *
 	 * @return string | null
 	 */
@@ -94,6 +116,8 @@ abstract class ANode
 	/**
 	 * Getting the type of this node.
 	 *
+	 * @access public
+	 *
 	 * @return string
 	 */
 	public function getNodeType()
@@ -104,6 +128,8 @@ abstract class ANode
 
 	/**
 	 * Loading node configuration.
+	 *
+	 * @access protected
 	 *
 	 * @param  string                       $name
 	 * @param  \Htsl\Helper\IConfigProvider $configProvider
