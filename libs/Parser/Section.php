@@ -38,6 +38,7 @@ class Section
 	 * Appending content to this section.
 	 *
 	 * @param  string $content
+	 *
 	 * @return self
 	 */
 	public function append( string$content ):self
