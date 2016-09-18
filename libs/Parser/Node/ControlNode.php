@@ -38,6 +38,15 @@ class ControlNode extends ANode
 	private $param;
 
 	/**
+	 * Unique id for check whether loop executed.
+	 *
+	 * @access private
+	 *
+	 * @var string
+	 */
+	private $id;
+
+	/**
 	 * Real constructor.
 	 *
 	 * @access protected

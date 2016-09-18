@@ -9,8 +9,21 @@ use ArrayAccess;
 
 ////////////////////////////////////////////////////////////////
 
+/**
+ * @property-read string $embed            Whether this is embedding node and embeding type.
+ * @property-read string $attributesString Attribute string with HTML syntax.
+ */
 class TagNode extends ANode implements ArrayAccess
 {
+	/**
+	 * Name of this node.
+	 *
+	 * @access private
+	 *
+	 * @var string
+	 */
+	private $name;
+
 	/**
 	 * The html tag name of this node.
 	 *
@@ -102,7 +115,7 @@ class TagNode extends ANode implements ArrayAccess
 	 *
 	 * @access public
 	 *
-	 * @param  \Htsl\ReadingBuffer\Line   $closerLine  The line when node closed.
+	 * @param  \Htsl\ReadingBuffer\Line   $line  The line when node closed.
 	 *
 	 * @return string
 	 */
