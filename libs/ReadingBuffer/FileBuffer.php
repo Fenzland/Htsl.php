@@ -18,6 +18,15 @@ class FileBuffer extends Contracts\ABuffer
 	private $handle;
 
 	/**
+	 * Physical path of file within this buffer.
+	 *
+	 * @access protected
+	 *
+	 * @var string
+	 */
+	protected $filePath;
+
+	/**
 	 * Constructing a file buffer reading HTSL content from file system.
 	 *
 	 * @access public
