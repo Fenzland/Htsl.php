@@ -39,6 +39,15 @@ class Htsl implements IConfigProvider
 	protected $basePath;
 
 	/**
+	 * Configurations.
+	 *
+	 * @var array
+	 *
+	 * @access protected
+	 */
+	protected $config;
+
+	/**
 	 * Constructor of HTSL
 	 *
 	 * @api
@@ -80,7 +89,7 @@ class Htsl implements IConfigProvider
 	 *
 	 * @return int|string
 	 */
-	public function compile( string$fromFile, string$toFile=null )
+	public function compile( string$fromFile, string$toFile='' )
 	{
 		$fromFile= $this->getFilePath($fromFile);
 

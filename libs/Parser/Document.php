@@ -43,7 +43,7 @@ class Document implements IConfigProvider
 	 *
 	 * @access private
 	 *
-	 * @var \Htsl\Parser\Document
+	 * @var \Htsl\Parser\Document | null
 	 */
 	private $parent;
 
@@ -338,6 +338,8 @@ class Document implements IConfigProvider
 	 * @access protected
 	 *
 	 * @param \Htsl\ReadingBuffer\Line $firstLine
+	 *
+	 * @return \Htsl\Parser\Document
 	 */
 	protected function setExtending( Line$firstLine ):self
 	{
@@ -673,7 +675,7 @@ class Document implements IConfigProvider
 	 */
 	protected function extend( string$fileName ):self
 	{
-		$this->parent= new static($this->htsl,$this->buffer->goSide($fileName),null,$this->indentation);
+		$this->parent= new static($this->htsl,$this->buffer->goSide($fileName));
 
 		$this->docType= $this->parent->docType;
 		$this->indentation= $this->parent->indentation;
@@ -692,7 +694,7 @@ class Document implements IConfigProvider
 	 */
 	protected function include( Line$line ):self
 	{
-		$inclued= (new static($this->htsl,$this->buffer->goSide($line->pregGet('/(?<=\( ).*(?= \))/')),$this,$this->indentation))->execute()->content;
+		$inclued= (new static($this->htsl,$this->buffer->goSide($line->pregGet('/(?<=\( ).*(?= \))/')),$this))->execute()->content;
 
 		if( false!==$this->indentation ){
 			$inclued= preg_replace('/(?<=^|\\n)(?!$)/',str_repeat($this->indentation,$this->level-$this->sectionLevel),$inclued);
@@ -783,7 +785,7 @@ class Document implements IConfigProvider
 		}
 
 		if( isset($this->parent->sections[$section->name]) ){
-			$this->throw("Section $sectionName already defined.");
+			$this->throw("Section {$section->name} already defined.");
 		}
 
 		$this->currentSection= $section;
