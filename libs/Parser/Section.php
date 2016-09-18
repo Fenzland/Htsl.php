@@ -7,8 +7,8 @@ use Htsl\Helper\TGetter;
 ////////////////////////////////////////////////////////////////
 
 /**
- * @property-read string        $content Content of this section.
- * @property-read string | null $name    Name of this section.
+ * @property-read string      $content Content of this section.
+ * @property-read string|null $name    Name of this section.
  */
 class Section
 {
