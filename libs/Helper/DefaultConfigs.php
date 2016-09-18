@@ -379,6 +379,14 @@ class DefaultConfigs
 					'param'=> [
 						'name_value'=> ['name','value',],
 					],
+					'source'=> [
+						'params'=>['type',],
+						'link'=> 'src',
+					],
+					'base'=> [
+						'link'=> 'href',
+						'target'=> 'target',
+					],
 				]+$svgTags,
 			],
 			'empty_tags'=> [
@@ -391,6 +399,8 @@ class DefaultConfigs
 					'meta'=>   true,
 					'option'=> true,
 					'param'=>  true,
+					'source'=> true,
+					'base'=> true,
 				],
 				'SVG1.1'=> [
 					'polygon'=>  true,
