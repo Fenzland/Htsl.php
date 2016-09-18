@@ -18,12 +18,12 @@ use Htsl\Parser\Node\Contracts\ANode as Node;
 ////////////////////////////////////////////////////////////////
 
 /**
- * @property-read string                                   $content     Result of document executing.
- * @property-read string                                   $doctype     Type of this document.
- * @property-read string | bool                            $indentation Indentation of document.
- * @property-read \Htsl\Parser\Node\Contracts\ANode | bool $scope       Current scope on top of stack.
- * @property-read \Htsl\Htsl                               $htsl        Htsl main object of document.
- * @property-read int                                      $indentLevel Current indent level.
+ * @property-read string                                 $content     Result of document executing.
+ * @property-read string                                 $doctype     Type of this document.
+ * @property-read string|bool                            $indentation Indentation of document.
+ * @property-read \Htsl\Parser\Node\Contracts\ANode|bool $scope       Current scope on top of stack.
+ * @property-read \Htsl\Htsl                             $htsl        Htsl main object of document.
+ * @property-read int                                    $indentLevel Current indent level.
  */
 class Document implements IConfigProvider
 {

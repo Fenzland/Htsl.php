@@ -11,8 +11,8 @@ use Htsl\ReadingBuffer\Line;
 ////////////////////////////////////////////////////////////////
 
 /**
- * @property-read string        $nodeType Type of this node.
- * @property-read string | null $scope    Whether this node contains a scope and scope name
+ * @property-read string      $nodeType Type of this node.
+ * @property-read string|null $scope    Whether this node contains a scope and scope name
  */
 abstract class ANode
 {
