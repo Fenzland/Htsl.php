@@ -455,34 +455,52 @@ class Document implements IConfigProvider
 		$this->currentLine= $line;
 		$this->setLevel($line->getIndentLevel());
 
-		switch( $line->getChar(0) ){
-			default:{
-				$this->parseStringLine($line);
-			}break;
-			case '`':{
-				if( '='===$line->getChar(1) )
-					{ $this->parseExpressionHtmlLine($line); }
-				else
-					{ $this->parseHtmlLine($line); }
-			}break;
-			case '=':{
-				$this->parseExpressionLine($line);
-			}break;
-			case '!':{
-				$this->parseCommentLine($line);
-			}break;
-			case '-':{
-				$this->parseTagLine($line);
-			}break;
-			case '~':{
-				$this->parseControlLine($line);
-			}break;
-			case '@':{
-				$this->parseDocControlLine($line);
-			}break;
-		}
+		$this->{'parse'.ucfirst($this->getLineType($line))}($line);
+
 		return $this;
 	}
+
+	/**
+	 * Getting line type by analyzing first or first two characters of line.
+	 *
+	 * @access protected
+	 *
+	 * @param  \Htsl\ReadingBuffer\Line   $line
+	 *
+	 * @return string
+	 */
+	protected function getLineType( Line$line ):string
+	{
+		$possibleType= self::POSSIBLE_LINE_TYPES;
+
+		for( $i=0; is_array($possibleType); ++$i ){
+			$possibleType= $possibleType[$line->getChar($i)]??$possibleType[' '];
+		}
+
+		return $possibleType;
+	}
+
+	/**
+	 * Possible line types.
+	 *
+	 * @access public
+	 *
+	 * @return array
+	 *
+	 * @todo Make this const private when php 7.1
+	 */
+	const POSSIBLE_LINE_TYPES= [
+		'`'=> [
+			'='=> 'expressionHtmlLine',
+			' '=> 'htmlLine',
+		],
+		'='=> 'expressionLine',
+		'!'=> 'commentLine',
+		'-'=> 'tagLine',
+		'~'=> 'controlLine',
+		'@'=> 'docControlLine',
+		' '=> 'stringLine',
+	];
 
 	/**
 	 * Parsing line as HTML content.
