@@ -9,7 +9,7 @@ use Htsl\Helper\TGetter;
 
 /**
  * @property-read \Htsl\ReadingBuffer\Line $line
- * @property-read string                   $fileName A
+ * @property-read string                   $filePath Physical or fake path of file within this buffer.
  */
 abstract class ABuffer
 {
@@ -31,7 +31,7 @@ abstract class ABuffer
 	 *
 	 * @var string
 	 */
-	protected $fileName= '';
+	protected $filePath= '';
 
 	/**
 	 * Constructing a buffer reading HTSL content from somewhere.
@@ -46,7 +46,7 @@ abstract class ABuffer
 	}
 
 	/**
-	 * Get a line of the document.
+	 * Getting a line of the document.
 	 *
 	 * @access public
 	 *
@@ -55,15 +55,15 @@ abstract class ABuffer
 	abstract public function getLine();
 
 	/**
-	 * Get a line of the document.
+	 * Getting physical or fake path of file within this buffer.
 	 *
 	 * @access public
 	 *
 	 * @return string
 	 */
-	public function getFileName():string
+	public function getFilePath():string
 	{
-		return $this->fileName;
+		return $this->filePath;
 	}
 
 	/**
@@ -71,9 +71,9 @@ abstract class ABuffer
 	 *
 	 * @access public
 	 *
-	 * @param  string $fileName
+	 * @param  string $filePath
 	 *
 	 * @return \Htsl\ReadingBuffer\Contracts\ABuffer
 	 */
-	abstract public function goSide( $fileName ):self;
+	abstract public function goSide( $filePath ):self;
 }
