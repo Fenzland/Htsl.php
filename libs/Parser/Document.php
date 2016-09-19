@@ -1020,6 +1020,6 @@ class Document implements IConfigProvider
 	 */
 	public function throw( string$message )
 	{
-		throw new HtslParsingException("$message at file {$this->buffer->fileName} line $this->lineNumber");
+		throw new HtslParsingException("$message at file {$this->buffer->filePath} line $this->lineNumber");
 	}
 }
