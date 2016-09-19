@@ -115,11 +115,11 @@ class TagNode extends ANode implements ArrayAccess
 	 *
 	 * @access public
 	 *
-	 * @param  \Htsl\ReadingBuffer\Line   $line  The line when node closed.
+	 * @param  \Htsl\ReadingBuffer\Line   $closerLine  The line when node closed.
 	 *
 	 * @return string
 	 */
-	public function close( Line$Line ):string
+	public function close( Line$closerLine ):string
 	{
 		return $this->isEmpty ? '' : $this->config['closer']??"</{$this->tagName}>";
 	}
