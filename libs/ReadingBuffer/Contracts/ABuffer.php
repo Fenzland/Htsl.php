@@ -71,9 +71,9 @@ abstract class ABuffer
 	 *
 	 * @access public
 	 *
-	 * @param  string $filePath
+	 * @param  string $fileName
 	 *
 	 * @return \Htsl\ReadingBuffer\Contracts\ABuffer
 	 */
-	abstract public function goSide( $filePath ):self;
+	abstract public function goSide( $fileName ):self;
 }

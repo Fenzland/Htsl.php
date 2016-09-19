@@ -57,13 +57,13 @@ class StringBuffer extends Contracts\ABuffer
 	 *
 	 * @access public
 	 *
-	 * @param  string $filePath
+	 * @param  string $fileName
 	 *
 	 * @return \Htsl\ReadingBuffer\Contracts\ABuffer
 	 */
-	public function goSide( $filePath ):parent
+	public function goSide( $fileName ):parent
 	{
-		$filePath= $this->htsl->getFilePath($filePath,dirname($this->filePath));
+		$filePath= $this->htsl->getFilePath($fileName,dirname($this->filePath));
 		$content= $this->htsl->getFileContent($filePath);
 
 		return new static($this->htsl,$content,$filePath);
