@@ -14,11 +14,11 @@ class SectionNode extends ANode
 	/**
 	 * The name of the section.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @var string
 	 */
-	private $name;
+	protected $name;
 
 	/**
 	 * Real constructor.
