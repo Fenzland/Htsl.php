@@ -890,4 +890,53 @@ class HtslTest extends TestCase
 			'<!DOCTYPE html><input name="<?=$name?>" type="hidden" value="<?=$value?>" />',
 		]);
 	}
+
+	public function testCommentAndStringLine()
+	{
+		// Browser side comment single line
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n!abcdefghijklmnopqrstuvwxyz\n"
+			),
+			'<!DOCTYPE html><!--abcdefghijklmnopqrstuvwxyz-->',
+		]);
+		// Browser side comment multiline line
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n!abcde\n\tfghijklmnopq\n\t\trstuvwxyz\n"
+			),
+			'<!DOCTYPE html><!--abcdefghijklmnopqrstuvwxyz-->',
+		]);
+
+		// Server side comment single line
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n!!abcdefghijklmnopqrstuvwxyz\n"
+			),
+			'<!DOCTYPE html><?php /* abcdefghijklmnopqrstuvwxyz */ ?>',
+		]);
+		// Server side comment multiline line
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n!!abcde\n\tfghijklmnopq\n\t\trstuvwxyz\n"
+			),
+			'<!DOCTYPE html><?php /* abcdefghijklmnopqrstuvwxyz */ ?>',
+		]);
+
+		// String line
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n<div id=\"u\">&nbsp;&</div>\n"
+			),
+			'<!DOCTYPE html>&lt;div id&equals;"u"&gt;&nbsp;&amp;&lt;&sol;div&gt;',
+		]);
+
+		// String line
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n`<div id=\"u\">&nbsp;&</div>\n"
+			),
+			'<!DOCTYPE html><div id="u">&nbsp;&</div>',
+		]);
+	}
 }
