@@ -513,13 +513,7 @@ class Document implements IConfigProvider
 	 */
 	protected function parseHtmlLine( Line$line ):self
 	{
-		$node= new StringNode($this,$line);
-
-		$this->openNode($node);
-
-		$this->appendLine($line->slice(1));
-
-		return $this;
+		return $this->openNode(new StringNode($this,$line))->appendLine($line->slice(1));
 	}
 
 	/**
@@ -533,13 +527,7 @@ class Document implements IConfigProvider
 	 */
 	protected function parseStringLine( Line$line ):self
 	{
-		$node= new StringNode($this,$line);
-
-		$this->openNode($node);
-
-		$this->appendLine($this->htmlEntities(trim($line->getContent())));
-
-		return $this;
+		return $this->openNode(new StringNode($this,$line))->appendLine($this->htmlEntities(trim($line->getContent())));
 	}
 
 	/**
@@ -553,17 +541,11 @@ class Document implements IConfigProvider
 	 */
 	protected function parseExpressionLine( Line$line ):self
 	{
-		$node= new StringNode($this,$line);
-
-		$this->openNode($node);
-
 		$content=  $line->slice(1);
 		$ent_flag= var_export($this->htsl->getConfig('ENT_flags',$this->docType),true);
 		$charset=   var_export($this->htsl->getConfig('charset'),true);
 
-		$this->appendLine("<?=htmlentities($content,$ent_flag,$charset,false)?>");
-
-		return $this;
+		return $this->openNode(new StringNode($this,$line))->appendLine("<?=htmlentities($content,$ent_flag,$charset,false)?>");
 	}
 
 	/**
@@ -577,15 +559,9 @@ class Document implements IConfigProvider
 	 */
 	protected function parseExpressionHtmlLine( Line$line ):self
 	{
-		$node= new StringNode($this,$line);
-
-		$this->openNode($node);
-
 		$content=  $line->slice(1);
 
-		$this->appendLine("<?$content?>");
-
-		return $this;
+		return $this->openNode(new StringNode($this,$line))->appendLine("<?$content?>");
 	}
 
 	/**
@@ -601,11 +577,7 @@ class Document implements IConfigProvider
 	{
 		$node= new CommentNode($this,$line);
 
-		$this->openNode($node);
-
-		$this->appendLine($node->open());
-
-		return $this;
+		return $this->openNode($node)->appendLine($node->open());
 	}
 
 	/**
@@ -619,15 +591,13 @@ class Document implements IConfigProvider
 	 */
 	protected function parseTagLine( Line$line ):self
 	{
-		$tag= new TagNode($this,$line);
+		$node= new TagNode($this,$line);
 
-		$this->appendLine($tag->open());
+		$this->appendLine($node->open());
 
-		$tag->embed and $this->startEmbedding($tag->embed);
+		$node->embed and $this->startEmbedding($node->embed);
 
-		$this->openNode($tag);
-
-		return $this;
+		return $this->openNode($node);
 	}
 
 	/**
@@ -641,13 +611,9 @@ class Document implements IConfigProvider
 	 */
 	protected function parseControlLine( Line$line ):self
 	{
-		$controlStructure= new ControlNode($this,$line);
+		$node= new ControlNode($this,$line);
 
-		$this->appendLine($controlStructure->open());
-
-		$this->openNode($controlStructure);
-
-		return $this;
+		return $this->appendLine($node->open())->openNode($node);
 	}
 
 	/**
