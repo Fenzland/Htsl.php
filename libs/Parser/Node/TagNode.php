@@ -183,6 +183,34 @@ class TagNode extends ANode implements ArrayAccess
 	}
 
 	/**
+	 * Getting tag section with given leader.
+	 *
+	 * @access protected
+	 *
+	 * @param string $leader
+	 * @param boool  $allowSpace
+	 *
+	 * @return string
+	 */
+	protected function sectionLedBy( string$leader, bool$allowSpace=false ):string
+	{
+		return $this->line->pregGet(...[
+			(
+				'/ '.preg_quote($leader)
+				.
+				($allowSpace?
+					'((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+'
+					:
+					'([^ ]+'
+				)
+				.
+				'|(?<exp>\((?:[^()]+|(?&exp)?)+?\)))(?= |$)/'
+			),
+			1,
+		]);
+	}
+
+	/**
 	 * Parsing @links.
 	 *
 	 * @access protected
@@ -191,21 +219,17 @@ class TagNode extends ANode implements ArrayAccess
 	 */
 	protected function parseLink():self
 	{
-		$link= $this->line->pregGet('/ @((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp)?)+?\)))(?= |$)/',1);
-
-		if( strlen($link) ){
+		return $this->setMultinameAttribute('link',$this->sectionLedBy('@',true),function( string$link ){
 			if( isset($this->config['target']) && ':'===$link{0} ){
-				$this->setAttribute($this->config['link'],'javascript'.$link);
+				return 'javascript'.$link;
 			}elseif( '//'===($firstTwoLetters=substr($link,0,2)) ){
-				$this->setAttribute($this->config['link'],'http:'.$link);
+				return 'http:'.$link;
 			}elseif( '\\\\'===$firstTwoLetters ){
-				$this->setAttribute($this->config['link'],'https://'.substr($link,2));
+				return 'https://'.substr($link,2);
 			}else{
-				$this->setAttribute($this->config['link'],$this->checkExpression($link));
+				return $this->checkExpression($link);
 			}
-		}
-
-		return $this;
+		});
 	}
 
 	/**
@@ -217,13 +241,7 @@ class TagNode extends ANode implements ArrayAccess
 	 */
 	protected function parseTarget():self
 	{
-		$target= $this->line->pregGet('/ >((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp)?)+?\)))(?= |$)/',1);
-
-		if( strlen($target) ){
-			$this->setAttribute($this->config['target'],$this->checkExpression($target));
-		}
-
-		return $this;
+		return $this->setMultinameAttribute('target',$this->sectionLedBy('>',true));
 	}
 
 	/**
@@ -235,10 +253,24 @@ class TagNode extends ANode implements ArrayAccess
 	 */
 	protected function parseAlt():self
 	{
-		$alt= $this->line->pregGet('/ _((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp)?)+?\)))(?= |$)/',1);
+		return $this->setMultinameAttribute('alt',$this->sectionLedBy('_',true));
+	}
 
-		if( strlen($alt) ){
-			$this->setAttribute($this->config['alt'],$this->checkExpression($alt));
+	/**
+	 * Setting attribute whitch has same name in HTSL but different name in HTML.
+	 *
+	 * @access private
+	 *
+	 * @param string        $name      Attribute name of HTSL
+	 * @param string        $value     Attribute value
+	 * @param callable|null $processer
+	 *
+	 * @return \Htsl\Parser\Node\TagNode
+	 */
+	private function setMultinameAttribute( string$name, string$value, callable$processer=null ):self
+	{
+		if( strlen($value) && !empty($this->config[$name]) ){
+			return $this->setAttribute($this->config[$name],call_user_func($processer??[$this,'checkExpression',],$value));
 		}
 
 		return $this;
@@ -255,7 +287,7 @@ class TagNode extends ANode implements ArrayAccess
 	{
 		$attributes= '';
 
-		$id= $this->line->pregGet('/ #([^ ]+|(?<exp>\((?:[^()]+|(?&exp)?)+?\)))(?= |$)/',1)
+		$id= $this->sectionLedBy('#')
 		 and $this->setAttribute('id',$id);
 
 		$classes= $this->line->pregGet('/ \.[^ ]+(?= |$)/')
@@ -263,7 +295,7 @@ class TagNode extends ANode implements ArrayAccess
 		  and $classes= implode(' ',array_filter(array_map(function( $className ){return $this->checkExpression($className);},$matches[1])))
 		   and $this->setAttribute('class',$classes);
 
-		$title= $this->line->pregGet('/ \^((?!\()(?:[^ ]| (?=[a-zA-Z0-9]))+|(?<exp>\((?:[^()]+|(?&exp)?)+?\)))(?= |$)/',1)
+		$title= $this->sectionLedBy('^',true)
 		 and $this->setAttribute('title',$title);
 
 		$style= $this->line->pregGet('/ \[([^\]]+;)(?=\]( |$))/',1)
