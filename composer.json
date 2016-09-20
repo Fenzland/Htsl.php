@@ -15,6 +15,9 @@
     "autoload": {
         "psr-4": {
             "Htsl\\": "libs/"
-        }
+        },
+        "files": [
+            "libs/Helper/helpers.php"
+        ]
     }
 }
