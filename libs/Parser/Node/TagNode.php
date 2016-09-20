@@ -327,7 +327,7 @@ class TagNode extends ANode implements ArrayAccess
 	 */
 	protected function checkExpression( string$value ):string
 	{
-		return preg_match('/^\(.*\)$/',$value) ? '<?='.substr($value,1,-1).'?>' : str_replace('"','&quot;',$value);
+		return preg_match('/^\(.*\)$/',$value) ? '<?=str_replace(\'"\',\'&quot;\','.substr($value,1,-1).')?>' : str_replace('"','&quot;',$value);
 	}
 
 	/**
