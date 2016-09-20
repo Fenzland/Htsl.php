@@ -485,7 +485,7 @@ class Document implements IConfigProvider
 	 *
 	 * @access public
 	 *
-	 * @return array
+	 * @const array
 	 *
 	 * @todo Make this const private when php 7.1
 	 */
