@@ -3,6 +3,7 @@
 namespace Htsl\Parser\Node;
 
 use Htsl\Htsl;
+use Htsl\Helper;
 use Htsl\ReadingBuffer\Line;
 use Htsl\Parser\Node\Contracts\ANode;
 use ArrayAccess;
@@ -85,21 +86,7 @@ class TagNode extends ANode implements ArrayAccess
 		if( isset($this->config['opener']) )
 			{ return $this->config['opener']; }
 
-		if( isset($this->config['params']) )
-			{ $this->parseParams(); }
-
-		if( isset($this->config['name_value']) )
-			{ $this->parseNameValue(); }
-
-		if( isset($this->config['link']) )
-			{ $this->parseLink(); }
-
-		if( isset($this->config['target']) )
-			{ $this->parseTarget(); }
-
-		if( isset($this->config['alt']) )
-			{ $this->parseAlt(); }
-
+		$this->parsePrivateAttributes();
 		$this->parseCommonAttributes();
 
 		if( isset($this->config['in_scope']) && isset($this->config['scope_function']) && is_callable($this->config['scope_function']) )
@@ -147,6 +134,39 @@ class TagNode extends ANode implements ArrayAccess
 	{
 		return $this->config['scope']??null;
 	}
+
+	/**
+	 * Parsing node parameters if needed.
+	 *
+	 * @access protected
+	 *
+	 * @return \Htsl\Parser\Node\TagNode
+	 */
+	protected function parsePrivateAttributes():self
+	{
+		foreach( self::PRIVATE_ATTRIBUTES as $attribute ){
+			isset($this->config[$attribute]) and $this->{'parse'.Helper\camel_case($attribute)}();
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Private attributes of tag.
+	 *
+	 * @access public
+	 *
+	 * @const array
+	 *
+	 * @todo Make this const private when php 7.1
+	 */
+	const PRIVATE_ATTRIBUTES= [
+		'params',
+		'name_value',
+		'link',
+		'target',
+		'alt',
+	];
 
 	/**
 	 * Parsing node parameters if needed.
