@@ -855,7 +855,7 @@ class HtslTest extends TestCase
 			$this->htsl->parse(
 				"HTML5\n-div .foo.(\$class).bar\n"
 			),
-			'<!DOCTYPE html><div class="foo <?=$class?> bar"></div>',
+			'<!DOCTYPE html><div class="foo <?=str_replace(\'"\',\'&quot;\',$class)?> bar"></div>',
 		]);
 
 		// Tag link expressions
@@ -863,7 +863,7 @@ class HtslTest extends TestCase
 			$this->htsl->parse(
 				"HTML5\n-a @(\$link)\n"
 			),
-			'<!DOCTYPE html><a href="<?=$link?>"></a>',
+			'<!DOCTYPE html><a href="<?=str_replace(\'"\',\'&quot;\',$link)?>"></a>',
 		]);
 
 		// Tag target expressions
@@ -871,7 +871,7 @@ class HtslTest extends TestCase
 			$this->htsl->parse(
 				"HTML5\n-a @:; >(\$target)\n"
 			),
-			'<!DOCTYPE html><a href="javascript:;" target="<?=$target?>"></a>',
+			'<!DOCTYPE html><a href="javascript:;" target="<?=str_replace(\'"\',\'&quot;\',$target)?>"></a>',
 		]);
 
 		// Tag target expressions
@@ -879,7 +879,7 @@ class HtslTest extends TestCase
 			$this->htsl->parse(
 				"HTML5\n-text _(\$placeholder)\n"
 			),
-			'<!DOCTYPE html><input placeholder="<?=$placeholder?>" type="text" />',
+			'<!DOCTYPE html><input placeholder="<?=str_replace(\'"\',\'&quot;\',$placeholder)?>" type="text" />',
 		]);
 
 		// Tag name-value expressions
@@ -887,7 +887,7 @@ class HtslTest extends TestCase
 			$this->htsl->parse(
 				"HTML5\n-input <(\$name)|(\$value)>\n"
 			),
-			'<!DOCTYPE html><input name="<?=$name?>" type="hidden" value="<?=$value?>" />',
+			'<!DOCTYPE html><input name="<?=str_replace(\'"\',\'&quot;\',$name)?>" type="hidden" value="<?=str_replace(\'"\',\'&quot;\',$value)?>" />',
 		]);
 	}
 
