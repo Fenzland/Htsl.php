@@ -327,9 +327,7 @@ class Document implements IConfigProvider
 
 		$this->indentation= $this->htsl->getConfig('indentation',$this->docType) ?? ( function( $scalarOrFalse ){ return is_scalar($scalarOrFalse)?$scalarOrFalse:false; } )($this->htsl->getConfig('indentation'));
 
-		$this->appendLine($docTypeContent);
-
-		return $this;
+		return $this->appendLine($docTypeContent);
 	}
 
 	/**
@@ -404,6 +402,7 @@ class Document implements IConfigProvider
 		}else{
 			$this->embedment->parseLine($line->getSubIndentLine());
 		}
+
 		return $this;
 	}
 
@@ -485,7 +484,7 @@ class Document implements IConfigProvider
 	 *
 	 * @access public
 	 *
-	 * @return array
+	 * @const array
 	 *
 	 * @todo Make this const private when php 7.1
 	 */
@@ -668,6 +667,20 @@ class Document implements IConfigProvider
 	}
 
 	/**
+	 * Insert indentations into given paragraph.
+	 *
+	 * @access protected
+	 *
+	 * @param  string $input
+	 *
+	 * @return string
+	 */
+	protected function insertIndentations( string$input ):string
+	{
+		return preg_replace('/(?<=^|\\n)(?!$)/',str_repeat($this->indentation,$this->level-$this->sectionLevel),$input);
+	}
+
+	/**
 	 * Include another document.
 	 *
 	 * @access protected
@@ -680,17 +693,9 @@ class Document implements IConfigProvider
 	{
 		$inclued= (new static($this->htsl,$this->buffer->goSide($line->pregGet('/(?<=\( ).*(?= \))/')),$this))->execute()->content;
 
-		if( false!==$this->indentation ){
-			$inclued= preg_replace('/(?<=^|\\n)(?!$)/',str_repeat($this->indentation,$this->level-$this->sectionLevel),$inclued);
-		}
+		false===$this->indentation or $inclued= $this->insertIndentations($inclued);
 
-		$node= new StringNode($this,$line);
-
-		$this->openNode($node);
-
-		$this->append($inclued);
-
-		return $this;
+		return $this->openNode(new StringNode($this,$line))->append($inclued);
 	}
 
 	/**
@@ -708,9 +713,7 @@ class Document implements IConfigProvider
 
 		$node->open();
 
-		$this->openNode($node);
-
-		return $this;
+		return $this->openNode($node);
 	}
 
 	/**
@@ -727,15 +730,11 @@ class Document implements IConfigProvider
 		$sectionName= $line->pregGet('/(?<=\( ).*(?= \))/');
 
 		if( !isset($this->sections[$sectionName]) ){
-			$this->openNode(new StringNode($this,$line));
-
-			return $this;
+			return $this->openNode(new StringNode($this,$line));
 		}
 		$content= $this->sections[$sectionName]->content;
 
-		if( false!==$this->indentation ){
-			$content= preg_replace('/(?<=^|\\n)(?!$)/',str_repeat($this->indentation,$this->level),$content);
-		}
+		false===$this->indentation or $content= $this->insertIndentations($content);
 
 		$this->append($content);
 
@@ -743,9 +742,7 @@ class Document implements IConfigProvider
 
 		$node->open();
 
-		$this->openNode($node);
-
-		return $this;
+		return $this->openNode($node);
 	}
 
 	/**
@@ -936,9 +933,7 @@ class Document implements IConfigProvider
 	 */
 	protected function appendLine( string$content ):self
 	{
-		if( false!==$this->indentation ){
-			$content= str_repeat($this->indentation,$this->level-$this->sectionLevel).$content."\n";
-		}
+		false===$this->indentation or $content= str_repeat($this->indentation,$this->level-$this->sectionLevel).$content."\n";
 
 		return $this->append($content);
 	}
