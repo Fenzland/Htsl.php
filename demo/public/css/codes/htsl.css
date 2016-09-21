@@ -1,9 +1,29 @@
 code[type="htsl"]
+	.indent
+		{
+			position:
+				relative
+			;
+		}
+code[type="htsl"]
+	.indent::before
+		{
+			content:
+				'───┐'
+			;
+			position:
+				absolute
+			;
+			color:
+				#FCF
+			;
+		}
+
+code[type="htsl"]
 	.doctype
 		{
 			color:burlywood;
 		}
-
 
 code[type="htsl"]
 	.comment-line

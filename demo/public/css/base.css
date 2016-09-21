@@ -133,6 +133,27 @@ code[codeset]
 			;
 		}
 
+ol
+	{
+		background-color:
+			#EEE
+		;
+		padding: 1em;
+	}
+
+ol
+	>li
+		{
+			margin-left:
+				1em
+			;
+			margin-bottom:
+				0.5em
+			;
+			list-style:
+				decimal
+			;
+		}
 
 table
 	{

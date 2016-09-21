@@ -17,10 +17,14 @@ HTML5
 			-h1
 				-img @/logos/big.svg
 			-nav
-				-a @/ .nav-link
+				-a .nav-link @/
 					Home
-				-a @/htsl-for-html5 .nav-link
-					HTSL for HTML5
+				-a .nav-link @/basic-features
+					Basic
+				-a .nav-link @/features-of-htsl-php
+					Htsl.php
+				-a .nav-link @/htsl-for-html5
+					HTML5
 		-section
 			@show( main )
 		-footer

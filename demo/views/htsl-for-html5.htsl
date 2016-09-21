@@ -3,14 +3,6 @@
 @section( title )
 	HTSL for HTML5
 
-@section( header )
-	-h1
-		-img @/logos/big.svg
-	-nav
-		-a @/
-			Home
-		-a @:; .active
-			HTSL for HTML5
 @section( main )
 	-article
 		-h2

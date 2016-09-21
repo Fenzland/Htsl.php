@@ -40,35 +40,34 @@
 		}
 	},
 	"parseLine":function(line){
-		var indent= line.search(/[^\t]/),
-		    content= new function(content){
-			    this.content= content;
-			    this.cut= function(pattern){
-				    if( 0!==this.content.search(pattern) ){ return false; }
-				    var result= this.content.match(pattern)[0]
-				    ;
-				    this.content= this.content.slice(result.length);
-				    return result;
-			    }
-			    this.groupWork= function(group){
-				    var result= ''
-				    ;
-				    while(1){
-					    var l= this.content.length
-					    ;
-					    group.forEach(function(item){
-						    var current_result= this.cut(item.pattern)
-						    ;
-						    if( current_result ){
-							    result+= item.callback(current_result);
-						    }
-					    },this);
-					    if( l==this.content.length ){ return result; }
-				    }
-			    }
-			    this.toString= function(){ return this.content; }
-		    }(line)
-		;
+		var indent= line.search(/[^\t]/);
+		var content= new function(content){
+			this.content= content;
+			this.cut= function(pattern){
+				if( 0!==this.content.search(pattern) ){ return false; }
+				var result= this.content.match(pattern)[0]
+				;
+				this.content= this.content.slice(result.length);
+				return result;
+			}
+			this.groupWork= function(group){
+				var result= ''
+				;
+				while(1){
+					var l= this.content.length
+					;
+					group.forEach(function(item){
+						var current_result= this.cut(item.pattern)
+						;
+						if( current_result ){
+							result+= item.callback(current_result);
+						}
+					},this);
+					if( l==this.content.length ){ return result; }
+				}
+			}
+			this.toString= function(){ return this.content; }
+		}(line);
 		switch( line.match(/[^\t]/)[0] ){
 			case '-': return this.parseTagNode(content);
 			case '~': return this.parseControlNode(content);
@@ -81,7 +80,9 @@
 		var wrap=this.wrap
 		;
 		return wrap(
-		                 content.cut(/\t*/)
+		                 content.cut(/\t*/).split('').map(function(item){
+			                 return wrap(item,'indent');
+		                 }).join('')
 		               + wrap(content.cut(/-/),'tag-sign')
 		               + wrap(content.cut(/[\w-:]+/),'tag-name')
 		               + function(result){
@@ -238,16 +239,48 @@
 		                 ,'tag-line');
 	},
 	"parseControlNode":function(content){
-		return this.wrap(content,'control-line');
+		var wrap= this.wrap;
+		return wrap(
+			(
+				content.cut(/\t*/).split('').map(function(item){
+					return wrap(item,'indent');
+				}).join('')
+				+
+				content
+			)
+			,
+			'control-line'
+		);
 	},
 	"parseCommentNode":function(content){
-		return this.wrap(content,'comment-line');
+		var wrap= this.wrap;
+		return wrap((
+			content.cut(/\t*/).split('').map(function(item){
+				return wrap(item,'indent');
+			}).join('')
+			+
+			content
+		),'comment-line');
 	},
 	"parseDocNode":function(content){
-		return this.wrap(content,'doc-line');
+		var wrap= this.wrap;
+		return wrap((
+			content.cut(/\t*/).split('').map(function(item){
+				return wrap(item,'indent');
+			}).join('')
+			+
+			content
+		),'doc-line');
 	},
 	"parseStringNode":function(content){
-		return this.wrap(content,'string-line');
+		var wrap= this.wrap;
+		return wrap((
+			content.cut(/\t*/).split('').map(function(item){
+				return wrap(item,'indent');
+			}).join('')
+			+
+			content
+		),'string-line');
 	},
 	"wrap":function(content,className){
 		if( content ){

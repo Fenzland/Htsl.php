@@ -1,0 +1,81 @@
+@extend( layout )
+
+@section( title )
+	Basic Features
+
+@section( main )
+	-article
+		-h2
+			Basic Features
+		-h3
+			DOCTYPE
+		-p
+			In first line of the HTSL document, you mast define the doc-type, such as HTML5, HTML4.0, XHTML, XML1 etc. (Htsl.php currently support HTML5 and XML1.) Just type the doc-type name for first line, like HTML5.
+		-code(htsl){>
+			 HTML5
+			 -html
+			 	...
+		<}
+		-code(htsl){>
+			 XML1
+			 -root
+			 	...
+		<}
+		-code(htsl){>
+			 SVG1.1
+			 -svg(0,0,1920,1080)
+			 	...
+		<}
+		-h3
+			Indent
+		-p
+			HTSL is structured by indentation, just like HAML, YML and Python. The difference is that HTSL use tab characters as indentation, but not space characters. The space characters use as alignment or indentation delimiter on embedding.
+			-br
+			We recommend a indent and align rule like that:
+			-ol
+				-li
+					Indent characters(tabs) only use at the start of a line, indicate logical level of the code. One tab for one level.
+				-li
+					Align characters(spaces) not mean anything but just make code more readable and beautiful.
+				-li
+					Width of a tab is no metter(but not short then 2). Because code of different level does'nt make alignment.
+				-li
+					When some codes embed into another codes (usually of different languages), use a indentation delimiter(space) to split indentation of container codes and embedding codes.
+				-li
+					Editors must use monospace font family, and must show indentations and indentation delimiters.
+		-h3
+			Comment
+		-p
+			HTSL comment start with ! sign. Just like / in jade.
+		-h3
+			More tags instead of prescriptive properties.
+		-p
+			Tag name of HTSL carries more informations than HTML's. Such as -post tag equals to <form method="post"> tag, -get tag equals to <form method="get"> tag, and -upload tag equals to <form method="post" enctype="multipart/form-data"> tag. <input> tag become a group tags like -input, -text, -checkbox, -file and so on. So number of HTSL tag is more than HTML's, the prescriptive properties like type, method and enctype are not needed any more.
+		-h3
+			Unify tags and properties.
+		-p
+			In HTML, css including uses <link> tag but css embedding uses <style> tag, url linking of <link> and <a> uses href, but linking of <img> and <script> use src, on the other hand linking of <form> use action, maybe there are some semantical reasons, but those are confusing! HTSL use -css tag to both including css files and embedding css codes, and use 'at' sign to do all url linking.
+		-h3
+			Tag parameters
+		-p
+			HTSL use a parentheses syntax to some special tags to take a more step limit of the tag. Like the -number tag and the -range tag has 3 parameters min, step and max, the -file tag has a parameter accept. The delimiter of twe parameters is | sign.
+		-h3
+			Name-value parameters
+		-p
+			To some special properties of special tag like name and value, HTSL take a special syntax, <> pair. The delimiter of twe parameters is | sign too.
+		-h3
+			Universally properties
+		-p
+			HTSL also take some special syntax for some universal properties: id, class and title. Like CSS selector, # for id and . for class, and there is one more, ^ for title.
+		-h3
+			Inline CSS
+		-p
+			To take place of style property, HTSL use [] pair to embedding CSS properties code.
+		-h3
+			More properties
+		-p
+			We cannot give every property a special syntax. So HTSL use syntax {property1=value1;property2;} to all other properties. Quote signs are no need, last semicolon cannot omitted.
+		-h3
+			Embedding
+		-p
+			Other languages can embed into HTSL code. And different language will cause different result. Javascript or CSS embedding just like embedding into HTML by <script> or <style>. If you use Htsl.php engine, PHP embedment will executed by server. If you just want to show codes, use code embedment, good renderer of HTSL should highlight them.

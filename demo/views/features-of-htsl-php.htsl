@@ -1,0 +1,74 @@
+@extend( layout )
+
+@section( title )
+	Features of Htsl.php
+
+@section( main )
+	-article
+		-h2
+			More features of Htsl.php
+		-p
+			As a template engine, Htsl.php offers some more features. Like expression everywhere, control structures, doc-controls.
+		-h3
+			Expression everywhere
+		-p
+			By Htsl.php, you can use php expressions almost everywhere. Usage is simply a pair of parentheses, like below.
+		-code(htsl){>
+			 -number((max(0,$min))|($step)|($max)) <number|(App::getDefaultNumber())> .(has_error('number')?'error':'') {($user->hasPermission('edit')?null:'disabled');data-user=($user->id);}
+		<}
+		-p
+			If you want to echo something for show, use equality sign.
+		-code(htsl){>
+			 =$this_will_be_processed_by_htmlentities_function
+			 `=$this_will_be_simply_echo
+		<}
+		-h3
+			Control structures
+		-p
+			Base on php control structures. But the syntax is stricter there is no space character between before and after structure name, there are each one space on the two ends of inside of parentheses so the expression or something in parentheses is clear.
+		-code(htsl){>
+			 ~if( ture )
+			 	-something
+			 ~if-not( ture or false )
+			 	-something
+			 ~else-if( ture or false )
+			 	-something
+			 ~else
+			 	-otherthing
+		<}
+		-code(htsl){>
+			 ~while( ture or false )
+			 	-something
+			 	~continue( ture or false )
+			 	~break( ture or false )
+		<}
+		-code(htsl){>
+			 ~for-each( ['a'=>'A','b'=>'B',] as $key=>$value )
+			 	-something
+		<}
+		-p
+			The ~switch structure has a little difference with php switch. The ~default and the ~case in the first level will auto end with a break. If you want multiple case, use nesting case, the ~default and the ~case in the second or more level will not end with break.
+		-code(htsl){>
+			 ~switch( $variable )
+			 	~case( 0 )
+			 		This is zero.
+			 		~case( 1 )
+			 			This is zero or one.
+			 	~case( 2 )
+			 		This is twe.
+			 	~default
+			 		Others.
+		<}
+		-p
+			You can use the empty structure to do execute something php code, like assigns a variable.
+		-code(htsl){>
+			 ~( $variable= 'some value' )
+		<}
+		-p
+			To execute a group of php code, use php embedment is better.
+		-code(htsl){>
+			 -php{>
+			 	 #do something
+			 	 #do something
+			 <}
+		<}
