@@ -51,28 +51,28 @@
 			More tags instead of prescriptive properties.
 		-p
 			There are many customary attributes in HTML, such as <input type="text" />, <form method="post">, <form method="post" enctype="multipart/form-data">... In HTSL, we use distrinct tags instead of them.
-		-code{>
-			 -input !Instead of <input type="hidden" />
-			 -text  !Instead of <input type="text" />
-			 -radio !Instead of <input type="radio" />
+		-code(htsl){>
+			 -input ! Instead of <input type="hidden" />
+			 -text  ! Instead of <input type="text" />
+			 -radio ! Instead of <input type="radio" />
 			 ...
-			 -get    !Instead of <form method="get"></form>
-			 -post   !Instead of <form method="post"></form>
-			 -upload !Instead of <form method="post" enctype="multipart/form-data"></form>
+			 -get    ! Instead of <form method="get"></form>
+			 -post   ! Instead of <form method="post"></form>
+			 -upload ! Instead of <form method="post" enctype="multipart/form-data"></form>
 		<}
 		-h3
 			Unify tags and properties.
 		-p
 			In HTML, css including uses <link> tag but css embedding uses <style> tag, url linking of <link> and <a> uses href, but linking of <img> and <script> use src, on the other hand linking of <form> use action, maybe there are some semantical reasons, but those are confusing! HTSL use -css tag to both including css files and embedding css codes, and use 'at' sign to do all url linking.
-		-code{>
+		-code(htsl){>
 			 !link attributes of HTSL is for lots of different attributes of HTML.
-			 -img @foo.jpg    !@ for src of <img>
-			 -js @foo.js      !@ for src of <script>
-			 -css @foo.css    !@ for href of <link>
-			 -a @foo.bar      !@ for href of <a>
-			 -form @foo.bar   !@ for action of <form>
-			 -submit @foo.bar !@ for formaction of <button type="submit">
-			 -iframe @foo.bar !@ for src of <iframe>
+			 -img @foo.jpg    ! @ for src of <img>
+			 -js @foo.js      ! @ for src of <script>
+			 -css @foo.css    ! @ for href of <link>
+			 -a @foo.bar      ! @ for href of <a>
+			 -form @foo.bar   ! @ for action of <form>
+			 -submit @foo.bar ! @ for formaction of <button type="submit">
+			 -iframe @foo.bar ! @ for src of <iframe>
 		<}
 		-h3
 			Tag parameters
