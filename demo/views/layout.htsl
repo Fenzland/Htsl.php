@@ -22,10 +22,12 @@ HTML5
 					Home
 				-a .nav-link @/basic-features
 					Basic
-				-a .nav-link @/features-of-htsl-php
-					Htsl.php
 				-a .nav-link @/htsl-for-html5
 					HTML5
+				-a .nav-link @/htsl-for-svg
+					SVG
+				-a .nav-link @/features-of-htsl-php
+					Htsl.php
 		-section
 			@show( main )
 		-footer

@@ -80,12 +80,34 @@
 		-h2
 			HTSL vs. HAML & Jade
 		-p
-			There is an another brilliant language called HAML. HTSL is draw some lessons from HAML, and go a step further.
-		-code(haml){>
-			 %input{:type=>"number",:min=>"0",:step=>"0.01",:max=>"100",:name="price",:value="20.16",:placeholder="Price"}
-			 %a{:link=>"javascript:alert('Hey')"}
+			HTSL is not the first try of making HTML better. There are two brilliant ones, HAML and Jade. But why do I make the HTSL rather then just use one of read-mades? I don't care about the link of some tags named href and others named src, I want to read infomations by a quick scan rather than reading word by word, I need sweeter syntex suger. So let's draw some lessons from HAML and Jade, and go a step further.
+		-p
+			Here is some usual dom in four language. So which one do you like?
+		-h5
+			HTML
+		-code(html){>
+			 <input type="number" min="0" step="0.01" max="100" name="price" value="20.16" placeholder="Price" />
+			 <a href="javascript:alert('Hey')"></a>
+			 <img src="http://htsl.fenzland.com/logos/big.svg" />
 		<}
+		-h5
+			HAML
+		-code(haml){>
+			 %input{:type=>"number",:min=>"0",:step=>"0.01",:max=>"100",:name=>"price",:value=>"20.16",:placeholder=>"Price"}
+			 %a{:href=>"javascript:alert('Hey')"}
+			 %img{:src=>"http://htsl.fenzland.com/logos/big.svg"}
+		<}
+		-h5
+			Jade
+		-code(haml){>
+			 input(type="number",min="0",step="0.01",max="100",name="price",value="20.16",placeholder="Price"})
+			 a(href="javascript:alert('Hey')")
+			 img(src="http://htsl.fenzland.com/logos/big.svg")
+		<}
+		-h5
+			HTSL
 		-code(htsl){>
-			 -number(0|0.01|100) <price|20.16|Price>
+			 -number(0|0.01|100) <price|20.16> _Price
 			 -a @:alert('Hey')
+			 -img @//fenzland.com/logos/big.svg
 		<}

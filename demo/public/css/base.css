@@ -641,6 +641,24 @@ input[type="range"]::-webkit-slider-thumb
 		;
 	}
 
+strong
+	{
+		font-weight:
+			bolder
+		;
+		background-color:
+			crimson
+		;
+		color:
+			white
+		;
+		padding:
+			0.125em
+		;
+		border-radius:
+			0.125em
+		;
+	}
 
 ::-webkit-scrollbar
 {

@@ -1,0 +1,46 @@
+@extend( layout )
+
+@section( title )
+	HTSL for SVG
+
+@section( main )
+	-article
+		-h2
+			HTSL for SVG
+		-p
+			HTSL for SVG is currently not full support, new features will add in gradually. But you can use full feature of SVG with syntax {property=value;}.
+		-p
+			There are many predefined tags for SVG. First step, you need declare the doctype and start -svg tag. For the root -svg tag, parameter is viewport, but for other -svg tag, parameters are x, y, width and height.
+		-code(htsl){>
+			 SVG
+			 -svg(0,0,512,512)
+			 	! There is only one parameter viel but not four
+			 	-svg(128|128|256|256)
+			 		! this is one parameter but not four
+		<}
+		-p
+			Currently, below tags is supported.
+		-code(htsl){>
+			 -polygon(0,0 1,0 0,1)
+			 -polyline(0,0 1,0 0,1)
+			 -path(M 8 8 h 8 v 8 h -8 Z)
+			 -line(0|0|128|128)
+			 -rect(0|128||1||1)
+			 -circle(256|128|64)
+			 -ellipse(256|128|64|32)
+			 -text(0|256)
+			 	Text
+		<}
+		-p
+			Result SVG
+		-code(html){>
+			 <polygon point="0,0 1,0 0,1" />
+			 <polyline point="0,0 1,0 0,1" />
+			 <path d="M 8 8 h 8 v 8 h -8 Z" />
+			 <line x1="0" x2="0" y1="128" y2="128" />
+			 <rect height="1" width="1" x="0" y="128" />
+			 <circle cx="256" cy="128" r="64" />
+			 <ellipse cx="256" cy="256" rx="64" ry="32" />
+			 <text x="0" y="256">Text</text>
+		<}
+

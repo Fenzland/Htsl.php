@@ -8,46 +8,149 @@
 		-h2
 			More features of Htsl.php
 		-p
-			As a template engine, Htsl.php offers some more features. Like expression everywhere, control structures, doc-controls.
-		-h3
+			-strong
+				These are not parts of HTSL, but parts of the Htsl.php, the template engine.
+		-p
+			As a template engine, Htsl.php offers some more features. Like expression everywhere, control nodes, doc-control nodes.
+		-h2
 			Expression everywhere
 		-p
-			By Htsl.php, you can use php expressions almost everywhere. Usage is simply a pair of parentheses, like below.
+			By Htsl.php, you can use PHP expressions almost everywhere. Usage is simply a pair of parentheses, like below.
 		-code(htsl){>
 			 -number((max(0,$min))|($step)|($max)) <number|(App::getDefaultNumber())> .(has_error('number')?'error':'') {($user->hasPermission('edit')?null:'disabled');data-user=($user->id);}
 		<}
 		-p
-			If you want to echo something for show, use equality sign.
+			Expressions are for #id because id must be clearly defined but not from some variable or expression.
+		-p
+			If you want to echo something for show, use equality sign. Backquote for direct output as well. It takes a sign line.
 		-code(htsl){>
 			 =$this_will_be_processed_by_htmlentities_function
 			 `=$this_will_be_simply_echo
 		<}
-		-h3
-			Control structures
+		-h2
+			Embedding process.
 		-p
-			Base on php control structures. But the syntax is stricter there is no space character between before and after structure name, there are each one space on the two ends of inside of parentheses so the expression or something in parentheses is clear.
+			Embedding of php, will process as php code. like <?php ...;?>
+		-code(htsl){>
+			 -php{>
+			 	 #do something
+			 	 #do something
+			 <}
+		<}
+		-h2
+			Control nodes
+		-p
+			Control nodes of Htsl.php is base on PHP control structures, but also take some changes and add a lot of features.
+			-br
+			There are some naming changes, ~for-each instead of foreach, and ~else-if instead of elseif, so we can keep the naming rule of connecting worlds with dash.
+			-br
+			Some new nodes are added in. They ar ~then, ~if-not, ~else-if-not, ~if-all, ~if-not-all, ~if-all-not, ~if-not-all-not. And some nodes are better then PHP ones, such as ~continue, ~break and loops.
+			-br
+			Some other ideas are not achieved, such as ~then-if and ~else-then. maybe they will added at some version.
+			-br
+			And the syntax is stricter than PHP. Spacing style must like ~if( condition ), but not ~if(condition) or  ~if (condition) or  ~if ( condition ). So that the expression or conditions in parentheses will be more readable.
+		-h3
+			Condition judgers
+		-p
+			Simple judgers.
 		-code(htsl){>
 			 ~if( ture )
-			 	-something
+			 	! Nothing different with PHP's
+			 ~then
+			 	! then here is do nothing
 			 ~if-not( ture or false )
-			 	-something
+			 	! Just as the name, opposity of ~if
 			 ~else-if( ture or false )
-			 	-something
+			 	! Same as PHP's elseif here
+			 ~else-if-not( ture or false )
+			 	! Opposity of ~else-if
 			 ~else
-			 	-otherthing
+			 	! Same as PHP's else here
 		<}
+		-p
+			Multiple judgers, access multiple conditions, have different ~then and ~else branches. Since simple judgers has two branches(main branch and else branch), multiple judgers has four branches(main, then, else-then, else). Since ~else-then has not been achieved yet, we have three branches.
 		-code(htsl){>
-			 ~while( ture or false )
-			 	-something
-			 	~continue( ture or false )
-			 	~break( ture or false )
+			 ~if-all( condition0; condition1; condition2; )
+			 	! Only if those conditions are all true
+			 ~then
+			 	! If above conditions are not all false
+			 ! ~else-then
+			 	! If above conditions are not all true
+			 ~else
+			 	! Only if above conditions are all false
 		<}
+		-p
+			By switching main and else branch of ~if, we've got ~if-not. By switching branches of ~if-all, we can get other three control nodes.
+		-code(htsl){>
+			!├──────────────────
+			! switch main and else-then, then and else
+			 ~if-not-all( condition0; condition1; condition2; )
+			 	! If those conditions are not all true
+			 ~then
+			 	! Only if above conditions are all false
+			 ! ~else-then
+			 	! Only if above conditions are all true
+			 ~else
+			 	! If above conditions are not all false
+			!├──────────────────
+			! switch main and else, else-then and else-then
+			 ~if-all-not( condition0; condition1; condition2; )
+			 	! Only if those conditions are all false
+			 ~then
+			 	! If above conditions are not all true
+			 ! ~else-then
+			 	! If above conditions are not all false
+			 ~else
+			 	! Only if above conditions are all true
+			!├──────────────────
+			! switch main and then, else-then and else
+			 ~if-not-all-not( condition0; condition1; condition2; )
+			 	! If above conditions are not all false
+			 ~then
+			 	! Only if those conditions are all true
+			 ! ~else-then
+			 	! Only if above conditions are all false
+			 ~else
+			 	! If above conditions are not all true
+		<}
+		-h3
+			Loops
+		-p
+			Loops of Htsl.php is almost the same with PHP's, but have then and else branches. If loops have processed(more then once for do-while), then branch will active, else the else branch will active. And there are some syntax difference with PHP on ~do-while and ~for.
 		-code(htsl){>
 			 ~for-each( ['a'=>'A','b'=>'B',] as $key=>$value )
 			 	-something
+			 ~else
+			 	-empty
+			 ~for( $i=1; $i<0x10; ++$i; )
+			 	-something
+			 ~then
+			 	-tail
+			 ~while( next($array) )
+			 	-something
+			 ~do-while( next($array) )
+			 	-something
 		<}
+		-h3
+			 ~break and ~continue
 		-p
-			The ~switch structure has a little difference with php switch. The ~default and the ~case in the first level will auto end with a break. If you want multiple case, use nesting case, the ~default and the ~case in the second or more level will not end with break.
+			There is two usages, with or without condition. Use with condition, we can omit an ~if.
+		-code(htsl){>
+			 ~while( ture or false )
+			 	-something
+			 	~continue
+			 	! Just continue
+			 	~break
+			 	! Just brake
+			 	~continue( condition )
+			 	! Continue if condition is true
+			 	~break( condition )
+			 	! Break if condition is true
+		<}
+		-h3
+			switch
+		-p
+			Same functions with PHP switch, but little diffrent in syntax. Break is not needed.  ~default and the ~case in the first level will auto break. nesting ~default and the ~case will not break.
 		-code(htsl){>
 			 ~switch( $variable )
 			 	~case( 0 )
@@ -59,16 +162,55 @@
 			 	~default
 			 		Others.
 		<}
+		-h2
+			Doc-control nodes
 		-p
-			You can use the empty structure to do execute something php code, like assigns a variable.
+			As a template engine, Htsl.php allow a document include another, or extend a layout.
+		-h3
+			Layout extending
+		-p
+			We know the first line of HTSL document is doctype defining, but with Htsl.php, we can extend a layout instead. And the doctype is defined in layout. Nesting extending is allowed.
+		-h4
+			layout.htsl
 		-code(htsl){>
-			 ~( $variable= 'some value' )
+			 HTML5
+			 -html
+			 	-head
+			 		! use @show to show the section
+			 		@show( head )
+			 			! If the section is not defined, this backup will be shown
+			 			-title
+			 				Default
+			 	-body
+			 		@show( body )
 		<}
-		-p
-			To execute a group of php code, use php embedment is better.
+		-h4
+			main.htsl
 		-code(htsl){>
-			 -php{>
-			 	 #do something
-			 	 #do something
-			 <}
+			 @extend( layout )
+			 ! extending
+			 ! defining sections
+			 @section( head )
+			 	-title
+			 		Custom
+			 @section( body )
+			 	...
+		<}
+		-h3
+			Including
+		-h4
+			main.htsl
+		-code(htsl){>
+			 HTML5
+			 -html
+			 	-head
+		 			-include( head )
+			 	-body
+			 		...
+		<}
+		-h4
+			head.htsl
+		-code(htsl){>
+			-title
+				inclued
 		<}
