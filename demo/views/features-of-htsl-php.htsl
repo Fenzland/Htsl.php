@@ -83,16 +83,6 @@
 			By switching main and else branch of ~if, we've got ~if-not. By switching branches of ~if-all, we can get other three control nodes.
 		-code(htsl){>
 			!├──────────────────
-			! switch main and else-then, then and else
-			 ~if-not-all( condition0; condition1; condition2; )
-			 	! If those conditions are not all true
-			 ~then
-			 	! Only if above conditions are all false
-			 ! ~else-then
-			 	! Only if above conditions are all true
-			 ~else
-			 	! If above conditions are not all false
-			!├──────────────────
 			! switch main and else, else-then and else-then
 			 ~if-all-not( condition0; condition1; condition2; )
 			 	! Only if those conditions are all false
@@ -112,7 +102,75 @@
 			 	! Only if above conditions are all false
 			 ~else
 			 	! If above conditions are not all true
+			!├──────────────────
+			! switch main and else-then, then and else
+			 ~if-not-all( condition0; condition1; condition2; )
+			 	! If those conditions are not all true
+			 ~then
+			 	! Only if above conditions are all false
+			 ! ~else-then
+			 	! Only if above conditions are all true
+			 ~else
+			 	! If above conditions are not all false
 		<}
+		-table .line
+			-caption
+				A table show this.
+			-tbody
+				-tr
+					-th
+					-th
+						Main
+					-th
+						Then
+					-th
+						ElseThen
+					-th
+						Else
+				-tr
+					-th
+						 ~if-all
+					-td
+						All true
+					-td
+						Some true
+					-td
+						Some false
+					-td
+						All false
+				-tr
+					-th
+						 ~if-all-not
+					-td
+						All false
+					-td
+						Some false
+					-td
+						Some true
+					-td
+						All true
+				-tr
+					-th
+						 ~if-not-all-not
+					-td
+						Some true
+					-td
+						All true
+					-td
+						All false
+					-td
+						Some false
+				-tr
+					-th
+						 ~if-not-all
+					-td
+						Some false
+					-td
+						All false
+					-td
+						All true
+					-td
+						Some true
 		-h3
 			Loops
 		-p
