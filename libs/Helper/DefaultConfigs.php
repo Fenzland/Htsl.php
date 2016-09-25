@@ -99,7 +99,7 @@ class DefaultConfigs
 					'closer'=> '<?php endif;?>',
 				],
 				'if-not'=> [
-					'opener'=> '<?php if( !(%s) ):?>',
+					'opener'=> '<?php if(!( %s )):?>',
 					'close_by'=> [
 						'/else|then/'=> '',
 					],
