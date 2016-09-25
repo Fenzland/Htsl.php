@@ -620,7 +620,7 @@ class HtslTest extends TestCase
 			$this->htsl->parse(
 				"HTML5\n~if-not( \$foo==5 )\n\t-div\n"
 			),
-			'<!DOCTYPE html><?php if( !($foo==5) ):?><div></div><?php endif;?>',
+			'<!DOCTYPE html><?php if(!( $foo==5 )):?><div></div><?php endif;?>',
 		]);
 
 		// if then
@@ -655,7 +655,7 @@ class HtslTest extends TestCase
 			'<!DOCTYPE html><?php if( ( $foo==5 )and( $bar==2 )and( $baz==1 ) ):?><h1></h1><?php endif;?>',
 		]);
 
-		// if-all then
+		// if-all,then
 		$this->assertSame(...[
 			$this->htsl->parse(
 				"HTML5\n~if-all( \$foo==5; \$bar==2; \$baz==1; )\n\t-h1\n~then\n\t-h2\n"
@@ -663,7 +663,7 @@ class HtslTest extends TestCase
 			'<!DOCTYPE html><?php if( ( $foo==5 )and( $bar==2 )and( $baz==1 ) ):?><h1></h1><?php endif; if( ( $foo==5 )or( $bar==2 )or( $baz==1 ) ):?><h2></h2><?php endif;?>',
 		]);
 
-		// if-all else
+		// if-all,else
 		$this->assertSame(...[
 			$this->htsl->parse(
 				"HTML5\n~if-all( \$foo==5; \$bar==2; \$baz==1; )\n\t-h1\n~else\n\t-h2\n"
@@ -671,12 +671,109 @@ class HtslTest extends TestCase
 			'<!DOCTYPE html><?php if( ( $foo==5 )and( $bar==2 )and( $baz==1 ) ):?><h1></h1><?php endif; if( ( $foo==5 )or( $bar==2 )or( $baz==1 ) ):?><?php else:?><h2></h2><?php endif;?>',
 		]);
 
-		// if-all else-if
+		// if-all,else-if
 		$this->assertSame(...[
 			$this->htsl->parse(
 				"HTML5\n~if-all( \$foo==5; \$bar==2; \$baz==1; )\n\t-h1\n~else-if( \$foo==4 )\n\t-h2\n"
 			),
 			'<!DOCTYPE html><?php if( ( $foo==5 )and( $bar==2 )and( $baz==1 ) ):?><h1></h1><?php endif; if( ( $foo==5 )or( $bar==2 )or( $baz==1 ) ):?><?php elseif( $foo==4 ):?><h2></h2><?php endif;?>',
+		]);
+
+		// if-all-not
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n~if-all-not( \$foo==5; \$bar==2; \$baz==1; )\n\t-h1\n"
+			),
+			'<!DOCTYPE html><?php if( !( $foo==5 )and!( $bar==2 )and!( $baz==1 ) ):?><h1></h1><?php endif;?>',
+		]);
+
+		// if-all-not,then
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n~if-all-not( \$foo==5; \$bar==2; \$baz==1; )\n\t-h1\n~then\n\t-h2\n"
+			),
+			'<!DOCTYPE html><?php if( !( $foo==5 )and!( $bar==2 )and!( $baz==1 ) ):?><h1></h1><?php endif; if( !( $foo==5 )or!( $bar==2 )or!( $baz==1 ) ):?><h2></h2><?php endif;?>',
+		]);
+
+		// if-all-not,else
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n~if-all-not( \$foo==5; \$bar==2; \$baz==1; )\n\t-h1\n~else\n\t-h2\n"
+			),
+			'<!DOCTYPE html><?php if( !( $foo==5 )and!( $bar==2 )and!( $baz==1 ) ):?><h1></h1><?php endif; if( !( $foo==5 )or!( $bar==2 )or!( $baz==1 ) ):?><?php else:?><h2></h2><?php endif;?>',
+		]);
+
+		// if-all-not,else-if
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n~if-all-not( \$foo==5; \$bar==2; \$baz==1; )\n\t-h1\n~else-if( \$foo==4 )\n\t-h2\n"
+			),
+			'<!DOCTYPE html><?php if( !( $foo==5 )and!( $bar==2 )and!( $baz==1 ) ):?><h1></h1><?php endif; if( !( $foo==5 )or!( $bar==2 )or!( $baz==1 ) ):?><?php elseif( $foo==4 ):?><h2></h2><?php endif;?>',
+		]);
+
+
+		// if-not-all-not
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n~if-not-all-not( \$foo==5; \$bar==2; \$baz==1; )\n\t-h1\n"
+			),
+			'<!DOCTYPE html><?php if( ( $foo==5 )or( $bar==2 )or( $baz==1 ) ):?><h1></h1><?php endif;?>',
+		]);
+
+		// if-not-all-not,then
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n~if-not-all-not( \$foo==5; \$bar==2; \$baz==1; )\n\t-h1\n~then\n\t-h2\n"
+			),
+			'<!DOCTYPE html><?php if( ( $foo==5 )or( $bar==2 )or( $baz==1 ) ):?><h1></h1><?php endif; if( ( $foo==5 )and( $bar==2 )and( $baz==1 ) ):?><h2></h2><?php endif;?>',
+		]);
+
+		// if-not-all-not,else
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n~if-not-all-not( \$foo==5; \$bar==2; \$baz==1; )\n\t-h1\n~else\n\t-h2\n"
+			),
+			'<!DOCTYPE html><?php if( ( $foo==5 )or( $bar==2 )or( $baz==1 ) ):?><h1></h1><?php endif; if( ( $foo==5 )and( $bar==2 )and( $baz==1 ) ):?><?php else:?><h2></h2><?php endif;?>',
+		]);
+
+		// if-not-all-not,else-if
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n~if-not-all-not( \$foo==5; \$bar==2; \$baz==1; )\n\t-h1\n~else-if( \$foo==4 )\n\t-h2\n"
+			),
+			'<!DOCTYPE html><?php if( ( $foo==5 )or( $bar==2 )or( $baz==1 ) ):?><h1></h1><?php endif; if( ( $foo==5 )and( $bar==2 )and( $baz==1 ) ):?><?php elseif( $foo==4 ):?><h2></h2><?php endif;?>',
+		]);
+
+		// if-not-all
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n~if-not-all( \$foo==5; \$bar==2; \$baz==1; )\n\t-h1\n"
+			),
+			'<!DOCTYPE html><?php if( !( $foo==5 )or!( $bar==2 )or!( $baz==1 ) ):?><h1></h1><?php endif;?>',
+		]);
+
+		// if-not-all,then
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n~if-not-all( \$foo==5; \$bar==2; \$baz==1; )\n\t-h1\n~then\n\t-h2\n"
+			),
+			'<!DOCTYPE html><?php if( !( $foo==5 )or!( $bar==2 )or!( $baz==1 ) ):?><h1></h1><?php endif; if( !( $foo==5 )and!( $bar==2 )and!( $baz==1 ) ):?><h2></h2><?php endif;?>',
+		]);
+
+		// if-not-all,else
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n~if-not-all( \$foo==5; \$bar==2; \$baz==1; )\n\t-h1\n~else\n\t-h2\n"
+			),
+			'<!DOCTYPE html><?php if( !( $foo==5 )or!( $bar==2 )or!( $baz==1 ) ):?><h1></h1><?php endif; if( !( $foo==5 )and!( $bar==2 )and!( $baz==1 ) ):?><?php else:?><h2></h2><?php endif;?>',
+		]);
+
+		// if-not-all,else-if
+		$this->assertSame(...[
+			$this->htsl->parse(
+				"HTML5\n~if-not-all( \$foo==5; \$bar==2; \$baz==1; )\n\t-h1\n~else-if( \$foo==4 )\n\t-h2\n"
+			),
+			'<!DOCTYPE html><?php if( !( $foo==5 )or!( $bar==2 )or!( $baz==1 ) ):?><h1></h1><?php endif; if( !( $foo==5 )and!( $bar==2 )and!( $baz==1 ) ):?><?php elseif( $foo==4 ):?><h2></h2><?php endif;?>',
 		]);
 
 		// switch
