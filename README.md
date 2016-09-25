@@ -23,22 +23,22 @@ See [htsl.fenzland.com](http://htsl.fenzland.com).
 
 # Base Usage
 
-1. Get Htsl.php by composer
+Step 1. Get Htsl.php by composer
 ``` bash
 composer require fenzland/htsl:@dev
 ```
 
-2. Make a instance of Htsl
+Step 2. Make a instance of Htsl
 ``` php
-$htsl= new HTSL\HTSL(/*[custom configuration here]*/);
+$htsl= new Htsl\Htsl(/*[custom configuration here]*/);
 ```
 
-3. Compiling a HTSL file into a PHP file.
+Step 3. Compiling a HTSL file into a PHP file.
 ``` php
 $htsl->compile($fromFile,$toFile);
 ```
 
-4. Include the compiled file.
+Step 4. Include the compiled file.
 
 # Framework support
 
