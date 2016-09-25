@@ -119,6 +119,13 @@ class DefaultConfigs
 					],
 					'closer'=> '<?php endif;?>',
 				],
+				'else-if-not'=> [
+					'opener'=> '<?php elseif(!( %s )):?>',
+					'close_by'=> [
+						'/else|then/'=> '',
+					],
+					'closer'=> '<?php endif;?>',
+				],
 				'else'=> [
 					'opener'=> '<?php else:?>',
 					'closer'=> '<?php endif;?>',
