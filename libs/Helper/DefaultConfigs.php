@@ -112,6 +112,27 @@ class DefaultConfigs
 					],
 					'closer'=> '<?php endif;?>',
 				],
+				'if-all-not'=> [
+					'opener'=> '<?php if( %s/[^;]*$/\_//^/!( //; / )and!( //;$/ )/ ):?>',
+					'close_by'=> [
+						'/else|then/'=> '<?php endif; if( %s/[^;]*$/\_//^/!( //; / )or!( //;$/ )/ ):?>',
+					],
+					'closer'=> '<?php endif;?>',
+				],
+				'if-not-all-not'=> [
+					'opener'=> '<?php if( %s/[^;]*$/\_//^/( //; / )or( //;$/ )/ ):?>',
+					'close_by'=> [
+						'/else|then/'=> '<?php endif; if( %s/[^;]*$/\_//^/( //; / )and( //;$/ )/ ):?>',
+					],
+					'closer'=> '<?php endif;?>',
+				],
+				'if-not-all'=> [
+					'opener'=> '<?php if( %s/[^;]*$/\_//^/!( //; / )or!( //;$/ )/ ):?>',
+					'close_by'=> [
+						'/else|then/'=> '<?php endif; if( %s/[^;]*$/\_//^/!( //; / )and!( //;$/ )/ ):?>',
+					],
+					'closer'=> '<?php endif;?>',
+				],
 				'else-if'=> [
 					'opener'=> '<?php elseif( %s ):?>',
 					'close_by'=> [
