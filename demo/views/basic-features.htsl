@@ -91,6 +91,8 @@
 			Tag parameters
 		-p
 			HTSL use a parentheses syntax to some special tags to take a more step limit of the tag. Like the -number tag and the -range tag has 3 parameters min, step and max, the -file tag has a parameter accept. The delimiter of twe parameters is | sign.
+		-p
+			Tag parameters are required, if you don't give them, an exception will be thrown. But you can give some empty value. For example, you can use -number tag as "-number(0|1|)" but not "-number(0|1)".
 		-h3
 			Name-value parameters
 		-p
