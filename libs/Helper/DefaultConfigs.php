@@ -247,6 +247,10 @@ class DefaultConfigs
 				],
 				'HTML5'=> [
 					'*'=> [],
+					''=> [
+						'opener'=> '&nbsp;',
+						'closer'=> '',
+					],
 					'charset'=> [
 						'name'=> 'meta',
 						'params'=> ['charset',],
