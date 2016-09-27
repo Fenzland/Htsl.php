@@ -16,6 +16,21 @@
 		-h2
 			Predefined Tags
 		-h3
+			Empty tags
+		-p
+			Just a sigle - , The output is an &amp;nbsp; . Htsl is white space free, if you need insert a white space between two elements, you can use this.
+		-code(htsl){>
+			 -div
+			 	-text
+			 	-
+			 	-text
+		<}
+		-p
+			output:
+		-code(html){>
+			 <div><input type="text" />&nbsp;<input type="text" /></div>
+		<}
+		-h3
 			 -meta, -equiv, -charset
 		-p
 			In HTML, we use <meta> to declare metadata, there are two way to use it <meta name="..." content="..." /> or <meta http-equiv="..." content="..." />, in HTSL, there are two different tag -meta and -equiv to do those things. In HTML5, there is a new useage, <meta charset="..." />, In HTSL, just use -charset tag.

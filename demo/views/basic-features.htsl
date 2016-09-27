@@ -110,4 +110,10 @@
 		-h3
 			Embedding
 		-p
-			Other languages can embed into HTSL code. And different language will cause different result. Javascript or CSS embedding just like embedding into HTML by <script> or <style>. If you use Htsl.php engine, PHP embedment will executed by server. If you just want to show codes, use code embedment and set the language type, a good renderer of HTSL should highlight them.
+			Other languages can embed into HTSL code. And different language will cause different result. Javascript or CSS embedding into HTSL with HTML5 doc-type just like embedding into HTML by <script> or <style>. If you use Htsl.php engine, PHP embedding into HTSL with HTML5 doc-type will executed by server. If you just want to show codes, use code embedment and set the language type, a good renderer of HTSL should highlight them.
+		-h3
+			White space free
+		-p
+			In HTML, indentation and line feed between inline elements will show as a white space. That's terrible if you don't need it. That bulldozes you into giving up strict indentation or misusing float.
+			-
+			HTSL however, is white space free, indentation, line feed will not into white space, spare space will trimed either. If you need space between inline elements, use the empty tag or &amp;nbsp; .
