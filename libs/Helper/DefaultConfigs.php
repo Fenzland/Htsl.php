@@ -328,7 +328,6 @@ class DefaultConfigs
 						'link'=> 'href',
 					],
 					'link'=> [
-						'name'=> 'link',
 						'params'=> ['rel',],
 						'link'=> 'href',
 					],
