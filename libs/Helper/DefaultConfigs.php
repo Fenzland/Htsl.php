@@ -331,6 +331,10 @@ class DefaultConfigs
 						'params'=> ['rel',],
 						'link'=> 'href',
 					],
+					'script'=> [
+						'params'=> ['type',],
+						'link'=> 'source',
+					],
 					'a'=> [
 						'link'=> 'href',
 						'name_value'=> ['name',],
