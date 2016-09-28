@@ -328,9 +328,12 @@ class DefaultConfigs
 						'link'=> 'href',
 					],
 					'link'=> [
-						'name'=> 'link',
 						'params'=> ['rel',],
 						'link'=> 'href',
+					],
+					'script'=> [
+						'params'=> ['type',],
+						'link'=> 'source',
 					],
 					'a'=> [
 						'link'=> 'href',
@@ -419,20 +422,46 @@ class DefaultConfigs
 						'link'=> 'href',
 						'target'=> 'target',
 					],
+					'map'=> [
+						'params'=> ['name',],
+						'scope'=> 'area-map',
+					],
+					'area'=> [
+						'link'=> 'href',
+						'params'=> ['shape','coords'],
+						'target'=> 'target',
+						'only_in'=> ['area-map',],
+					],
+					'audio'=> [
+						'link'=> 'src',
+					],
+					'video'=> [
+						'link'=> 'src',
+					],
+					'track'=> [
+						'link'=> 'src',
+						'param'=> ['kind',],
+						'alt'=> 'label',
+					],
+					'progress'=> [
+						'param'=> ['value','max',],
+					],
 				]+$svgTags,
 			],
 			'empty_tags'=> [
 				'HTML5'=> [
-					'br'=>     true,
-					'hr'=>     true,
-					'img'=>    true,
-					'input'=>  true,
-					'link'=>   true,
-					'meta'=>   true,
-					'option'=> true,
-					'param'=>  true,
-					'source'=> true,
-					'base'=> true,
+					'br'=>       true,
+					'hr'=>       true,
+					'img'=>      true,
+					'input'=>    true,
+					'link'=>     true,
+					'meta'=>     true,
+					'option'=>   true,
+					'param'=>    true,
+					'source'=>   true,
+					'base'=>     true,
+					'area'=>     true,
+					'progress'=> true,
 				],
 				'SVG1.1'=> [
 					'polygon'=>  true,
