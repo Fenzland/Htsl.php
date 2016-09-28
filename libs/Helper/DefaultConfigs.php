@@ -406,7 +406,8 @@ class DefaultConfigs
 										$this['selected']= 'selected';
 									};
 								},
-								'name_value'=> ['value', 'label',],
+								'name_value'=> ['value',],
+								'alt'=> 'label',
 							],
 							'datalist'=> [
 								'name_value'=> ['value',],
