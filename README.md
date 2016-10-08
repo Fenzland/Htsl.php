@@ -25,7 +25,7 @@ See [htsl.fenzland.com](http://htsl.fenzland.com).
 
 Step 1. Get Htsl.php by composer
 ``` bash
-composer require fenzland/htsl:@dev
+composer require fenzland/htsl:~0.1
 ```
 
 Step 2. Make a instance of Htsl
