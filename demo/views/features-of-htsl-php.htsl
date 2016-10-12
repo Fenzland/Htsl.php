@@ -17,7 +17,7 @@
 		-p
 			By Htsl.php, you can use PHP expressions almost everywhere. Usage is simply a pair of parentheses, like below.
 		-code(htsl){>
-			 -number((max(0,$min))|($step)|($max)) <number|(App::getDefaultNumber())> .(has_error('number')?'error':'') {($user->hasPermission('edit')?null:'disabled');data-user=($user->id);}
+			 -number((max(0,$min))|($step)|($max)) <number|(App::getDefaultNumber())> .(has_error('number')?'error':'') {data-user=($user->id);}
 		<}
 		-p
 			Expressions are for #id because id must be clearly defined but not from some variable or expression.
@@ -26,6 +26,17 @@
 		-code(htsl){>
 			 =$this_will_be_processed_by_htmlentities_function
 			 `=$this_will_be_simply_echo
+		<}
+		-h2
+			Attribute condition
+		-p
+			For some HTML attributes, like "disabled", "hidden" you cannot set ture or false but set or not set. That's not friendly for template engine. But Htsl.php make things easy. You can use a '?' after attribute name and follows a simple expression(not contains '=' and ';').
+		-code(htsl){>
+			 ! If and only if the user not has edit permission, the div will be hidden
+			 -div {hidden?(!$user->hasPermission('edit'));}
+
+			 ! The attribute "data-foo" will set if and only if the $foo is setted,
+			 -div {data-foo?isset($foo)=($foo));}
 		<}
 		-h2
 			Embedding process.
