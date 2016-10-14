@@ -241,6 +241,21 @@ code[type="htsl"]
 
 code[type="htsl"]
 	.tag-line
+		.attribute-condition-sign
+			{
+				color:tomato;
+			}
+
+code[type="htsl"]
+	.tag-line
+		.attribute-condition
+			{
+				color:sandybrown;
+			}
+
+
+code[type="htsl"]
+	.tag-line
 		.attribute-delimiter
 			{
 				color:springgreen;

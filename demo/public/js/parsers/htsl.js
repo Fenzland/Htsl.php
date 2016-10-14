@@ -216,16 +216,26 @@
 					                 return ' '
 					                      + wrap('{','attribute-wrapper')
 					                      + function(result){
-						                        return result.match(/(?:[^\(\)=;]+|\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\(<--X-->\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\))(?:=(?:[^\(\);]+|\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\(<--X-->\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)))?;/g).map(function(item){
-							                        var attributeName= item.match(/^([^\(\)]+?|\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\((?:[^\(\)]*?(\(<--X-->\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\)[^\(\)]*?)*)\))[=;]/)[0].slice(0,-1)
+						                        return result.slice(0,-1).split('').reverse().join('').split(/;(?!\w+#?&)/).reverse().map(function(item){
+							                        item= item.split('').reverse().join('');
+							                        var attributeName= (item.match(/^[\w-:]+/)||['',])[0]
 							                        ;
 							                        item= item.slice(attributeName.length);
+							                        var attributeCondition= (item.match(/^\?[^=]+/)||['',])[0]
+							                        ;
+							                        item= item.slice(attributeCondition.length);
 							                        return wrap(attributeName,'attribute-name')
 							                             + (
-							                                   ';'==item
-							                                ?  ''
-							                                :  wrap('=','attribute-delimiter')
-							                                 + wrap(item.slice(1,-1),'attribute-value')
+							                                   attributeCondition
+							                                ?  wrap('?','attribute-condition-sign')
+							                                 + wrap(attributeCondition.slice(1),'attribute-condition')
+							                                :  ''
+							                               )
+							                             + (
+							                                   item
+							                                ?  wrap('=','attribute-delimiter')
+							                                 + wrap(item.slice(1),'attribute-value')
+							                                :  ''
 							                               )
 							                             + wrap(';','attribute-separator')
 							                        ;
