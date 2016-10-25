@@ -1,5 +1,5 @@
 {
-    "name": "fenzland/htsl",
+    "name": "htsl/htsl",
     "description": "Htsl.php is a PHP library to translate HTSL(HyperText Structured Language) to HTML.",
     "keywords": [ "HTSL", "template engine" ],
     "type": "library",
