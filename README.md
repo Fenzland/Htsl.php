@@ -5,12 +5,12 @@ Htsl.php
 [![Build Status](https://travis-ci.org/Fenzland/Htsl.php.svg?branch=test)](https://travis-ci.org/Fenzland/Htsl.php)
 [![Build Status](https://scrutinizer-ci.com/g/Fenzland/Htsl.php/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Fenzland/Htsl.php/build-status/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Fenzland/Htsl.php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Fenzland/Htsl.php/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/fenzland/htsl/v/stable)](https://packagist.org/packages/fenzland/htsl)
-[![Latest Unstable Version](https://poser.pugx.org/fenzland/htsl/v/unstable)](https://packagist.org/packages/fenzland/htsl)
-[![License](https://poser.pugx.org/fenzland/htsl/license)](https://packagist.org/packages/fenzland/htsl)
-[![Total Downloads](https://poser.pugx.org/fenzland/htsl/downloads)](https://packagist.org/packages/fenzland/htsl)
-[![Monthly Downloads](https://poser.pugx.org/fenzland/htsl/d/monthly)](https://packagist.org/packages/fenzland/htsl)
-[![Daily Downloads](https://poser.pugx.org/fenzland/htsl/d/daily)](https://packagist.org/packages/fenzland/htsl)
+[![Latest Stable Version](https://poser.pugx.org/htsl/htsl/v/stable)](https://packagist.org/packages/htsl/htsl)
+[![Latest Unstable Version](https://poser.pugx.org/htsl/htsl/v/unstable)](https://packagist.org/packages/htsl/htsl)
+[![License](https://poser.pugx.org/htsl/htsl/license)](https://packagist.org/packages/htsl/htsl)
+[![Total Downloads](https://poser.pugx.org/htsl/htsl/downloads)](https://packagist.org/packages/htsl/htsl)
+[![Monthly Downloads](https://poser.pugx.org/htsl/htsl/d/monthly)](https://packagist.org/packages/htsl/htsl)
+[![Daily Downloads](https://poser.pugx.org/htsl/htsl/d/daily)](https://packagist.org/packages/htsl/htsl)
 
 
 A PHP library to translate HTSL(HyperText Structured Language) to HTML.
@@ -29,7 +29,7 @@ See [htsl.fenzland.com](http://htsl.fenzland.com).
 
 Step 1. Get Htsl.php by composer
 ``` bash
-composer require fenzland/htsl:@dev
+composer require htsl/htsl:@dev
 ```
 
 Step 2. Make a instance of Htsl
