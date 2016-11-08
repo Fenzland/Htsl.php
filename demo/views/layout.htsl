@@ -28,6 +28,8 @@ HTML5
 					SVG
 				-a .nav-link @/features-of-htsl-php
 					Htsl.php
+				-a .nav-link @\\github.com/Fenzland/Htsl.php
+					GitHub
 		-section
 			@show( main )
 		-footer
