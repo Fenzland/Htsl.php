@@ -316,7 +316,7 @@ class TagNode extends ANode implements ArrayAccess
 		   and $this->setAttribute('class',$classes);
 
 		$title= $this->sectionLedBy('^',true)
-		 and $this->setAttribute('title',$title);
+		 and $this->setAttribute('title',$this->checkExpression($title));
 
 		$style= $this->line->pregGet('/ \[([^\]]+;)(?=\]( |$))/',1)
 		 and $this->setAttribute('style',$style);
