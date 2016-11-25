@@ -1,6 +1,7 @@
 Htsl.php
 ================================
 
+[![Platform](https://img.shields.io/badge/PHP-v7.0-blue.svg)](http://php.net/)
 [![Build Status](https://travis-ci.org/Fenzland/Htsl.php.svg?branch=test)](https://travis-ci.org/Fenzland/Htsl.php)
 [![Build Status](https://scrutinizer-ci.com/g/Fenzland/Htsl.php/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Fenzland/Htsl.php/build-status/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Fenzland/Htsl.php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Fenzland/Htsl.php/?branch=master)
@@ -17,6 +18,9 @@ A PHP library to translate HTSL(HyperText Structured Language) to HTML.
 HTSL is a language designed to take place of HTML, SVG, XML or other markup language. Which is simpler, cleaner, more readable, content evident and easy to write than HTML.
 
 An amazing sight is all browsers work with HTSL instead of HTML. But now, we must compile HTSL into HTML for browsers. So that is why Htsl.php here.
+
+# Platform
+php ~7.0
 
 # Documentation
 See [htsl.fenzland.com](http://htsl.fenzland.com).
