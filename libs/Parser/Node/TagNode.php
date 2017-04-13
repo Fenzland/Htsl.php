@@ -181,7 +181,7 @@ class TagNode extends ANode implements ArrayAccess
 
 		if( ($m= count($params)) != ($n= count($this->config['params'])) ){$this->document->throw("Tag $this->name has $n parameters $m given.");}
 
-		array_map(function( $key, $value ){return $this->setAttribute($key,str_replace('\\|','|',$value));},$this->config['params'],$params);
+		array_map(function( $key, $value ){return $this->setAttribute($key,$this->checkExpression(str_replace('\\|','|',$value)));},$this->config['params'],$params);
 
 		return $this;
 	}
