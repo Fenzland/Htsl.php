@@ -826,7 +826,7 @@ class HtslTest extends TestCase
 
 		// for-each
 		$this->assertRegExp(...[
-			'/<!DOCTYPE html><\\?php (\\$\\w+)=false; foreach\\( \\$array as \\$key=>\\$value \\): \\1=true;\\?><div><\\/div><\\?php endforeach;\\?>/',
+			'/<!DOCTYPE html><\\?php (\\$\\w+)=false; foreach\\( \\$array\\?\\?\\[\\] as \\$key=>\\$value \\): \\1=true;\\?><div><\\/div><\\?php endforeach;\\?>/',
 			$this->htsl->parse(
 				"HTML5\n~for-each( \$array as \$key=>\$value )\n\t-div\n"
 			),
@@ -834,7 +834,7 @@ class HtslTest extends TestCase
 
 		// for-each then
 		$this->assertRegExp(...[
-			'/<!DOCTYPE html><\\?php (\\$\\w+)=false; foreach\\( \\$array as \\$key=>\\$value \\): \\1=true;\\?><div><\\/div><\\?php endforeach; if\\( \\1 \\):\\?><footer><\\/footer><\\?php endif;\\?>/',
+			'/<!DOCTYPE html><\\?php (\\$\\w+)=false; foreach\\( \\$array\\?\\?\\[\\] as \\$key=>\\$value \\): \\1=true;\\?><div><\\/div><\\?php endforeach; if\\( \\1 \\):\\?><footer><\\/footer><\\?php endif;\\?>/',
 			$this->htsl->parse(
 				"HTML5\n~for-each( \$array as \$key=>\$value )\n\t-div\n~then\n\t-footer"
 			),
@@ -842,7 +842,7 @@ class HtslTest extends TestCase
 
 		// for-each else
 		$this->assertRegExp(...[
-			'/<!DOCTYPE html><\\?php (\\$\\w+)=false; foreach\\( \\$array as \\$key=>\\$value \\): \\1=true;\\?><div><\\/div><\\?php endforeach; if\\( \\1 \\):\\?><\\?php else:\\?><footer><\\/footer><\\?php endif;\\?>/',
+			'/<!DOCTYPE html><\\?php (\\$\\w+)=false; foreach\\( \\$array\\?\\?\\[\\] as \\$key=>\\$value \\): \\1=true;\\?><div><\\/div><\\?php endforeach; if\\( \\1 \\):\\?><\\?php else:\\?><footer><\\/footer><\\?php endif;\\?>/',
 			$this->htsl->parse(
 				"HTML5\n~for-each( \$array as \$key=>\$value )\n\t-div\n~else\n\t-footer"
 			),
