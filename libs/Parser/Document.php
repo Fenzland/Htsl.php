@@ -691,7 +691,7 @@ class Document implements IConfigProvider
 	 */
 	protected function include( Line$line ):self
 	{
-		$inclued= (new static($this->htsl,$this->buffer->goSide($line->pregGet('/(?<=\( ).*(?= \))/')),$this))->execute()->content;
+		$inclued= (new static($this->htsl,$this->buffer->goSide($line->pregGet('/(?<=\( ).*(?= \))/')),$this))->execute()->content??null;
 
 		false===$this->indentation or $inclued= $this->insertIndentations($inclued);
 
